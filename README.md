@@ -10,7 +10,7 @@ A representative back-office environment for a small agribusiness ("Plains Pasto
 |---|---|---|
 | Shourab | [ID] | Identity & MFA — Nextcloud accounts, roles, TOTP MFA |
 | Akib | [ID] | Network architecture — pfSense, VLANs, firewall rules |
-| Tanvi | [ID] | Monitoring & hardening — Wazuh, OS hardening baseline |
+| Tanvi | 12297656 | Monitoring & hardening — Wazuh, OS hardening baseline |
 | Faysal | 12281612 | Backup & recovery — Restic/MinIO, automation, timed recovery |
 
 **Weekly meeting:** Tuesday 4:30–4:45 PM
