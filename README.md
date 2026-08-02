@@ -9,7 +9,7 @@ A representative back-office environment for a small agribusiness ("Plains Pasto
 | Member | Student ID | Workstream |
 |---|---|---|
 | Shourab | 12298592 | Identity & MFA — Nextcloud accounts, roles, TOTP MFA |
-| Akib | [ID] | Network architecture — pfSense, VLANs, firewall rules |
+| Akib | 12304711 | Network architecture — pfSense, VLANs, firewall rules |
 | Tanvi | 12297656 | Monitoring & hardening — Wazuh, OS hardening baseline |
 | Faysal | 12281612 | Backup & recovery — Restic/MinIO, automation, timed recovery |
 
