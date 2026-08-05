@@ -1,0 +1,120 @@
+# APP01-01 – Ubuntu Server Installation
+
+## Project
+
+**AG-3 – Cyber Resilience for an Agribusiness Back Office**
+
+COIT20265 Networks and Information Security Project
+
+---
+
+## Objective
+
+Deploy the APP01 Ubuntu Server virtual machine that will host the Identity and Application services for the cyber resilience solution.
+
+---
+
+## Environment
+
+| Item | Value |
+|------|------|
+| Virtualisation Platform | VMware Fusion |
+| Guest Operating System | Ubuntu Server 24.04.4 LTS |
+| Architecture | ARM64 (aarch64) |
+| Host Operating System | macOS |
+| VM Name | APP01-Ubuntu |
+| Hostname | app01 |
+| Username | shourab |
+
+---
+
+## Virtual Machine Specifications
+
+| Resource | Configuration |
+|----------|---------------|
+| CPU | 2 vCPUs |
+| Memory | 4 GB |
+| Storage | 40 GB Virtual Disk |
+| Network | NAT (Shared with Host Mac) |
+
+---
+
+## Installation Summary
+
+Ubuntu Server 24.04.4 LTS was successfully installed using the official ARM64 Live Server ISO image.
+
+During installation the following configuration was applied:
+
+- Guided storage configuration
+- Logical Volume Manager (LVM)
+- OpenSSH Server installed
+- Ubuntu Pro skipped
+- Automatic network configuration (DHCP)
+- Hostname configured as **app01**
+- Administrative user **shourab** created
+
+After installation, the installation media was removed and the virtual machine rebooted successfully.
+
+---
+
+## Verification
+
+Successful login was verified using the local administrator account.
+
+Current system information:
+
+| Parameter | Value |
+|-----------|------|
+| Hostname | app01 |
+| Ubuntu Version | Ubuntu Server 24.04.4 LTS |
+| Kernel | Linux 6.8.0-137-generic |
+| Network Interface | enp2s0 |
+| IPv4 Address | 172.16.229.128 |
+| Status | Operational |
+
+---
+
+## Evidence
+
+The following evidence was collected:
+
+- Successful login screen
+- Ubuntu welcome message
+- Network interface information (`ip addr`)
+- Assigned IPv4 address
+- System prompt confirming successful installation
+
+Evidence file:
+
+```
+evidence/APP01/01-ubuntu-installed.png
+```
+
+---
+
+## Outcome
+
+The APP01 virtual machine has been successfully deployed and is operational.
+
+The server is now ready for configuration of:
+
+- Static IP addressing
+- System hardening
+- Nextcloud installation
+- TLS/HTTPS configuration
+- Role-Based Access Control (RBAC)
+- Multi-Factor Authentication (MFA)
+
+---
+
+## Next Task
+
+Configure a static IP address using Netplan to ensure the server maintains a consistent address for internal communication within the project environment.
+
+---
+
+**Status:** Completed
+
+**Author:** Ashraful Abedin Shourab
+
+**Date:** 5 August 2026
