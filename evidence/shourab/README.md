@@ -4,6 +4,7 @@ Workstream: Nextcloud identity, accounts, role-based access, MFA.
 
 | Evidence item | Status |
 |---|---|
+| Screenshot of Ubuntu server installation screen | ☐ |
 | Screenshots of Nextcloud users, groups, role-based folders | ☐ |
 | Screenshot of TOTP enrolment and successful MFA login | ☐ |
 | Evidence that password-only access fails | ☐ |
