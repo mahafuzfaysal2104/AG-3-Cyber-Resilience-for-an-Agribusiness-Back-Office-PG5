@@ -1,7 +1,7 @@
 # Week 5 — Backup Workstream Progress (Faysal)
 
-**Workstream:** Restic/MinIO backup, automation and recovery
-**Week 5 goal:** Get the backup foundation running — install the tools, create a first encrypted repository in MinIO, take a first backup of synthetic test data, and confirm I can list and restore snapshots.
+**Workstream:** Restic/MinIO backup, automation and recovery  
+**Week 5 goal:** Get the backup foundation running — install the tools, create a first encrypted repository in MinIO, take a first backup of synthetic test data, and confirm I can list and restore snapshots.  
 
 ## Planned tasks (Kanban board)
 
