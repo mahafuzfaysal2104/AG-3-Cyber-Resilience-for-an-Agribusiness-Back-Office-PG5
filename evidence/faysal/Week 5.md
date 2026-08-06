@@ -23,7 +23,7 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 ![Installing and Setting up MinIO in Oracle VirtualBox](06week5-download-minio-ubuntu.png)   
 ![Setting Up the Environment of MinIO in Oracle VirtualBox](07week5-setting-up-minio-ubuntu.png)  
 ![MinIO_Local Host Login](08week5-MinIo-local-host-login-ubuntu.png)  
-![MinIO Dashboard in Local Server](08.2-week5-MinIo-local-host-dashboard-ubuntu.png)  
+![MinIO Dashboard in Local Server](08.2-week5-MinIo-local-dashboard-login-ubuntu.png)  
 
 
 - [ ] **Initialize encrypted Restic repository in MinIO**
