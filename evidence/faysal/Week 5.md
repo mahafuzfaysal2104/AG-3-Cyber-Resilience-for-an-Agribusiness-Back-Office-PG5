@@ -16,9 +16,12 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 ![Ubuntu Setup in Oracle VirtualBox](03week5-environment-set-up-on-oracle-virtual-box-ubuntu.png)
 
 - [ ] **Installing the tool: Restic**
-![Downloaded and Installed Restic in Oracle VirtualBox](04week5-download-and-version-check-restic-ubuntu.png)
+![Downloaded and Installed Restic in Oracle VirtualBox](04week5-download-and-version-check-restic-ubuntu.png)  
+![whoami && hostname && Restic version check in Oracle VirtualBox](05week5-download-and-version-check-restic-ubuntu.png)  
   
 - [ ] **Installing the tool: MinIO**  
+
+
 - [ ] **Initialize encrypted Restic repository in MinIO**  
 - [ ] **First backup of synthetic test data**  
 - [ ] **Test restore from snapshot**  
@@ -29,7 +32,7 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 
 | Serial | Problem | Description | Solution |
 |---|---|---|---|
-| 01 | Setting up Work Environment | Whether to select Local (Ubuntu VM Local) or an environment that supports Teams collaboration (Cloud VM). On a local server (Ubuntu VM Local), I cannot use Teams for collaboration, but adding Teams collaboration (Cloud VM) will be costly. | Ubuntu VM (I will add secure overlay like Tailscale/ZeroTier/WireGuard later on)  
+| 01 | Setting up Work Environment | Whether to select Local (Ubuntu VM Local) or an environment that supports Teams collaboration (Cloud VM). On a local server (Ubuntu VM Local), I cannot use Teams for collaboration, but adding Teams collaboration (Cloud VM) will be costly. | Ubuntu VM (I will add a secure overlay like Tailscale/ZeroTier/WireGuard later on)  
 | 02 | AAA | AAA | AAA |  
 | 03 | AAA | AAA | AAA |  
 
