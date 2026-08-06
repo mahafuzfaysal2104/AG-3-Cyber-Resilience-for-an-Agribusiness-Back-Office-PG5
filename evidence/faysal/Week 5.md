@@ -14,7 +14,10 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 - [ ] **Environment Setup in Oracle VirtualBox**
 ![Environment Setup in Oracle VirtualBox](02week5-environment-set-up-on-oracle-virtual-box.png)
 ![Ubuntu Setup in Oracle VirtualBox](03week5-environment-set-up-on-oracle-virtual-box-ubuntu.png)
-- [ ] **Installing the tool: Restic**  
+
+- [ ] **Installing the tool: Restic**
+![Downloaded and Installed Restic in Oracle VirtualBox](04week5-download-and-version-check-restic-ubuntu.png)
+  
 - [ ] **Installing the tool: MinIO**  
 - [ ] **Initialize encrypted Restic repository in MinIO**  
 - [ ] **First backup of synthetic test data**  
