@@ -62,7 +62,7 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 | Serial | Problem | Description | Solution |
 |---|---|---|---|
 | 01 | Setting up Work Environment | Whether to select Local (Ubuntu VM Local) or an environment that supports Teams collaboration (Cloud VM). On a local server (Ubuntu VM Local), I cannot use Teams for collaboration, but adding Teams collaboration (Cloud VM) will be costly. | Ubuntu VM (I will add a secure overlay like Tailscale/ZeroTier/WireGuard later on)  
-| 02 | AAA | AAA | AAA |  
+| 02 | CaseSensitive |  Creating Bucket Name in MinIO. It was not accepting capital letters or any spaces as characters.  | All should be in lowercase and should not have spaces, so I have used dash (-) to make it easy. "test-01-ag3-backups" |  
 | 03 | AAA | AAA | AAA |  
 
 
