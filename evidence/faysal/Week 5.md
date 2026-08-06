@@ -11,13 +11,14 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 
 ## Week 5 task list
 
-- [ ] 31 - Environment Setup in Oracle VirtualBox
-- [ ] 20 - Installing the tool: Restic
-- [ ] 21 - Installing the tool: MinIO
-- [ ] 22 - Initialize encrypted Restic repository in MinIO
-- [ ] 23 - First backup of synthetic test data
-- [ ] 24 - Test restore from snapshot
-- [ ] 26 - Prove MinIO backup isolation (start)
+- [ ] **Environment Setup in Oracle VirtualBox**
+![Environment Setup in Oracle VirtualBox](02week5-environment-set-up-on-oracle-virtual-box.png)  
+- [ ] **Installing the tool: Restic**  
+- [ ] **Installing the tool: MinIO**  
+- [ ] **Initialize encrypted Restic repository in MinIO**  
+- [ ] **First backup of synthetic test data**  
+- [ ] **Test restore from snapshot**  
+- [ ] **Prove MinIO backup isolation (start)**  
 
 
 ## Problems Faced to Complete these tasks and Solutions to Get rid of the problem  
