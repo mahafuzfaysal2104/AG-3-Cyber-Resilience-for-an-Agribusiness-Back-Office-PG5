@@ -64,9 +64,9 @@ See `/topologies` for the full architecture diagram and IP/VLAN plan.
 
 ## Success criteria (summary)
 
-- **RPO:** ≤ 4 hours of data loss
-- **RTO — priority files:** ≤ 2 hours
-- **RTO — full portal:** ≤ 4 hours
+- **RPO:** ≤ 24 hours of data loss
+- **RTO — priority files:** 
+- **RTO — full portal:** 
 - Live, timed recovery from a simulated ransomware event, demonstrated end-to-end
 
 ## Team workflow
