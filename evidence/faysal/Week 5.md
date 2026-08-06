@@ -20,12 +20,41 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 ![whoami && hostname && Restic version check in Oracle VirtualBox](05week5-download-and-version-check-restic-ubuntu.png)  
   
 - [ ] **Installing the tool: MinIO**  
-![Installing and Setting up MinIO in Oracle VirtualBox](06week5-download-minio-ubuntu.png) 
+![Installing and Setting up MinIO in Oracle VirtualBox](06week5-download-minio-ubuntu.png)   
+![Setting Up the Environment of MinIO in Oracle VirtualBox](07week5-setting-up-minio-ubuntu.png)  
+![MinIO_Local Host Login](08week5-MinIo-local-host-login-ubuntu.png)  
+![MinIO Dashboard in Local Server](08.2-week5-MinIo-local-host-dashboard-ubuntu.png)  
 
-- [ ] **Initialize encrypted Restic repository in MinIO**  
-- [ ] **First backup of synthetic test data**  
-- [ ] **Test restore from snapshot**  
-- [ ] **Prove MinIO backup isolation (start)**  
+
+- [ ] **Initialize encrypted Restic repository in MinIO**
+
+![]()
+![]()
+![]()
+
+
+- [ ] **First backup of synthetic test data**
+
+![]()
+![]()
+![]()
+
+
+- [ ] **Test restore from snapshot**
+
+![]()
+![]()
+![]()
+
+
+- [ ] **Prove MinIO backup isolation (start)**
+
+![]()
+![]()
+![]()
+![]()
+
+
 
 
 ## Problems Faced to Complete these tasks and Solutions to Get rid of the problem  
