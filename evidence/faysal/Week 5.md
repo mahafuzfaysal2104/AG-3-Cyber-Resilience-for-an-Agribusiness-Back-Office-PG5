@@ -8,6 +8,7 @@
 The screenshot below shows my Week 5 backup cards created and assigned on the team Kanban board:
 
 ![Week 5 Kanban board](01week5-kanban-todo-list.png)
+_N.B. A lot of changes happen after even taking this screenshot. This screenshot was taken just after initial planning._
 
 ## Week 5 task list
 
