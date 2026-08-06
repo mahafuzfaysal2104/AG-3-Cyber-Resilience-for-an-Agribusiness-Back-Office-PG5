@@ -20,7 +20,7 @@ The screenshot below shows my Week 5 backup cards created and assigned on the te
 ![whoami && hostname && Restic version check in Oracle VirtualBox](05week5-download-and-version-check-restic-ubuntu.png)  
   
 - [ ] **Installing the tool: MinIO**  
-
+![Installing and Setting up MinIO in Oracle VirtualBox](06week5-download-minio-ubuntu.png) 
 
 - [ ] **Initialize encrypted Restic repository in MinIO**  
 - [ ] **First backup of synthetic test data**  
