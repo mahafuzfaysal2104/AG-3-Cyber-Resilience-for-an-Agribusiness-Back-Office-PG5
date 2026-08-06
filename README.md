@@ -44,7 +44,7 @@ See `/topologies` for the full architecture diagram and IP/VLAN plan.
 
 1. Clone the repo:
    ```
-   git clone https://github.com/<org>/AG3-capstone.git
+   git clone [https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5]
    cd AG3-capstone
    ```
 2. Review `/docs/architecture.md` for the network layout and VM/resource requirements.
