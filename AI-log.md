@@ -20,5 +20,5 @@ Running, dated record of all meaningful AI-assisted work across the team. **Log 
 - Prompt: "Explain why we are using Restic and MinIO, because it might get hacked by ransomware attack, cause it also tries to find out the backups. How will these work together?"
 - What it produced: a conceptual explanation of the roles of Restic (encrypted backup engine that creates point-in-time snapshots) and MinIO (isolated S3-compatible storage that ransomware cannot reach), and how they combine into a ransomware-resilient backup-and-recovery pipeline for the AG-3 Nextcloud data
 - What we changed and why: used it only to build my own understanding before configuring the tools; no text was copied into the report — I will write the design justification in my own words and cite the official MinIO and Restic documentation as the authoritative sources
-- How we validated it: cross-checked the explanation against the official Restic and MinIO documentation, and confirmed it in practice by initialising a working encrypted repository (Task #22)
+- How we validated it: cross-checked the explanation against the official Restic and MinIO documentation, and confirmed it in practice by initialising a working encrypted repository.
 <img width="784" height="638" alt="image" src="https://github.com/user-attachments/assets/676f58ac-bfdb-4aa5-bbbb-acc203e3d63b" />
