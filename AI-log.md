@@ -1,16 +1,18 @@
 # AI Log
 
-Running, dated record of all meaningful AI-assisted work across the team. **Log as you go, not at the end.** You must be able to explain anything AI helped produce — if you can't, don't ship it.
+A running list of all important work done with AI.
+Write things down as we do them, not later.
+We should be able to explain anything the AI helped create — if we can’t explain it, we shouldn’t use it.
 
 ## Format
 
 ```
 ## YYYY-MM-DD — short title
 - Tool: <which AI tool>
-- Prompt: "<the prompt you used>"
+- Prompt: "<the prompt we used>"
 - What it produced: <link or short description>
-- What we changed and why: <your edits and reasoning>
-- How we validated it: <test / review>
+- What we changed and why: <our edits and reasoning>
+- How we validated it: < test/review>
 ```
 
 ## Entries
