@@ -64,7 +64,11 @@ _N.B. A lot of changes happen after even taking this screenshot. This screenshot
 |---|---|---|---|
 | 01 | Setting up Work Environment | Whether to select Local (Ubuntu VM Local) or an environment that supports Teams collaboration (Cloud VM). On a local server (Ubuntu VM Local), I cannot use Teams for collaboration, but adding Teams collaboration (Cloud VM) will be costly. | Ubuntu VM (I will add a secure overlay like Tailscale/ZeroTier/WireGuard later on)  
 | 02 | CaseSensitive |  Creating Bucket Name in MinIO. It was not accepting capital letters or any spaces as characters.  | All should be in lowercase and should not have spaces, so I have used dash (-) to make it easy. "test-01-ag3-backups" |  
-| 03 | AAA | AAA | AAA |  
+| 03 | How does MinIo & Restic Works? | I thought it was similar to a backup, and ransomware always tries to find backup folders. So, even if we are keeping data in another platform, ransomware will find it. | I found that MinIO will be located in a separate VLAN and will use different credentials, while Restic is a smart backup engine that helps to backup in MinIO separately in a different VLAN, according to Claude AI. I used Claude to get knowledge for this. |  
+| 04 | AAA | AAA | AAA |  
+| 05 | AAA | AAA | AAA |  
+| 06 | AAA | AAA | AAA |  
+
 
 
 
