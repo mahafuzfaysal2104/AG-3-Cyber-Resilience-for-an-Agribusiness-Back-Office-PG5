@@ -36,3 +36,10 @@ Running, dated record of all meaningful AI-assisted work across the team. **Log 
 - What we changed and why: used it only to build my own understanding before configuring the tools; no text was copied into the report — I will write the design justification in my own words and cite the official MinIO and Restic documentation as the authoritative sources
 - How we validated it: cross-checked the explanation against the official Restic and MinIO documentation, and confirmed it in practice by initialising a working encrypted repository.
 <img width="784" height="638" alt="image" src="https://github.com/user-attachments/assets/676f58ac-bfdb-4aa5-bbbb-acc203e3d63b" />
+
+## 2026-08-08 — First Restic backup and understanding encrypted storage _ (Faysal)
+- Tool: Claude (Anthropic)
+- Prompt: Guidance on taking a first Restic backup of synthetic test data, troubleshooting credential/typo errors, and an explanation of why the backed-up files were not visible in the MinIO console
+- What it produced: the commands to create synthetic test files, run the backup, verify the snapshot, check integrity, and list backed-up files; identification of two command typos; and an explanation that Restic stores data as encrypted, deduplicated blocks rather than readable files
+- What we changed and why: I created my own synthetic test data and ran every command myself; corrected the typos manually; used the explanation only to understand the tool's behaviour — no text was copied into the report, and I will document the design in my own words citing the official Restic documentation
+- How we validated it: confirmed in practice — the snapshot saved and appeared in restic snapshots, restic check reported no errors, and restic ls latest listed the correct files, proving the data was stored and recoverable
