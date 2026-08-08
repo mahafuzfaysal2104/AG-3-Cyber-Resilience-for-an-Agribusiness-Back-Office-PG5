@@ -112,25 +112,12 @@ _This is the actual backup — Restic reads the folder, encrypts it, and stores 
 ---
 
 
-
-## Problems Faced to Complete these tasks and Solutions to Get rid of the problem  
-
-| Serial | Problem | Description | Solution |Reference Picture |
-|---|---|---|---|---|
-| 01 | Setting up Work Environment | Whether to select Local (Ubuntu VM Local) or an environment that supports Teams collaboration (Cloud VM). On a local server (Ubuntu VM Local), I cannot use Teams for collaboration, but adding Teams collaboration (Cloud VM) will be costly. | Ubuntu VM (I will add a secure overlay like Tailscale/ZeroTier/WireGuard later on)| - |  
-| 02 | CaseSensitive |  Creating Bucket Name in MinIO. It was not accepting capital letters or any spaces as characters.  | All should be in lowercase and should not have spaces, so I have used adash (-) to make it easy. "test-01-ag3-backups" | - |   
-| 03 | How does MinIo & Restic Works? | I thought it was similar to a backup, and ransomware always tries to find backup folders. So, even if we are keeping data in another platform, ransomware will find it. | I found that MinIO will be located in a separate VLAN and will use different credentials, while Restic is a smart backup engine that helps to back up to MinIO separately in a different VLAN, according to Claude AI. I used Claude to get knowledge for this. | - | 
-| 04 | Error in Typing in While initialization | I made some typing mistakes while setting up the tools and give me this error: _"Fatal: unable to open S3 backend: Secret ($AWS_SECRET_ACCESS_KEY) is empty"_ | Used Claude to check the Error and found out that it's a typing error. |   |  
-| 05 | AAA | AAA | AAA | - |
-| 06 | AAA | AAA | AAA | - |
-
-
-
-
 ## Evidence to collect this week
-
-- Screenshot of successful repository initialisation
-- Screenshot of `restic snapshots` and `restic check` output
-- Screenshot of a successful restore
-- Proof that a normal office account cannot reach MinIO
-- All committed to this folder with dated filenames
+| Tasks | Status |  
+|---|---|  
+| Screenshot of successful repository initialisation | Done |  
+| Screenshot of `restic snapshots` and `restic check` output | Done |  
+| Screenshot of a successful restore | Pending |  
+| Proof that a normal office account cannot reach MinIO | NOT Started Yet |  
+| All committed to this folder with dated filenames | NOT Started Yet |
+| Plan For Week 6 | NOT Started Yet |  
