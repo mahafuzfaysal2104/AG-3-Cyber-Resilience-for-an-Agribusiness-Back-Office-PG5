@@ -1,4 +1,4 @@
-# MinIO and Restic — Configuration Reference
+# MinIO and Restic — Configuration Reference _ Faysal
 Setup reference for the backup environment. NO real credentials are stored here.
 
 ## MinIO
