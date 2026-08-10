@@ -87,6 +87,12 @@
 
 **Result:** `Restored 6 files/dirs (142 B)` — all three files recovered with matching contents.
 
+<img width="1323" height="831" alt="image" src="https://github.com/user-attachments/assets/8d4be142-792c-4194-9ccf-412c6c16cc9b" />  
+
+<img width="1333" height="850" alt="image" src="https://github.com/user-attachments/assets/64774dcf-f57d-4a8c-8ecb-c482a52f3d9c" />  
+
+
+
 > Files restore to `<target>/home/<username>/<original-folder>` — not under `/root/`.
 
 ---
