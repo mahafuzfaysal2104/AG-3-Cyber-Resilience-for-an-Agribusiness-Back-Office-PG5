@@ -9,6 +9,9 @@
 - Confirm it installed (returned version 0.18.1): `restic version`
 - Capture identity + version together for evidence: `whoami && hostname && restic version`
 
+<img width="847" height="467" alt="image" src="https://github.com/user-attachments/assets/905520c9-a3d9-45a6-bc99-4415e2e23958" />
+
+
 ---
 
 # Install MinIO
