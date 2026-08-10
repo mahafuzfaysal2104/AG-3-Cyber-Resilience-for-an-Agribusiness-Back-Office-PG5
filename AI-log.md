@@ -45,3 +45,10 @@ We should be able to explain anything the AI helped create — if we can’t exp
 - What it produced: the commands to create synthetic test files, run the backup, verify the snapshot, check integrity, and list backed-up files; identification of two command typos; and an explanation that Restic stores data as encrypted, deduplicated blocks rather than readable files
 - What we changed and why: I created my own synthetic test data and ran every command myself; corrected the typos manually; used the explanation only to understand the tool's behaviour — no text was copied into the report, and I will document the design in my own words citing the official Restic documentation
 - How we validated it: confirmed in practice — the snapshot saved and appeared in restic snapshots, restic check reported no errors, and restic ls latest listed the correct files, proving the data was stored and recoverable
+
+## 2026-08-10 — Restore test and troubleshooting Restic restore paths _ (Faysal)
+- Tool: Claude (Anthropic)
+- Prompt: Guidance on testing a restore from a Restic snapshot, and help troubleshooting why the restored files could not be found at the expected path
+- What it produced: the commands to simulate data loss and restore from the latest snapshot, and an explanation that Restic preserves the original absolute path under the restore target, plus the suggestion to use `ls -R` to map the actual structure
+- What we changed and why: I ran the deletion, restore, and verification myself on my own synthetic data; the initially suggested path (/root/) was incorrect for my setup, so I located the real path myself using `ls -R` and confirmed the files from there
+- How we validated it: confirmed in practice — the restore reported "Restored 6 files/dirs (142 B)", and `ls -R` plus `cd` confirmed all three files were recovered with contents matching the originals
