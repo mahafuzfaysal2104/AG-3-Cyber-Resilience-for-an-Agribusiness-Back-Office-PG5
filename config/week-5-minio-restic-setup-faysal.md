@@ -41,13 +41,8 @@
 - Create the encrypted repository (run once only): `restic init`
 - Verify the repository opens — an empty list is correct for a new repo: `restic snapshots`
 
-**Result:** `Created restic repository 046d89d603 at s3:http://localhost:9000/test-01-ag3-backups`
+**Result:** `Created restic repository 5b3977bc at s3:http://localhost:9000/test-01-ag3-backups`
 
-**Typo traps learned the hard way:**
-- `AWS_SECRET_ACCESS_KEY` — not `AWS_SECRET_ACCESS_KEY_ID`
-- `RESTIC_PASSWORD` — not `RESTIC_PASSWOR`
-- `export` — not `esport`
-- No leading underscore: `AWS_ACCESS_KEY_ID`, not `_AWS_ACCESS_KEY_ID`
 
 ---
 
