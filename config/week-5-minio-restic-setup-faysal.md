@@ -24,6 +24,10 @@
 - Start the MinIO server and leave this terminal running: `minio server ~/minio-data --console-address ":9001"`
 - Then in Firefox: open `http://localhost:9001`, log in, and create the bucket `test-01-ag3-backups`
 
+<img width="1396" height="1032" alt="image" src="https://github.com/user-attachments/assets/5251ed1b-169b-415f-ab54-1e17374e9a6f" />  
+<img width="1301" height="810" alt="image" src="https://github.com/user-attachments/assets/78bebece-77f8-4d8d-9f6e-ea3bf1a1897b" />  
+
+
 > MinIO runs in the foreground and occupies this terminal — all later commands run in a **second terminal**.
 
 ---
