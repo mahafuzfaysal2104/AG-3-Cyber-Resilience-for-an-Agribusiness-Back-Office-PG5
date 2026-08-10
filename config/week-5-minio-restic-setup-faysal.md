@@ -41,7 +41,10 @@
 - Create the encrypted repository (run once only): `restic init`
 - Verify the repository opens — an empty list is correct for a new repo: `restic snapshots`
 
-**Result:** `Created restic repository 5b3977bc at s3:http://localhost:9000/test-01-ag3-backups`
+**Result:** `Created restic repository 5b3977bc at s3:http://localhost:9000/test-01-ag3-backups`  
+
+<img width="1314" height="833" alt="image" src="https://github.com/user-attachments/assets/3c22af1c-ae38-4d03-9622-b350153da460" />  
+
 
 
 ---
@@ -71,6 +74,17 @@
 - Verify the contents match the original: `cat invoice001.txt`
 
 **Result:** `Restored 6 files/dirs (142 B)` — all three files recovered with matching contents.
+
+
+<img width="1350" height="876" alt="image" src="https://github.com/user-attachments/assets/ccad01e4-2d43-4fd9-b801-86ff13cf41a8" />  
+
+
+<img width="1333" height="862" alt="image" src="https://github.com/user-attachments/assets/f317ded1-e626-442d-93b9-e4991816e08b" />  
+
+
+<img width="1344" height="835" alt="image" src="https://github.com/user-attachments/assets/13c9956b-fbe3-468b-84da-042b8fc8a526" />  
+
+
 
 > Files restore to `<target>/home/<username>/<original-folder>` — not under `/root/`.
 
