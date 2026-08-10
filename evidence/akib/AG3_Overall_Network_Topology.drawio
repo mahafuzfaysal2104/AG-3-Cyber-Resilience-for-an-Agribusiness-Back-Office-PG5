@@ -1,0 +1,100 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="ag3_overall_topology" name="Page-1">
+    <mxGraphModel dx="2289" dy="1171" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Arial;labelBackgroundColor=none;" value="AG-3 Agribusiness Resilience Project" vertex="1">
+          <mxGeometry height="50" width="760" x="320" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=24;fontStyle=1;fontFamily=Arial;labelBackgroundColor=none;" value="Overall Network Topology" vertex="1">
+          <mxGeometry height="42" width="600" x="400" y="72" as="geometry" />
+        </mxCell>
+        <mxCell id="internet" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="Internet" vertex="1">
+          <mxGeometry height="90" width="200" x="600" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="router" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=17;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Router" vertex="1">
+          <mxGeometry height="58" width="180" x="610" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="fw" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;strokeWidth=2;fontSize=17;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="pfSense Firewall  WAN via USB Ethernet (ue0) DHCP from Router (example 192.168.1.x)" vertex="1">
+          <mxGeometry height="310" width="310" x="545" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="switch" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=17;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Switch" vertex="1">
+          <mxGeometry height="68" width="420" x="490" y="665" as="geometry" />
+        </mxCell>
+        <mxCell id="recovery" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="Temporary Recovery LAN 192.168.50.0/24" vertex="1">
+          <mxGeometry height="210" width="340" x="932.5" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="setup" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Setup Laptop 192.168.50.100" vertex="1">
+          <mxGeometry height="62" width="185" x="1010" y="455" as="geometry" />
+        </mxCell>
+        <mxCell id="office" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="OFFICE VLAN 10 10.20.10.0/24" vertex="1">
+          <mxGeometry height="180" width="245" x="40" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="server" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="SERVER VLAN 20 10.20.20.0/24" vertex="1">
+          <mxGeometry height="180" width="245" x="300" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="security" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="SECURITY VLAN 30 10.20.30.0/24" vertex="1">
+          <mxGeometry height="180" width="245" x="560" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="backup" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="BACKUP VLAN 40 10.20.40.0/24" vertex="1">
+          <mxGeometry height="180" width="245" x="820" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="mgmt" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;strokeWidth=2;fontSize=16;fontFamily=Arial;align=center;verticalAlign=top;spacingTop=20;labelBackgroundColor=none;" value="MANAGEMENT VLAN 99 10.20.99.0/24" vertex="1">
+          <mxGeometry height="180" width="280" x="1080" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="opc1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Office PC 1" vertex="1">
+          <mxGeometry height="38" width="155" x="86" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="opc2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Office PC 2" vertex="1">
+          <mxGeometry height="38" width="155" x="86" y="910" as="geometry" />
+        </mxCell>
+        <mxCell id="olap" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Office Laptop" vertex="1">
+          <mxGeometry height="38" width="155" x="86" y="955" as="geometry" />
+        </mxCell>
+        <mxCell id="app" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="APP01 - Nextcloud 10.20.20.10" vertex="1">
+          <mxGeometry height="70" width="175" x="335" y="875" as="geometry" />
+        </mxCell>
+        <mxCell id="mon" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="MON01 - Wazuh 10.20.30.10" vertex="1">
+          <mxGeometry height="70" width="175" x="595" y="875" as="geometry" />
+        </mxCell>
+        <mxCell id="bkp" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="BKP01 - MinIO / Restic Repo 10.20.40.10" vertex="1">
+          <mxGeometry height="85" width="175" x="855" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="admin" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="ADMIN-PC 10.20.99.10" vertex="1">
+          <mxGeometry height="70" width="190" x="1125" y="875" as="geometry" />
+        </mxCell>
+        <mxCell id="note" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=1.6;fontSize=15;fontFamily=Arial;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="Office users access APP01 via HTTPS  APP01 sends logs to MON01  APP01 sends backups to BKP01  Management VLAN administers pfSense and servers" vertex="1">
+          <mxGeometry height="150" width="500" x="450" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="fw">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="fw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="switch">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="fw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="recovery">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="switch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="office">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="switch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="server">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="switch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="security">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="switch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="backup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="switch" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeWidth=2;labelBackgroundColor=none;fontColor=default;" target="mgmt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
