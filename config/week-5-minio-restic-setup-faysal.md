@@ -60,6 +60,17 @@
 - Check repository integrity, guarding against the "backup that can't restore" risk: `restic check`
 - List the files inside the backup (Restic decrypts the file list): `restic ls latest`
 
+
+<img width="1350" height="876" alt="image" src="https://github.com/user-attachments/assets/ccad01e4-2d43-4fd9-b801-86ff13cf41a8" />  
+
+
+<img width="1333" height="862" alt="image" src="https://github.com/user-attachments/assets/f317ded1-e626-442d-93b9-e4991816e08b" />  
+
+
+<img width="1344" height="835" alt="image" src="https://github.com/user-attachments/assets/13c9956b-fbe3-468b-84da-042b8fc8a526" />  
+
+
+
 ---
 
 # Test restore from snapshot
@@ -74,17 +85,6 @@
 - Verify the contents match the original: `cat invoice001.txt`
 
 **Result:** `Restored 6 files/dirs (142 B)` — all three files recovered with matching contents.
-
-
-<img width="1350" height="876" alt="image" src="https://github.com/user-attachments/assets/ccad01e4-2d43-4fd9-b801-86ff13cf41a8" />  
-
-
-<img width="1333" height="862" alt="image" src="https://github.com/user-attachments/assets/f317ded1-e626-442d-93b9-e4991816e08b" />  
-
-
-<img width="1344" height="835" alt="image" src="https://github.com/user-attachments/assets/13c9956b-fbe3-468b-84da-042b8fc8a526" />  
-
-
 
 > Files restore to `<target>/home/<username>/<original-folder>` — not under `/root/`.
 
