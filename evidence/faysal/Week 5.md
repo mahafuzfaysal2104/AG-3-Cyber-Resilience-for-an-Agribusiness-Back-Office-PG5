@@ -96,9 +96,23 @@ _This is the actual backup — Restic reads the folder, encrypts it, and stores 
 
 - [ ] **Test restore from snapshot**
 
-![]()
-![]()
-![]()  
+- What I did: Verified the recovery half of the backup pipeline. Recorded the original test files as a baseline, deleted them with `rm -rf ~/ag3-testdata` to simulate data loss, then restored from the latest snapshot using `restic restore latest --target ~/ag3-restored`. Confirmed all three files came back with matching contents.
+
+- Issues faced and fixed: Couldn't find the restored files at the expected path; tried `~/ag3-restored/root/ag3-testdata` and got "No such file or directory." Learned that Restic preserves the original absolute path of the backed-up data, so files restore to <target>/home/<username(faysal-12281612)>/ag3-testdata, not under /root/. Fixed by running `ls -R ~/ag3-restored` to map the actual structure and locate the files.
+File count returned 0 initially; caused by a typo in the long restore path when retyping it. Fixed by using `cd` to navigate into the folder directly rather than typing the full path.
+
+- Outcome: Restore succeeded; "Restored 6 files/dirs (142 B)" — and all three synthetic files (invoice001.txt, livestock.txt, suppliers.txt) were recovered intact with contents matching the originals. The backup-and-recovery pipeline is now proven end-to-end.
+
+- What I learned: Restic restores preserve the original file path structure under the target directory; using `ls -R` is the reliable way to inspect an unfamiliar restore layout; navigating with `cd` avoids errors from retyping long paths; deleting and restoring synthetic data is a safe rehearsal for the later ransomware simulation.
+
+<img width="1321" height="855" alt="image" src="https://github.com/user-attachments/assets/03718ae9-70af-49a6-8be6-79252db26ff5" />
+
+<img width="1307" height="824" alt="image" src="https://github.com/user-attachments/assets/535128ba-d874-47f2-9201-82f5d0f9a1a2" />  
+
+_I deleted all the files using rm -rf ~/ag3-testdata, assuming the folder had been lost due to a ransomware attack. After that, I successfully recovered the folder with `restic restore latest --target ~/ag3-restored`. The next photo shows proof of the successful recovery._
+
+<img width="1315" height="840" alt="image" src="https://github.com/user-attachments/assets/8c5bb5bc-80fd-4c8f-9116-d40c6139a561" />  
+
 
 ---
 
