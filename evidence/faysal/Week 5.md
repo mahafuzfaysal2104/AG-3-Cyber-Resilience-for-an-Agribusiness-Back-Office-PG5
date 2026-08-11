@@ -12,7 +12,7 @@ _N.B. A lot of changes happen after even taking this screenshot. This screenshot
 
 ## Week 5 task list
 
-- [ ] **Environment Setup in Oracle VirtualBox**
+- [X] **Environment Setup in Oracle VirtualBox**
 
 - What I did: Set up the backup environment from scratch. Created a VM in VirtualBox (AG3-Backup-Server, 4 GB RAM, 2 CPUs, 30 GB disk, NAT network), installed Ubuntu Desktop 26.04 with an interactive install, chose no disk encryption and the default ext4 filesystem, and created a dedicated user account. This VM became the platform for installing Restic and MinIO.
 
@@ -29,7 +29,7 @@ Accidentally shut the VM off mid-work; worried I'd lost progress. Learned that e
 ---
 
 
-- [ ] **Installing the tool: Restic**
+- [X] **Installing the tool: Restic**
 - What I did: Installed Restic (the backup engine) on the Ubuntu VM. Created the VM in VirtualBox, installed Ubuntu Desktop, opened the terminal, updated the package list with `sudo apt update`, installed Restic with `sudo apt install restic -y`, and confirmed it worked by running restic version, which returned a version number: **0.18.1**
 
 - Issues faced and fixed: New to the Linux terminal, password entry shows nothing on screen when typing sudo commands, which was confusing at first. Learned this is normal Linux behaviour (hidden input) and continued. Chose the right setup during VM creation, avoided the "unattended installation" option and disk encryption, so I could install manually and keep the lab VM simple. Selected "No encryption" and the default ext4 filesystem.
@@ -43,7 +43,7 @@ Accidentally shut the VM off mid-work; worried I'd lost progress. Learned that e
 
 ---
 
-- [ ] **Installing the tool: MinIO**
+- [X] **Installing the tool: MinIO**
 
 - What I did: Installed the MinIO server (the isolated backup storage) on the Ubuntu VM. Downloaded the MinIO binary with wget, made it executable with `chmod +x`, moved it to /usr/local/bin/, created a data folder (~/minio-data), set the admin credentials (user **PG5**, password **PG520265**), and started the server. Then opened the console in Firefox at localhost:9001, logged in successfully, and created the bucket **test-01-ag3-backups**.
 
@@ -60,7 +60,7 @@ Accidentally shut the VM off mid-work; worried I'd lost progress. Learned that e
 
 ---
 
-- [ ] **Initialize encrypted Restic repository in MinIO**
+- [X] **Initialize encrypted Restic repository in MinIO**
 
 - What I did: I connected Restic to MinIO and created an encrypted backup repository. Started MinIO, created the bucket **test-01-ag3-backups**, set the connection variables (access key, secret key, repository path, password), ran restic init, and verified with restic snapshots.
 
@@ -74,7 +74,7 @@ Password not set typo: wrote `RESTIC_PASSWOR` (missing D). Fixed by correcting t
 
 ---  
 
-- [ ] **First backup of synthetic test data**
+- [X] **First backup of synthetic test data**
 
 - What I did: Created a folder of synthetic test files (`~/ag3-testdata`) standing in for the agribusiness's data; dummy invoices, livestock records, and supplier lists. Ran `restic backup` to create the first encrypted snapshot in MinIO, verified it appeared with `restic snapshots`, checked repository health with `restic check`, and confirmed the backed-up files with `restic ls latest`.
 
@@ -94,16 +94,17 @@ _This is the actual backup — Restic reads the folder, encrypts it, and stores 
 
 ---  
 
-- [ ] **Test restore from snapshot**
+- [x] **Test restore from snapshot**
 
 - What I did: Verified the recovery half of the backup pipeline. Recorded the original test files as a baseline, deleted them with `rm -rf ~/ag3-testdata` to simulate data loss, then restored from the latest snapshot using `restic restore latest --target ~/ag3-restored`. Confirmed all three files came back with matching contents.
 
-- Issues faced and fixed: Couldn't find the restored files at the expected path; tried `~/ag3-restored/root/ag3-testdata` and got "No such file or directory." Learned that Restic preserves the original absolute path of the backed-up data, so files restore to <target>/home/<username(faysal-12281612)>/ag3-testdata, not under /root/. Fixed by running `ls -R ~/ag3-restored` to map the actual structure and locate the files.
-File count returned 0 initially; caused by a typo in the long restore path when retyping it. Fixed by using `cd` to navigate into the folder directly rather than typing the full path.
+- Issues faced and fixed: The restored files were not where I was told to look. The AI-suggested path `~/ag3-restored/root/ag3-testdata` returned "No such file or directory." I investigated manually with `ls -R ~/ag3-restored` and discovered the files were actually under my own username — `~/ag3-restored/home/faysal-12281612/ag3-testdata`. Restic preserves the original absolute path of the backed-up data, so a `/root/` path would only apply if the backup had been taken as the root user. I corrected this myself before the task could be completed. A file count returned 0 at one point, caused by a typo when retyping the long path. Fixed by using `cd` to navigate into the folder directly rather than retyping it.
 
-- Outcome: Restore succeeded; "Restored 6 files/dirs (142 B)" — and all three synthetic files (invoice001.txt, livestock.txt, suppliers.txt) were recovered intact with contents matching the originals. The backup-and-recovery pipeline is now proven end-to-end.
+- Outcome: Restore succeeded — "Restored 6 files/dirs (142 B)" — and all three synthetic files (invoice001.txt, livestock.txt, suppliers.txt) were recovered intact with contents matching the originals. The backup-and-recovery pipeline is proven end-to-end.
 
-- What I learned: Restic restores preserve the original file path structure under the target directory; using `ls -R` is the reliable way to inspect an unfamiliar restore layout; navigating with `cd` avoids errors from retyping long paths; deleting and restoring synthetic data is a safe rehearsal for the later ransomware simulation.
+- What I learned: Restic restores preserve the original file path structure under the target directory; `ls -R` is the reliable way to inspect an unfamiliar restore layout; navigating with `cd` avoids retyping errors; and guidance — including AI guidance — must be verified against the actual system rather than assumed correct.
+
+![Restore test successful](09week5-restore-test-successful.png)
 
 <img width="1321" height="855" alt="image" src="https://github.com/user-attachments/assets/03718ae9-70af-49a6-8be6-79252db26ff5" />
 
