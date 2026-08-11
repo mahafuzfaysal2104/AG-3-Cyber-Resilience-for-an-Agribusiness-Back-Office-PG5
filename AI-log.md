@@ -46,9 +46,11 @@ We should be able to explain anything the AI helped create — if we can’t exp
 - What we changed and why: I created my own synthetic test data and ran every command myself; corrected the typos manually; used the explanation only to understand the tool's behaviour — no text was copied into the report, and I will document the design in my own words citing the official Restic documentation
 - How we validated it: confirmed in practice — the snapshot saved and appeared in restic snapshots, restic check reported no errors, and restic ls latest listed the correct files, proving the data was stored and recoverable
 
-## 2026-08-10 — Restore test and troubleshooting Restic restore paths _ (Faysal)
+
+## 2026-08-10 — Restore test and correcting the AI's restore-path error _ (Faysal)
 - Tool: Claude (Anthropic)
-- Prompt: Guidance on testing a restore from a Restic snapshot, and help troubleshooting why the restored files could not be found at the expected path
-- What it produced: the commands to simulate data loss and restore from the latest snapshot, and an explanation that Restic preserves the original absolute path under the restore target, plus the suggestion to use `ls -R` to map the actual structure
-- What we changed and why: I ran the deletion, restore, and verification myself on my own synthetic data; the initially suggested path (/root/) was incorrect for my setup, so I located the real path myself using `ls -R` and confirmed the files from there
-- How we validated it: confirmed in practice — the restore reported "Restored 6 files/dirs (142 B)", and `ls -R` plus `cd` confirmed all three files were recovered with contents matching the originals
+- Prompt: Guidance on testing a restore from a Restic snapshot, and help troubleshooting why the restored files could not be found at the suggested path
+- What it produced: the commands to simulate data loss (`rm -rf`) and restore from the latest snapshot (`restic restore latest --target ~/ag3-restored`), plus a suggested verification path of `~/ag3-restored/root/ag3-testdata`
+- What we changed and why: **the AI's suggested path was wrong.** It told me the restored files would be under a `/root/` subfolder, but running that command returned "No such file or directory." I investigated manually with `ls -R ~/ag3-restored` and found the files were actually restored under my own username path — `~/ag3-restored/home/faysal-12281612/ag3-testdata`. Restic preserves the **original absolute path** of the backed-up data, so the `/root/` path would only apply if the backup had been taken as the root user, which mine was not. I corrected the path myself and verified the files from there.
+- How we validated it: the restore reported "Restored 6 files/dirs (142 B)"; `ls -R` mapped the true directory structure; `cd` into the correct path plus `ls` and `cat` confirmed all three files (invoice001.txt, livestock.txt, suppliers.txt) were recovered with contents matching the originals
+- Lesson recorded: AI output must be verified against the actual system, not assumed correct. In this case, the suggested path was inaccurate for my environment, and I had to investigate and correct it myself before the task could be completed.
