@@ -104,13 +104,11 @@ _This is the actual backup — Restic reads the folder, encrypts it, and stores 
 
 - What I learned: Restic restores preserve the original file path structure under the target directory; `ls -R` is the reliable way to inspect an unfamiliar restore layout; navigating with `cd` avoids retyping errors; and guidance — including AI guidance — must be verified against the actual system rather than assumed correct.
 
-![Restore test successful](09week5-restore-test-successful.png)
-
 <img width="1321" height="855" alt="image" src="https://github.com/user-attachments/assets/03718ae9-70af-49a6-8be6-79252db26ff5" />
 
 <img width="1307" height="824" alt="image" src="https://github.com/user-attachments/assets/535128ba-d874-47f2-9201-82f5d0f9a1a2" />  
 
-_I deleted all the files using rm -rf ~/ag3-testdata, assuming the folder had been lost due to a ransomware attack. After that, I successfully recovered the folder with `restic restore latest --target ~/ag3-restored`. The next photo shows proof of the successful recovery._
+_I deleted all the files using `rm -rf ~/ag3-testdata`, assuming the folder had been lost due to a ransomware attack. After that, I successfully recovered the folder with `restic restore latest --target ~/ag3-restored`. The next photo shows proof of the successful recovery._
 
 <img width="1315" height="840" alt="image" src="https://github.com/user-attachments/assets/8c5bb5bc-80fd-4c8f-9116-d40c6139a561" />  
 
@@ -119,10 +117,7 @@ _I deleted all the files using rm -rf ~/ag3-testdata, assuming the folder had be
 
 - [ ] **Prove MinIO backup isolation (start)**
 
-![]()
-![]()
-![]()
-![]()  
+**Transfer this task to Week 6**
 
 ---
 
