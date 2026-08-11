@@ -128,6 +128,6 @@ _I deleted all the files using `rm -rf ~/ag3-testdata`, assuming the folder had 
 | Screenshot of successful repository initialisation | Done |  
 | Screenshot of `restic snapshots` and `restic check` output | Done |  
 | Screenshot of a successful restore | Done |  
-| Proof that a normal office account cannot reach MinIO |  In Progress |  
-| All committed to this folder with dated filenames | NOT Started Yet |
-| Plan For Week 6 | NOT Started Yet |  
+| Proof that a normal office account cannot reach MinIO |  Week 6 |  
+| All committed to this folder with dated filenames | Done |
+| Plan for Week 6 | Done |  
