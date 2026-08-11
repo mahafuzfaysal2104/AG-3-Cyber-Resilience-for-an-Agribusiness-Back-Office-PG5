@@ -115,9 +115,15 @@ _I deleted all the files using `rm -rf ~/ag3-testdata`, assuming the folder had 
 
 ---
 
-- [ ] **Prove MinIO backup isolation (start)**
+- [ ] **Prove MinIO backup isolation (start)** - DEFERRED TO WEEK 6
 
-**Transfer this task to Week 6**
+**What I did:** Began the credential-isolation test and discovered that MinIO Community Edition's console provides only an Object Browser, with no Identity/Users section. User management therefore requires the MinIO Client (`mc`) command-line tool.
+
+**Blockers:**
+1. MinIO Community Edition console limitation — `mc` client required, to be installed in Week 6.
+2. The network-isolation half depends on Akib's VLAN and firewall configuration (card #37). Questions sent to Akib covering the backup VLAN ID/IP range, deny-by-default rules on ports 9000/9001, permitted hosts, and a testing date.
+
+**Planned for Week 6:** Install `mc`, create a restricted office-user, confirm denial via both `mc` and Restic, and once Akib's network is ready, run a connectivity test from an office-VLAN machine and capture the firewall denial log.
 
 ---
 
@@ -128,6 +134,6 @@ _I deleted all the files using `rm -rf ~/ag3-testdata`, assuming the folder had 
 | Screenshot of successful repository initialisation | Done |  
 | Screenshot of `restic snapshots` and `restic check` output | Done |  
 | Screenshot of a successful restore | Done |  
-| Proof that a normal office account cannot reach MinIO |  Week 6 |  
+| Proof that a normal office account cannot reach MinIO |  DEFERRED TO WEEK 6 |  
 | All committed to this folder with dated filenames | Done |
 | Plan for Week 6 | Done |  
