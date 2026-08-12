@@ -1,0 +1,184 @@
+# APP01-06: Nextcloud Post-Installation Configuration
+
+## Objective
+
+The objective of this task was to configure Nextcloud after the initial installation to improve its operational reliability, security, and readiness for integration with the other project components. The configuration included trusted domains, background jobs, regional settings, logging, and administrative settings following Nextcloud best practices.
+
+---
+
+## 1. Configure Trusted Domains
+
+### Purpose
+
+Trusted domains protect Nextcloud from HTTP Host Header attacks by allowing access only through approved hostnames or IP addresses.
+
+### Implementation
+
+The existing development IP address was verified as a trusted domain.
+
+Development IP:
+- 172.16.229.150
+
+To reduce work during the final integration stage, the future production IP address assigned by the pfSense network design was also added.
+
+Production IP:
+- 10.20.20.10
+
+### Verification
+
+The trusted domains were verified using the OCC command.
+
+Result:
+- Development IP successfully configured.
+- Future production IP successfully configured.
+
+---
+
+## 2. Configure Background Jobs
+
+### Purpose
+
+By default, Nextcloud uses AJAX background jobs, which only execute when users access the web interface. For production environments, Cron is recommended because scheduled tasks execute automatically regardless of user activity.
+
+### Implementation
+
+A Cron job was created for the www-data service account to execute the Nextcloud background task every five minutes.
+
+Cron schedule:
+
+*/5 * * * * php -f /var/www/nextcloud/cron.php
+
+The Nextcloud background job mode was changed from AJAX to Cron through the Administration Settings page.
+
+### Verification
+
+The Cron configuration was verified and confirmed to be running every five minutes.
+
+---
+
+## 3. Configure Regional Settings
+
+### Purpose
+
+Consistent regional settings ensure that operating system logs, PHP logs, and Nextcloud logs use the correct local time. This is particularly important for troubleshooting and future security monitoring.
+
+### Implementation
+
+The following components were configured to use the Australia/Sydney timezone:
+
+- Ubuntu Server
+- Apache PHP
+- PHP CLI
+- Nextcloud Log Timezone
+
+### Verification
+
+The timezone configuration was verified successfully.
+
+Result:
+
+- Ubuntu timezone: Australia/Sydney
+- Apache PHP timezone: Australia/Sydney
+- PHP CLI timezone: Australia/Sydney
+- Nextcloud log timezone: Australia/Sydney
+
+---
+
+## 4. Configure Logging
+
+### Purpose
+
+Application logging is essential for monitoring, troubleshooting, and incident response. It also prepares the server for future integration with the Wazuh monitoring server.
+
+### Implementation
+
+The default Nextcloud logging configuration was verified.
+
+A failed login attempt was intentionally generated to confirm that authentication events were being written to the log file.
+
+### Verification
+
+The generated log entry successfully recorded:
+
+- Login failure event
+- Username
+- Source IP address
+- HTTP request method
+- Correct Australia/Sydney timestamp
+
+This confirmed that Nextcloud logging is functioning correctly.
+
+---
+
+## 5. Configure Default Phone Region
+
+### Purpose
+
+The default phone region allows Nextcloud to correctly validate phone numbers entered without an international country code.
+
+### Implementation
+
+The default phone region was configured as:
+
+AU
+
+### Verification
+
+The configuration was successfully verified through the OCC command.
+
+---
+
+## 6. Configure Maintenance Window
+
+### Purpose
+
+The maintenance window determines when resource-intensive maintenance tasks should execute, reducing the impact on users during normal operating hours.
+
+### Implementation
+
+The maintenance window was configured to start at:
+
+02:00 AM
+
+### Verification
+
+The maintenance window setting was successfully applied.
+
+---
+
+## Security Review
+
+The Nextcloud Administration Overview page was reviewed after completing the configuration.
+
+Several recommendations remain outstanding; however, these have been intentionally deferred because they belong to later implementation stages.
+
+### To be completed in APP01-07
+
+- Increase PHP memory limit
+- Install APCu
+- Configure memory caching
+- Configure transactional file locking
+- Install additional PHP modules
+- Configure ImageMagick SVG support
+- Run MIME type migration
+
+### To be completed in APP01-08
+
+- Configure HTTPS
+- Configure HSTS security headers
+
+### Not Required
+
+The following items are not required for the current project scope:
+
+- Email server configuration
+- AppAPI deployment daemon
+- Configuration Server ID
+
+---
+
+## Outcome
+
+APP01-06 was completed successfully.
+
+The Nextcloud server was configured with trusted domains, automated Cron background jobs, regional settings, logging, default phone region, and a maintenance window. The server is now ready for the next stage of the project: APP01-07 – Ubuntu and Nextcloud Security Hardening.
