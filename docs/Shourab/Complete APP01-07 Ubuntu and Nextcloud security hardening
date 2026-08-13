@@ -1,0 +1,157 @@
+APP01-07-Ubuntu-and-Nextcloud-Security-Hardening.md
+
+# APP01-07: Ubuntu and Nextcloud Security Hardening
+
+## Objective
+
+The objective of this task was to improve the security, performance, and operational resilience of the APP01 Nextcloud server by applying production-recommended hardening measures. The implementation focused on PHP optimisation, memory caching, transactional file locking, additional PHP modules, and system maintenance to prepare the server for secure deployment.
+
+---
+
+## 1. Configure PHP Memory Limit
+
+### Purpose
+
+Nextcloud recommends a minimum PHP memory limit of 512 MB to ensure reliable application performance during large file uploads, background jobs, application updates, and administrative operations.
+
+### Implementation
+
+The Apache PHP configuration was updated from 128 MB to 512 MB.
+
+The PHP CLI configuration remained unchanged with an unlimited memory allocation to support administrative OCC commands.
+
+### Verification
+
+The Apache PHP configuration was verified after restarting the Apache service.
+
+The PHP memory warning was successfully removed from the Nextcloud Administration Overview page.
+
+---
+
+## 2. Install APCu Memory Cache
+
+### Purpose
+
+APCu provides local in-memory caching for frequently accessed PHP objects. This reduces database queries, improves response time, and lowers server resource consumption.
+
+### Implementation
+
+The APCu PHP module was installed and enabled.
+
+Nextcloud was configured to use APCu as the local memory cache.
+
+The PHP CLI configuration was updated to enable APCu for OCC commands.
+
+### Verification
+
+The APCu module was successfully detected by PHP.
+
+The APCu warning was removed from the Nextcloud Administration Overview page.
+
+---
+
+## 3. Configure Redis Transactional File Locking
+
+### Purpose
+
+Redis provides transactional file locking to prevent simultaneous file access conflicts and improve data integrity during concurrent user operations.
+
+### Implementation
+
+Redis Server and the PHP Redis extension were installed.
+
+Redis was enabled as a system service.
+
+Nextcloud was configured to use Redis for transactional file locking.
+
+### Verification
+
+The Redis service was verified as active.
+
+The Nextcloud configuration confirmed:
+
+- memcache.local = APCu
+- memcache.locking = Redis
+
+The transactional file locking warning was successfully removed.
+
+---
+
+## 4. Install Additional PHP Components
+
+### Purpose
+
+Additional PHP and ImageMagick components improve compatibility and performance while satisfying Nextcloud production recommendations.
+
+### Implementation
+
+ImageMagick SVG support was installed.
+
+The Apache service was restarted after installation.
+
+### Verification
+
+The ImageMagick warning disappeared from the Nextcloud Administration Overview page.
+
+---
+
+## 5. Run MIME Type Migration
+
+### Purpose
+
+MIME type migration updates existing file associations to support newer file types and improve compatibility.
+
+### Implementation
+
+The Nextcloud maintenance repair command was executed with expensive repair tasks enabled.
+
+### Verification
+
+The MIME migration warning was successfully removed.
+
+---
+
+## 6. Security Review
+
+The Nextcloud Administration Overview page was reviewed after completing all hardening activities.
+
+The following warnings were successfully resolved:
+
+- PHP Memory Limit
+- APCu Memory Cache
+- Transactional File Locking
+- ImageMagick SVG Support
+- MIME Type Migration
+- Default Phone Region
+- Maintenance Window
+
+The remaining warnings were intentionally deferred because they belong to later project stages.
+
+### APP01-08
+
+- HTTPS Configuration
+- HSTS Security Headers
+
+### APP01-09
+
+- Multi-Factor Authentication
+
+### Not Required
+
+The following warnings are outside the project scope:
+
+- AppAPI Deployment Daemon
+- Email Configuration
+- Configuration Server ID
+
+The log warning remains because failed login events were intentionally generated to verify logging functionality.
+
+---
+
+## Outcome
+
+APP01-07 successfully improved the security, performance, and reliability of the Nextcloud server. Memory optimisation, application caching, transactional file locking, PHP optimisation, and maintenance tasks were completed following Nextcloud production recommendations.
+
+The server is now prepared for the next implementation stage:
+
+APP01-08 – HTTPS and TLS Configuration.
