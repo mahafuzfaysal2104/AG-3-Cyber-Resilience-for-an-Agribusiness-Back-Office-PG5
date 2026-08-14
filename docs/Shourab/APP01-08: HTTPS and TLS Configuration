@@ -1,0 +1,213 @@
+# APP01-08: HTTPS and TLS Configuration
+
+## Objective
+
+The objective of this task was to secure communication between users and the Nextcloud server by implementing HTTPS using a self-signed SSL certificate. HTTPS encrypts all traffic between clients and the server, protecting user credentials and sensitive data from interception. This implementation also aligns the server with security best practices and prepares it for deployment within the pfSense-managed network.
+
+---
+
+## 1. Generate a Self-Signed SSL Certificate
+
+### Purpose
+
+Since the Nextcloud server is hosted within a private laboratory environment without a public domain name, a self-signed SSL certificate was generated to provide encrypted communication during development and testing.
+
+### Implementation
+
+A dedicated directory was created to store the SSL certificate and private key.
+
+An RSA 4096-bit self-signed certificate was generated with a validity period of 365 days using OpenSSL.
+
+The certificate was configured for the planned production server IP address to minimise future configuration changes during the integration phase.
+
+### Verification
+
+The certificate and private key were successfully created and stored in:
+
+- /etc/ssl/nextcloud/nextcloud.crt
+- /etc/ssl/nextcloud/nextcloud.key
+
+---
+
+## 2. Enable Apache SSL Support
+
+### Purpose
+
+Apache requires SSL and HTTP header modules to support encrypted HTTPS communication and implement recommended security headers.
+
+### Implementation
+
+The following Apache modules were enabled:
+
+- SSL Module
+- Headers Module
+- Rewrite Module
+
+Apache was restarted to apply the configuration changes.
+
+### Verification
+
+Apache restarted successfully with SSL support enabled.
+
+---
+
+## 3. Configure the Apache HTTPS Virtual Host
+
+### Purpose
+
+A dedicated HTTPS Virtual Host was configured to allow Apache to securely serve the Nextcloud application using the generated SSL certificate.
+
+### Implementation
+
+The default Apache SSL Virtual Host configuration was modified to:
+
+- Serve the Nextcloud application
+- Use the generated SSL certificate and private key
+- Configure the document root
+- Enable HTTP Strict Transport Security (HSTS)
+- Configure dedicated SSL access and error logs
+
+### Verification
+
+The Apache configuration was validated successfully using:
+
+```
+sudo apache2ctl configtest
+```
+
+Result:
+
+```
+Syntax OK
+```
+
+---
+
+## 4. Enable HTTPS Website
+
+### Purpose
+
+The SSL Virtual Host was enabled so that Apache could accept secure HTTPS connections on port 443.
+
+### Implementation
+
+The default SSL site was enabled and Apache was restarted.
+
+### Verification
+
+The Apache service remained active and successfully accepted HTTPS connections.
+
+---
+
+## 5. Configure Automatic HTTP to HTTPS Redirection
+
+### Purpose
+
+Automatic redirection ensures that users always access the application through an encrypted HTTPS connection, even if they initially attempt to connect using HTTP.
+
+### Implementation
+
+The default HTTP Virtual Host was modified to redirect all incoming HTTP requests to HTTPS using Apache Rewrite Rules.
+
+### Verification
+
+Accessing:
+
+```
+http://172.16.229.150
+```
+
+automatically redirected users to:
+
+```
+https://172.16.229.150
+```
+
+---
+
+## 6. Update Nextcloud HTTPS Configuration
+
+### Purpose
+
+Nextcloud was updated to recognise HTTPS as its primary access method.
+
+### Implementation
+
+The Nextcloud configuration parameter:
+
+```
+overwrite.cli.url
+```
+
+was updated to:
+
+```
+https://172.16.229.150
+```
+
+This setting will be updated to the production IP address during the final integration phase after deployment to the pfSense Server VLAN.
+
+### Verification
+
+The configuration was successfully verified using the OCC command.
+
+---
+
+## 7. HTTPS Verification
+
+### Purpose
+
+The HTTPS implementation was tested to ensure secure communication between the browser and the Nextcloud server.
+
+### Verification
+
+The following checks were completed successfully:
+
+- HTTPS login page accessible
+- SSL certificate presented correctly
+- Apache SSL Virtual Host operational
+- Automatic HTTP to HTTPS redirection functioning
+- Encrypted communication established
+
+The browser displayed the expected warning because a self-signed certificate was used during development.
+
+---
+
+## 8. Security Review
+
+The Nextcloud Administration Overview page was reviewed after enabling HTTPS.
+
+The following security warnings were successfully resolved:
+
+- HTTPS Access
+- Insecure URL Access
+- HTTP Strict Transport Security (HSTS)
+
+The remaining warnings relate to future implementation tasks or features outside the project scope.
+
+### Remaining Planned Tasks
+
+APP01-09
+
+- Multi-Factor Authentication (MFA)
+- User and Group Management
+- Shared Folder Permissions
+- Password Policies
+
+### Not Required
+
+The following warnings remain outside the project scope:
+
+- Email Configuration
+- AppAPI Deployment Daemon
+- Configuration Server ID
+
+---
+
+## Outcome
+
+APP01-08 successfully secured the Nextcloud deployment using HTTPS and TLS encryption.
+
+A self-signed SSL certificate was implemented, Apache was configured to support encrypted communication, HTTP traffic was automatically redirected to HTTPS, and recommended HTTP security headers were applied.
+
+The server now provides encrypted communication for all user interactions and is prepared for identity and access management implementation in APP01-09.
