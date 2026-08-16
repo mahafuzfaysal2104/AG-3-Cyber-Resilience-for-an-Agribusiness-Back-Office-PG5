@@ -37,6 +37,9 @@ test in card #43.
 - **Status:** In progress — Module 1 of 2
 - **Type:** Paid course (self-funded)
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/734a9385-bc50-4c04-9b23-23de56f5b627" />
+
+
 ### Why I enrolled
 Self-directed learning to close the two weakest areas identified in my Assessment 1
 Part B learning plan: **scripting/automation** and **integrity verification**. Week 5
@@ -64,5 +67,3 @@ citation, I use the official [Restic](https://restic.readthedocs.io) and
 [MinIO](https://docs.min.io) documentation rather than tutorial or course material.
 
 ---
-
-_Last updated: 2026-08-16_
