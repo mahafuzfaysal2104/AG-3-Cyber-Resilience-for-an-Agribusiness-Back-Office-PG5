@@ -67,7 +67,7 @@ Accidentally shut the VM off mid-work; worried I'd lost progress. Learned that e
 - Issues faced and fixed: Shut the VM off mid-task; on restart, MinIO and my environment variables were gone and fixed by restarting the VM, relaunching MinIO, and re-entering the exports. No data lost (MinIO stores to disk).
 "Secret is empty" error typo: wrote `AWS_SECRET_ACCESS_KEY_ID` instead of `AWS_SECRET_ACCESS_KEY`. Fixed by correcting the variable name.
 Password not set typo: wrote `RESTIC_PASSWOR` (missing D). Fixed by correcting to `RESTIC_PASSWORD`.
-- Outcome: After fixing the typos, restic init succeeded: "Created restic repository 046d89d603" and the repository opened cleanly. The encrypted repository is now live and ready for backups.
+- Outcome: After fixing the typos, restic init succeeded: "Created restic repository 5b3977bcb8" and the repository opened cleanly. The encrypted repository is now live and ready for backups.
 - What I learned: Environment variables clear on restart (must re-set each session or save to a file); exact variable names matter; the repository password is critical and irrecoverable if lost.
 <img width="1292" height="814" alt="image" src="https://github.com/user-attachments/assets/3e6a385f-523e-46d1-8476-c90a038d0006" />   
 <img width="1539" height="931" alt="image" src="https://github.com/user-attachments/assets/90e04cd8-adcb-4564-8487-3cad041f8f55" />
@@ -78,7 +78,7 @@ Password not set typo: wrote `RESTIC_PASSWOR` (missing D). Fixed by correcting t
 
 - What I did: Created a folder of synthetic test files (`~/ag3-testdata`) standing in for the agribusiness's data; dummy invoices, livestock records, and supplier lists. Ran `restic backup` to create the first encrypted snapshot in MinIO, verified it appeared with `restic snapshots`, checked repository health with `restic check`, and confirmed the backed-up files with `restic ls latest`.
 
-- Issues faced and fixed: Typos in the export commands — accidentally typed `_AWS_ACCESS_KEY_ID` (extra underscore) and esport instead of export, so credentials didn't load, and `restic init` wrongly tried to create a new repository. Fixed by retyping all four exports correctly; confirmed the original repository (046d89d6) was intact and no duplicate was made. Confused about where the data went; couldn't see my files in the MinIO console. Learned this is correct behaviour: Restic stores data as encrypted, deduplicated blocks (data/, index/, snapshots/), not readable files, so the storage layer shows only scrambled blobs. Confirmed the real files are recoverable using restic ls latest.
+- Issues faced and fixed: Typos in the export commands — accidentally typed `_AWS_ACCESS_KEY_ID` (extra underscore) and esport instead of export, so credentials didn't load, and `restic init` wrongly tried to create a new repository. Fixed by retyping all four exports correctly; confirmed the original repository (5b3977bcb8) was intact and no duplicate was made. Confused about where the data went; couldn't see my files in the MinIO console. Learned this is correct behaviour: Restic stores data as encrypted, deduplicated blocks (data/, index/, snapshots/), not readable files, so the storage layer shows only scrambled blobs. Confirmed the real files are recoverable using restic ls latest.
 
 - Outcome: First backup succeeded; snapshot saved, listed correctly, passed integrity check, and file contents confirmed via Restic. The Restic ↔ MinIO backup pipeline is proven end-to-end for storing data.
 
