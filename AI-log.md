@@ -49,7 +49,7 @@ We should be able to explain anything the AI helped create — if we can’t exp
 
 ## 2026-08-07 — Troubleshooting pfSense USB installation failure _ (Akib)
 - Tool: ChatGPT (OpenAI)
-- Prompt: Help troubleshooting the pfSense installer error "newfs_msdos: Input/output error" and identifying the correct installation disk
+- Prompt: Help troubleshooting the pfSense installer error ('newfs_msdos: Input/output error') and identifying the correct installation disk
 - What it produced: troubleshooting steps to identify the USB installer and internal disks, check the pfSense disk names, and avoid selecting the installer USB as the installation destination. It also suggested that the small USB drive could be causing the installation problem
 - What we changed and why: I checked the detected disks from the pfSense shell and confirmed that ada0 was the internal 119 GB SSD while da0 was the small USB storage device. I stopped using the original small USB and recreated the pfSense installation media using an 8 GB USB drive.
 - How we validated it: after changing to the 8 GB USB, the pfSense installer completed successfully and the system booted from the internal SSD without the previous input/output error.
