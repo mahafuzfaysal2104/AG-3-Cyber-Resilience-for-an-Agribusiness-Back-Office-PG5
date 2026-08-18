@@ -18,7 +18,7 @@ Workstream: pfSense, VLANs, firewall rules.
 
 ##Network Topology:
 
-![Network Topology](evidence/akib/AG3 Overall Network Topology.png)
+![Network Topology](evidence/akib/AG3_Overall_Network_Topology.png)
 
 ## IP table:
 
