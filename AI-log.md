@@ -39,6 +39,30 @@ We should be able to explain anything the AI helped create — if we can’t exp
 - How we validated it: cross-checked the explanation against the official Restic and MinIO documentation, and confirmed it in practice by initialising a working encrypted repository.
 <img width="784" height="638" alt="image" src="https://github.com/user-attachments/assets/676f58ac-bfdb-4aa5-bbbb-acc203e3d63b" />
 
+## 2026-08-07 — Planning the pfSense firewall hardware setup _ (Akib)
+- Tool: ChatGPT (OpenAI)
+- Prompt: Questions on using an Acer Predator Helios 300 as the pfSense firewall, whether a USB-to-Ethernet adapter would work, required storage space, and whether Cat6 or Cat7 cables were necessary
+- What it produced: guidance on using the Acer laptop as a physical pfSense firewall, using the built-in Realtek Ethernet interface together with a USB-to-Ethernet adapter for separate WAN and LAN connections, minimum storage recommendations, and advice that Cat6 was sufficient for the project
+- What we changed and why: I used the Acer laptop and existing network hardware instead of buying a dedicated firewall appliance. I selected the USB Ethernet adapter for WAN and the built-in Ethernet interface for LAN. I also used the available SSD for pfSense because it provided more than enough storage for the firewall installation.
+- How we validated it: pfSense successfully detected both network interfaces during installation and later showed ue0 and re0 as available interfaces for WAN and LAN assignment.
+
+
+## 2026-08-07 — Troubleshooting pfSense USB installation failure _ (Akib)
+- Tool: ChatGPT (OpenAI)
+- Prompt: Help troubleshooting the pfSense installer error "newfs_msdos: Input/output error" and identifying the correct installation disk
+- What it produced: troubleshooting steps to identify the USB installer and internal disks, check the pfSense disk names, and avoid selecting the installer USB as the installation destination. It also suggested that the small USB drive could be causing the installation problem
+- What we changed and why: I checked the detected disks from the pfSense shell and confirmed that ada0 was the internal 119 GB SSD while da0 was the small USB storage device. I stopped using the original small USB and recreated the pfSense installation media using an 8 GB USB drive.
+- How we validated it: after changing to the 8 GB USB, the pfSense installer completed successfully and the system booted from the internal SSD without the previous input/output error.
+
+
+## 2026-08-08 — Configuring pfSense WAN, LAN and management access _ (Akib)
+- Tool: ChatGPT (OpenAI)
+- Prompt: Guidance on assigning the pfSense network interfaces, accessing the web interface from another computer, and fixing the problem caused by WAN and LAN being on the same 192.168.1.0/24 network
+- What it produced: instructions to assign ue0 as WAN and re0 as LAN, change the LAN network to a different subnet, configure DHCP, and connect the ASUS laptop directly to the pfSense LAN interface
+- What we changed and why: I assigned ue0 as WAN and re0 as LAN. Initially the LAN used 192.168.1.1, but this conflicted with the router-side WAN network. For this reason I changed the pfSense LAN address to 192.168.50.1/24 and enabled DHCP for connected management clients.
+- How we validated it: the ASUS laptop received an address on the 192.168.50.0/24 network, the default gateway became 192.168.50.1, ping to the pfSense firewall succeeded with 0% packet loss, and the pfSense login page became reachable.
+
+
 ## 2026-08-08 — First Restic backup and understanding encrypted storage _ (Faysal)
 - Tool: Claude (Anthropic)
 - Prompt: Guidance on taking a first Restic backup of synthetic test data, troubleshooting credential/typo errors, and an explanation of why the backed-up files were not visible in the MinIO console
