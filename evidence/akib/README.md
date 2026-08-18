@@ -15,6 +15,11 @@ Workstream: pfSense, VLANs, firewall rules.
 | Kanban cards linked to configs/tests | ☐ |
 | Teams discussion explaining firewall-rule decisions | ☐ |
 
+
+##Network Topology:
+
+![Network Topology](evidence/akib/AG3 Overall Network Topology.png)
+
 ## IP table:
 
 | Network / Device     | VLAN | IP Address / Subnet     | Gateway             | Purpose                               |
