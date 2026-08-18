@@ -16,9 +16,9 @@ Workstream: pfSense, VLANs, firewall rules.
 | Teams discussion explaining firewall-rule decisions | ☐ |
 
 
-##Network Topology:
+## Network Topology:
 
-![Network Topology](evidence/akib/AG3_Overall_Network_Topology.png)
+![Network Topology](AG3_Overall_Network_Topology.png)
 
 ## IP table:
 
