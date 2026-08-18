@@ -4,10 +4,10 @@ Workstream: pfSense, VLANs, firewall rules.
 
 | Evidence item | Status |
 |---|---|
-| Editable architecture diagram source file | ☐ |
-| pfSense configuration export | ☐ |
-| Screenshots of VLAN interfaces and firewall rules | ☐ |
-| Completed IP addressing table | ☐ |
+| Editable architecture diagram source file | ☑ |
+| pfSense configuration export | ☑ |
+| Screenshots of VLAN interfaces and firewall rules | ☑ |
+| Completed IP addressing table | ☑ |
 | Successful connectivity-test results (approved paths) | ☐ |
 | Failed connectivity-test results (unauthorised paths) | ☐ |
 | Firewall logs showing denied traffic | ☐ |
