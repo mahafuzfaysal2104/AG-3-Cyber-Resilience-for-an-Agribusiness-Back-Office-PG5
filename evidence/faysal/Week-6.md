@@ -104,15 +104,15 @@ _Scope note: Planning and justification only this week — the automation is dep
 ## Evidence to collect this week
 | Tasks | Status |  
 |---|---|  
-| Progress Report 1 submitted | |  
-| Screenshot of `mc` client installed and connected | |  
-| Screenshot of office-user denied via `mc` | |  
-| Screenshot of office-user denied via Restic | |  
-| Network isolation test result (or documented dependency) | |  
-| Config file created and `.gitignore` entry added | |  
-| Scheduling approach documented with justification | |  
-| All committed to this folder with dated filenames | |  
-| Plan for Week 7 | |  
+| Progress Report 1 submitted | Done |  
+| Screenshot of `mc` client installed and connected | Done |  
+| Screenshot of office-user denied via `mc` | Done |  
+| Screenshot of office-user denied via Restic | Done |  
+| Network isolation test result (or documented dependency) | In Progress |  
+| Config file created and `.gitignore` entry added | Pending |  
+| Scheduling approach documented with justification | Pending |  
+| All committed to this folder with dated filenames | Pending |  
+| Plan for Week 7 | Need  to Finish by 18/08/2026 |  
 
 ---
 
