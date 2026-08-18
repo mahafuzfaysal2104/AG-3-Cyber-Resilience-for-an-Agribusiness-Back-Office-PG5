@@ -24,3 +24,22 @@ The firewall processes the rules from top to bottom. For this reason, the requir
 | ADMIN-PC | MON01 | TCP 22/443 | Allow | Administrator needs access to the Wazuh server and dashboard. |
 | ADMIN-PC | BKP01 | TCP 22/9000/9001 | Allow | Administrator needs to manage the backup server and MinIO. |
 | All VLANs | Unapproved internal destination | Any | Block and Log | This provides default network isolation. |
+
+## Firewall Acceptance Test Matrix
+
+In order to validate the firewall rules a acceptance test matrix is created which will help us identify if the firewall rules given above is suitable for this project.
+
+| Test ID | Source | Destination | Port / Service | Expected Result | Purpose | Current Result |
+|---|---|---|---|---|---|---|
+| FW-01 | OFFICE Client | APP01 `10.20.20.10` | TCP 443 | PASS | Confirm normal users can access Nextcloud. | Not tested |
+| FW-02 | OFFICE Client | BKP01 `10.20.40.10` | TCP 9000 | BLOCK | Confirm office users cannot directly access the backup repository. | Not tested |
+| FW-03 | OFFICE Client | ADMIN-PC / VLAN 99 | Any | BLOCK | Confirm users cannot access the management network. | Not tested |
+| FW-04 | OFFICE Client | MON01 `10.20.30.10` | TCP 1514/1515 | PASS | Confirm approved Wazuh agent communication. | Not tested |
+| FW-05 | APP01 `10.20.20.10` | BKP01 `10.20.40.10` | TCP 9000 | PASS | Confirm Restic can reach the MinIO backup service. | Not tested |
+| FW-06 | APP01 `10.20.20.10` | MON01 `10.20.30.10` | TCP 1514/1515 | PASS | Confirm APP01 can send Wazuh monitoring events. | Not tested |
+| FW-07 | OFFICE Client | pfSense Management | TCP 443 | BLOCK | Confirm normal users cannot manage the firewall. | Not tested |
+| FW-08 | ADMIN-PC `10.20.99.10` | pfSense `10.20.99.1` | TCP 443 | PASS | Confirm administrator can manage pfSense. | Not tested |
+| FW-09 | ADMIN-PC `10.20.99.10` | APP01 `10.20.20.10` | TCP 22/443 | PASS | Confirm administrator can manage the application server. | Not tested |
+| FW-10 | ADMIN-PC `10.20.99.10` | MON01 `10.20.30.10` | TCP 22/443 | PASS | Confirm administrator can manage the monitoring server. | Not tested |
+| FW-11 | ADMIN-PC `10.20.99.10` | BKP01 `10.20.40.10` | TCP 22/9000/9001 | PASS | Confirm administrator can manage the backup server. | Not tested |
+| FW-12 | Unapproved VLAN traffic | Another internal VLAN | Any | BLOCK | Confirm the default isolation policy works. | Not tested |
