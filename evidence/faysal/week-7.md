@@ -59,10 +59,13 @@
 
 - Success criteria: Running the script manually produces a new snapshot, a passing `restic check`, and a success log line. Breaking the credentials deliberately produces a non-zero exit and a logged failure.
 
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
+- What I did: Created a ~/backup-logs/ folder for the log files, then wrote scripts/backup.sh. The script loads the config file from #45, takes the backup, then runs an integrity check, writing a timestamped line at each stage. Made it executable with chmod +x and ran it once by hand to test.
+Issues faced and fixed: None — it worked first try. This was mainly because #45 had already sorted out the credentials, so the script had nothing left to get wrong.
+
+  
+- Outcome: The script finished with exit code 0. The log shows a new snapshot (48b9e2fc) was saved, and restic check reported no errors across both snapshots. The whole run took 2 seconds. I now have two backups stored: the Week 5 one and this one.
+  
+- What I learned: Restic doesn't copy everything again each time — it noticed the earlier snapshot and only stored what had changed, which is why 142 B of files only added about 1.3 KiB to the repository. I also learned that exit code 0 alone isn't proof of anything; it only says the script finished. Reading the log is what actually confirms a snapshot was created and the check passed. Because every run adds another snapshot, the repository will keep growing, which is exactly what the retention policy in #56 is for.
 
 ---
 
@@ -162,7 +165,7 @@
 | Task | Status |
 |---|---|
 | `.env.example` committed, `.env` gitignored (`git status` screenshot) | Done |
-| `scripts/backup.sh` committed | Done |
+| `scripts/backup.sh` committed | |
 | Screenshot of successful manual script run + `restic check` | |
 | Screenshot of scheduler configuration (cron/systemd timer) | |
 | `restic snapshots` output showing two unattended runs 4 hours apart | |
