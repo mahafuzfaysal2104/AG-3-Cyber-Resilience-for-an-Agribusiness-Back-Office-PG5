@@ -18,6 +18,10 @@
 
 **Carried in from Week 6:** #45 (config file) and #46 (scheduling research, in review) moved across. #44 remains blocked on an external dependency.
 
+<img width="1918" height="1043" alt="image" src="https://github.com/user-attachments/assets/7fe18b48-5acc-4aeb-8ae3-bd1805c9bbf4" />
+<img width="1919" height="1043" alt="image" src="https://github.com/user-attachments/assets/17fe1bca-c5c0-488a-b507-986746bc04f4" />
+
+
 ---
 
 ## Week 7 task list
