@@ -162,7 +162,7 @@
 | Task | Status |
 |---|---|
 | `.env.example` committed, `.env` gitignored (`git status` screenshot) | Done |
-| `scripts/backup.sh` committed | |
+| `scripts/backup.sh` committed | Done |
 | Screenshot of successful manual script run + `restic check` | |
 | Screenshot of scheduler configuration (cron/systemd timer) | |
 | `restic snapshots` output showing two unattended runs 4 hours apart | |
