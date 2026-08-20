@@ -34,10 +34,15 @@
 
 - Success criteria: `git status` shows `.env.example` tracked and `.env` ignored; sourcing the file lets `restic snapshots` run with no manual exports.
 
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
+- What I did: Cloned the repo onto the VM, restored `~/ag3-testdata` from the Week 5 restore test, then created `config/.env` with all eight settings (MinIO credentials, endpoint, Restic keys, repository path and password, backup source). Set `chmod 600`, added it to `.gitignore`, and tested by sourcing the file and running `restic snapshots`.
+  
+- Decision made: Skipped the planned .env.example template — it was for Akib to rebuild MinIO on his own host, but the team is now connecting both machines via a physical switch instead
+
+- Outcome: `restic snapshots` opened repository `5b3977bc` and listed the Week 5 snapshot (`99af232c`, 142 B) with zero manual exports. `git status` shows `config/.env` is invisible to git.
+
+- What I learned: `export` only lasts one terminal session — a sourced config file loads everything at once, which is what makes unattended automation possible. `chmod 600` and `.gitignore` solve different problems (local users vs GitHub) and both are needed.
+
+
 
 ---
 
