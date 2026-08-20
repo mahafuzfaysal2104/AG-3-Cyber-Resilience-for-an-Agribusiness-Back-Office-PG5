@@ -1,23 +1,41 @@
-#!/usr/bin/env bash
-# backup.sh — scheduled Restic backup to isolated MinIO repository
-# Owner: Faysal | Runs every 4 hours via cron/systemd timer
+#!/bin/bash
+# AG-3 automated backup — Faysal (12281612)
+# Runs restic backup + integrity check, logs the result.
 
-set -euo pipefail
+set -uo pipefail
 
-export RESTIC_REPOSITORY="s3:https://bkp01.local:9000/ag3-backups"
-export RESTIC_PASSWORD_FILE="/etc/restic/password"
-export AWS_ACCESS_KEY_ID_FILE="/etc/restic/access_key"
-export AWS_SECRET_ACCESS_KEY_FILE="/etc/restic/secret_key"
+REPO_DIR="/home/faysal-12281612/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5"
+LOG_FILE="/home/faysal-12281612/backup-logs/backup.log"
 
-LOGFILE="/var/log/restic/backup-$(date +%F_%H%M).log"
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') [$1] $2" >> "$LOG_FILE"
+}
 
-restic backup /srv/nextcloud/data --tag scheduled >> "$LOGFILE" 2>&1
-STATUS=$?
-
-restic check >> "$LOGFILE" 2>&1
-
-if [ $STATUS -eq 0 ]; then
-  echo "backup_success $(date -Iseconds)" >> /var/log/restic/status.log
-else
-  echo "backup_failure $(date -Iseconds)" >> /var/log/restic/status.log
+# Load credentials
+set -a
+if ! source "$REPO_DIR/config/.env" 2>/dev/null; then
+    log "FAIL" "Could not read config file"
+    exit 1
 fi
+set +a
+
+log "INFO" "Backup started"
+
+# Take the backup
+if restic backup "$BACKUP_SOURCE" >> "$LOG_FILE" 2>&1; then
+    log "OK" "Backup completed"
+else
+    log "FAIL" "Backup failed (exit $?)"
+    exit 1
+fi
+
+# Verify repository integrity
+if restic check >> "$LOG_FILE" 2>&1; then
+    log "OK" "Integrity check passed"
+else
+    log "FAIL" "Integrity check failed"
+    exit 1
+fi
+
+log "OK" "Run finished successfully"
+exit 0
