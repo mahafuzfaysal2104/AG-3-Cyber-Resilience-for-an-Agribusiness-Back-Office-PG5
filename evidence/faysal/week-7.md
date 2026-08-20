@@ -26,7 +26,7 @@
 
 ## Week 7 task list
 
-- [ ] **Create environment config file (#45)**
+- [X] **Create environment config file (#45)**
 
 - What I plan to do: Create `config/.env` holding the MinIO and Restic credentials, endpoint and repository path, plus a committed `config/.env.example` containing placeholders only. Add `config/.env` to `.gitignore`, set `chmod 600`, and load it with `set -a; source config/.env; set +a`.
 
@@ -42,6 +42,11 @@
 
 - What I learned: `export` only lasts one terminal session — a sourced config file loads everything at once, which is what makes unattended automation possible. `chmod 600` and `.gitignore` solve different problems (local users vs GitHub) and both are needed.
 
+
+
+<img width="1339" height="836" alt="image" src="https://github.com/user-attachments/assets/9033f594-9b03-45a0-a8bd-8eea3fab8ed8" />
+
+<img width="1335" height="814" alt="image" src="https://github.com/user-attachments/assets/b4adbbcf-9ff5-4c62-a5c9-9b07032d51c6" />
 
 
 ---
@@ -156,7 +161,7 @@
 
 | Task | Status |
 |---|---|
-| `.env.example` committed, `.env` gitignored (`git status` screenshot) | |
+| `.env.example` committed, `.env` gitignored (`git status` screenshot) | Done |
 | `scripts/backup.sh` committed | |
 | Screenshot of successful manual script run + `restic check` | |
 | Screenshot of scheduler configuration (cron/systemd timer) | |
