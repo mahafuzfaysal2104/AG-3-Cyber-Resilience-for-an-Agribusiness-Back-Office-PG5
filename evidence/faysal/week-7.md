@@ -51,7 +51,7 @@
 
 ---
 
-- [ ] **Write automated backup script (#53)**
+- [X] **Write automated backup script (#53)**
 
 - What I plan to do: Write `scripts/backup.sh` to source the config file, run `restic backup` against the target data, run `restic check`, and log the result with a timestamp and exit code to `~/backup-logs/`. The script must exit non-zero on failure so the scheduler and Wazuh can detect it.
 
@@ -59,13 +59,19 @@
 
 - Success criteria: Running the script manually produces a new snapshot, a passing `restic check`, and a success log line. Breaking the credentials deliberately produces a non-zero exit and a logged failure.
 
-- What I did: Created a ~/backup-logs/ folder for the log files, then wrote scripts/backup.sh. The script loads the config file from #45, takes the backup, then runs an integrity check, writing a timestamped line at each stage. Made it executable with chmod +x and ran it once by hand to test.
-Issues faced and fixed: None — it worked first try. This was mainly because #45 had already sorted out the credentials, so the script had nothing left to get wrong.
-
+- What I did: Created a `~/backup-logs/` folder for the log files, then wrote `scripts/backup.sh`. The script loads the config file from #45, takes the backup, then runs an integrity check, writing a timestamped line at each stage. Made it executable with `chmod +x` and ran it once by hand to test.
   
-- Outcome: The script finished with exit code 0. The log shows a new snapshot (48b9e2fc) was saved, and restic check reported no errors across both snapshots. The whole run took 2 seconds. I now have two backups stored: the Week 5 one and this one.
+- Outcome: The script finished with exit code `0`. The log shows a new snapshot (`48b9e2fc`) was saved, and `restic check` reported no errors across both snapshots. The whole run took 2 seconds. I now have two backups stored: the Week 5 one and this one.
   
 - What I learned: Restic doesn't copy everything again each time — it noticed the earlier snapshot and only stored what had changed, which is why 142 B of files only added about 1.3 KiB to the repository. I also learned that exit code 0 alone isn't proof of anything; it only says the script finished. Reading the log is what actually confirms a snapshot was created and the check passed. Because every run adds another snapshot, the repository will keep growing, which is exactly what the retention policy in #56 is for.
+
+<img width="1462" height="161" alt="image" src="https://github.com/user-attachments/assets/4d8e3561-abc0-4464-8ad4-b5a81fa4228b" />
+
+<img width="1391" height="871" alt="image" src="https://github.com/user-attachments/assets/497cb401-f5c3-4837-a3b8-a3dc6cd4a521" />
+
+<img width="1374" height="488" alt="image" src="https://github.com/user-attachments/assets/71b93805-3094-4919-bfc2-56b7d788f5f5" />
+
+<img width="1315" height="218" alt="image" src="https://github.com/user-attachments/assets/10f52ff4-ca53-41d2-9ed8-5627bb5583b8" />
 
 ---
 
@@ -165,8 +171,8 @@ Issues faced and fixed: None — it worked first try. This was mainly because #4
 | Task | Status |
 |---|---|
 | `.env.example` committed, `.env` gitignored (`git status` screenshot) | Done |
-| `scripts/backup.sh` committed | |
-| Screenshot of successful manual script run + `restic check` | |
+| `scripts/backup.sh` committed | Done |
+| Screenshot of successful manual script run + `restic check` |Done|
 | Screenshot of scheduler configuration (cron/systemd timer) | |
 | `restic snapshots` output showing two unattended runs 4 hours apart | |
 | Log file showing deliberate failure with non-zero exit | |
