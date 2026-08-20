@@ -20,11 +20,12 @@ A representative back-office environment for a small agribusiness ("Plains Pasto
 ```
 /README.md      — this file
 /docs           — design docs, IP/VLAN plan, security policy, runbooks, test plans
-/configs        — pfSense, Nextcloud, Wazuh, Restic/MinIO config exports (secrets removed)
+/config         — Restic/MinIO setup notes and .env config (real credentials gitignored)
 /topologies     — architecture diagrams and virtualisation project files
 /scripts        — automation: backup, verification, simulation, rebuild (Bash/Python/PowerShell)
 /testing        — acceptance-test plans, results, screenshots, RTO/RPO measurements
 /evidence       — per-member evidence folders (see Teamwork Framework)
+/.gitignore     — excludes config/.env so credentials are never committed
 /AI-log.md      — running, dated record of AI use across the team
 ```
 
