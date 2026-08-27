@@ -1,0 +1,126 @@
+APP01-09 – Identity and Access Management
+
+## Work completed
+
+In APP01-09 I configured users, groups, Team Folders, folder permissions, storage quotas and multi-factor authentication in Nextcloud. I did this to make sure every user can only access the information required for their role.
+
+This part is **100% completed**.
+
+## User groups and access
+
+I created nine user groups and connected them with the required Team Folders.
+
+| User group | Team Folder | Access |
+|---|---|---|
+| `app01-project-users` | Company Shared | Full access |
+| `app01-reviewers` | Company Shared | Read-only |
+| `app01-backup` | IT and Backup | Full access |
+| `ppc-all-staff` | Company Shared | Full access |
+| `ppc-management` | Management | Full access |
+| `ppc-management` | Finance | Read-only |
+| `ppc-management` | Operations | Read-only |
+| `ppc-management` | Sales | Read-only |
+| `ppc-finance` | Finance | Full access |
+| `ppc-operations` | Operations | Full access |
+| `ppc-sales` | Sales | Full access |
+| `ppc-it` | IT and Backup | Full access |
+
+The permissions follow the least-privilege principle. Department users can work inside their own folder, while management can view the main department folders without changing their information.
+
+## Team Folders and quotas
+
+I created six Team Folders:
+
+| Team Folder | Assigned groups | Quota |
+|---|---|---:|
+| Company Shared | All staff, project users and reviewers | 10 GB |
+| Management | Management | 5 GB |
+| Finance | Finance and read-only Management | 5 GB |
+| Operations | Operations and read-only Management | 5 GB |
+| Sales | Sales and read-only Management | 5 GB |
+| IT and Backup | IT and backup users | 10 GB |
+
+The quotas prevent one folder from using all available server storage.
+
+
+
+## Multi-factor authentication
+
+I enabled TOTP authentication for the main Nextcloud administrator account. TOTP requires an authenticator code in addition to the password. This protects the administrator account if its password is stolen.
+
+
+
+## Difficulty faced
+
+### Mount point already exists
+
+At first, the Team Folders application was not available, so I installed and enabled the `groupfolders` application. When I tried to create a Team Folder, Nextcloud displayed **Mount point already exists**. However, the Team Folder list showed no configured folders.
+
+The first creation attempt had only partially completed. It created incomplete database records and empty storage directories, but it did not finish creating the Team Folder. The incomplete records had no root ID or storage ID. When I used the same folder name again, Nextcloud detected the old mount-point record and rejected it as a duplicate.
+
+## Root cause
+
+Nextcloud was configured to connect to Redis through this Unix socket:
+
+```text
+/run/redis/redis-server.sock
+```
+
+Redis was running, but it was only listening on TCP port `6379`. The Unix socket did not exist. Because Nextcloud could not connect to Redis in the expected way, Team Folder creation stopped before completion.
+
+Redis provides caching and file locking for Nextcloud. File locking helps prevent conflicting file operations when multiple users use the system.
+
+## How I solved the problem
+
+I completed the following work:
+
+1. Checked the Nextcloud status, logs and data-directory permissions.
+2. Checked the Team Folder database table and found incomplete records with missing root and storage IDs.
+3. Confirmed that the related storage directories were empty.
+4. Backed up the affected database table.
+5. Removed only the incomplete and empty Team Folder records.
+6. Enabled the Redis Unix socket and set its permission to `770`.
+7. Allowed the `www-data` service account to communicate with Redis.
+8. Restarted Redis and Apache.
+9. Verified the Redis connection and received a `PONG` response.
+10. Recreated the Team Folders using the Nextcloud OCC command.
+
+After this, all six Team Folders were created successfully and appeared in the Team Folder list.
+
+## Verification commands
+
+### Check Nextcloud status
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ status
+```
+
+The result confirmed that Nextcloud was installed, maintenance mode was disabled and no database upgrade was required.
+
+### Check installed two-factor applications
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ app:list | grep -i twofactor
+```
+
+This confirmed that `twofactor_totp` and the backup-code application were enabled.
+
+### List Team Folders
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ groupfolders:list
+```
+
+This displayed all six Team Folders, their assigned groups, permissions and storage quotas.
+
+### Check Redis socket
+
+```bash
+sudo ls -l /run/redis/redis-server.sock
+```
+
+The socket was successfully created with access for the Redis group.
+
+## Final result
+
+APP01-09 is completed. The Nextcloud server now has role-based users, nine user groups, controlled Team Folders, tested permissions, storage quotas and administrator TOTP authentication. The next work is connecting Nextcloud with the other project modules and completing final integration testing.
