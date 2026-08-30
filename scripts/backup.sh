@@ -1,41 +1,40 @@
 #!/bin/bash
 # AG-3 automated backup — Faysal (12281612)
-# Runs restic backup + integrity check, logs the result.
+# Runs restic backup + check, writes one JSON event per attempt for Wazuh.
 
 set -uo pipefail
 
 REPO_DIR="/home/faysal-12281612/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5"
-LOG_FILE="/home/faysal-12281612/backup-logs/backup.log"
+JSON_LOG="/var/log/cyber-resilience/backup.json"
+TEXT_LOG="/home/faysal-12281612/backup-logs/backup.log"
+JOB_NAME="ag3-backup"
+START=$(date +%s)
 
-log() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S') [$1] $2" >> "$LOG_FILE"
+emit() {
+    local status="$1" message="$2"
+    local duration=$(( $(date +%s) - START ))
+    printf '{"timestamp":"%s","event_type":"backup","status":"%s","job_name":"%s","hostname":"%s","source":"%s","destination":"%s","duration_seconds":%d,"message":"%s"}\n' \
+        "$(date -Is)" "$status" "$JOB_NAME" "$(hostname)" \
+        "${BACKUP_SOURCE:-unknown}" "${RESTIC_REPOSITORY:-unknown}" \
+        "$duration" "$message" >> "$JSON_LOG"
 }
 
-# Load credentials
 set -a
 if ! source "$REPO_DIR/config/.env" 2>/dev/null; then
-    log "FAIL" "Could not read config file"
+    emit "failure" "Could not read config file"
     exit 1
 fi
 set +a
 
-log "INFO" "Backup started"
-
-# Take the backup
-if restic backup "$BACKUP_SOURCE" >> "$LOG_FILE" 2>&1; then
-    log "OK" "Backup completed"
-else
-    log "FAIL" "Backup failed (exit $?)"
+if ! restic backup "$BACKUP_SOURCE" >> "$TEXT_LOG" 2>&1; then
+    emit "failure" "Backup failed - see $TEXT_LOG"
     exit 1
 fi
 
-# Verify repository integrity
-if restic check >> "$LOG_FILE" 2>&1; then
-    log "OK" "Integrity check passed"
-else
-    log "FAIL" "Integrity check failed"
+if ! restic check >> "$TEXT_LOG" 2>&1; then
+    emit "failure" "Integrity check failed - see $TEXT_LOG"
     exit 1
 fi
 
-log "OK" "Run finished successfully"
+emit "success" "Backup completed and integrity check passed"
 exit 0
