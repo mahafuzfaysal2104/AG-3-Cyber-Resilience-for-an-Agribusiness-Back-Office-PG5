@@ -174,6 +174,15 @@
 
 **Status:** Dependency raised and documented. Will proceed as soon as his environment is testable.
 
+
+
+
+
+
+- IP set up (`Ping -c 4 10.20.40.1`)
+<img width="1316" height="827" alt="image" src="https://github.com/user-attachments/assets/3c71690b-c44c-474e-9a2e-5bf56d63e5ca" />
+
+
 ---
 
 ## Evidence to collect this week
