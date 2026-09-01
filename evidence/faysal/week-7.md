@@ -1,211 +1,176 @@
 # Week 7 — Backup Workstream Progress (Faysal)
 
-**Workstream:** Restic/MinIO backup, automation, and recovery
-**Week 7 goal:** Move from manual backups to automated ones — build the config file, write a backup script, schedule it every 4 hours, prove it fails loudly, apply a retention policy, and begin sending backup status to Tanvi's Wazuh instance. This week delivers **OBJ-05 (automated encrypted backup by Week 9)** ahead of schedule.
+**Goal:** Turn the manual backup into an automated one — config file, backup script, 4-hourly schedule, failure test, retention policy, and JSON logging for Wazuh.
 
-## Planned tasks (Kanban board)
+## Kanban status
 
-| # | Card | Depends on |
+| # | Card | Status |
 |---|---|---|
 | #45 | Create environment config file | Done |
-| #53 | Write automated backup script (backup.sh) | Done |
+| #53 | Write automated backup script | Done |
 | #54 | Schedule backup every 4 hours | Done |
 | #55 | Test deliberate backup failure | Done |
-| #56 | Apply retention policy (restic forget/prune) | #53 |
-| #57 | Send backup status to Wazuh with Tanvi | #53, Tanvi #33 |
-| #58 | Refine #43 with scoped policy | — |
-| #44 | Coordinate network isolation test with Akib | **Blocked** — Akib's VLAN/firewall |
-
-**Carried in from Week 6:** #45 (config file) and #46 (scheduling research, in review) moved across. #44 remains blocked on an external dependency.
+| #56 | Apply retention policy | Done |
+| #61 | Move backup server to VLAN 40 | Done |
+| #57 | Backup status to Wazuh | My side done — agent pending |
+| #58, #62, #63, #44, #59 | — | Carried to Week 8 |
 
 <img width="1918" height="1043" alt="image" src="https://github.com/user-attachments/assets/7fe18b48-5acc-4aeb-8ae3-bd1805c9bbf4" />
 <img width="1919" height="1043" alt="image" src="https://github.com/user-attachments/assets/17fe1bca-c5c0-488a-b507-986746bc04f4" />
 
-
 ---
 
-## Week 7 task list
+## Tasks
 
 - [X] **Create environment config file (#45)**
 
-- What I plan to do: Create `config/.env` holding the MinIO and Restic credentials, endpoint and repository path, plus a committed `config/.env.example` containing placeholders only. Add `config/.env` to `.gitignore`, set `chmod 600`, and load it with `set -a; source config/.env; set +a`.
+- What I did: Created `config/.env` with all eight settings (MinIO credentials, endpoint, Restic keys, repository path and password, backup source). Set `chmod 600` and added it to `.gitignore`.
 
-- Why this matters: Four separate command failures across Weeks 5 and 6 were caused by retyping environment variables by hand (`AWS_SECRET_ACCESS_KEY_ID`, `RESTIC_PASSWOR`, `_AWS_ACCESS_KEY_ID`). A config file removes that entire class of error and is a prerequisite for any script that runs unattended.
+- Why: Four commands failed in Weeks 5–6 because I retyped variables by hand. A config file removes that error entirely and is required for any script that runs unattended.
 
-- Success criteria: `git status` shows `.env.example` tracked and `.env` ignored; sourcing the file lets `restic snapshots` run with no manual exports.
+- Issues faced and fixed: The repo wasn't on the VM (I'd been committing from Windows) — installed git and cloned it. `~/ag3-testdata` was gone from the Week 5 restore test — recovered it from `~/ag3-restored/`.
 
-- What I did: Cloned the repo onto the VM, restored `~/ag3-testdata` from the Week 5 restore test, then created `config/.env` with all eight settings (MinIO credentials, endpoint, Restic keys, repository path and password, backup source). Set `chmod 600`, added it to `.gitignore`, and tested by sourcing the file and running `restic snapshots`.
-  
-- Decision made: Skipped the planned .env.example template — it was for Akib to rebuild MinIO on his own host, but the team is now connecting both machines via a physical switch instead
+- Outcome: `restic snapshots` opened repository `5b3977bc` with zero manual exports. `config/.env` is invisible to git.
 
-- Outcome: `restic snapshots` opened repository `5b3977bc` and listed the Week 5 snapshot (`99af232c`, 142 B) with zero manual exports. `git status` shows `config/.env` is invisible to git.
-
-- What I learned: `export` only lasts one terminal session — a sourced config file loads everything at once, which is what makes unattended automation possible. `chmod 600` and `.gitignore` solve different problems (local users vs GitHub) and both are needed.
-
-
+- What I learned: `export` only lasts one terminal session. A config file loads everything at once, which is what makes automation possible.
 
 <img width="1339" height="836" alt="image" src="https://github.com/user-attachments/assets/9033f594-9b03-45a0-a8bd-8eea3fab8ed8" />
-
 <img width="1335" height="814" alt="image" src="https://github.com/user-attachments/assets/b4adbbcf-9ff5-4c62-a5c9-9b07032d51c6" />
-
 
 ---
 
 - [X] **Write automated backup script (#53)**
 
-- What I plan to do: Write `scripts/backup.sh` to source the config file, run `restic backup` against the target data, run `restic check`, and log the result with a timestamp and exit code to `~/backup-logs/`. The script must exit non-zero on failure so the scheduler and Wazuh can detect it.
+- What I did: Wrote `scripts/backup.sh` — loads the config, runs `restic backup`, runs `restic check`, logs the result. Exits non-zero on failure so cron and Wazuh can detect it.
 
-- Why this matters: A backup that only runs when I remember to type the command is not a backup strategy. Automation is what turns this into something the agribusiness could actually rely on, and the log output is what makes failures visible rather than silent.
+- Outcome: Exit code 0. Snapshot `48b9e2fc` saved, integrity check passed, run took 2 seconds.
 
-- Success criteria: Running the script manually produces a new snapshot, a passing `restic check`, and a success log line. Breaking the credentials deliberately produces a non-zero exit and a logged failure.
-
-- What I did: Created a `~/backup-logs/` folder for the log files, then wrote `scripts/backup.sh`. The script loads the config file from #45, takes the backup, then runs an integrity check, writing a timestamped line at each stage. Made it executable with `chmod +x` and ran it once by hand to test.
-  
-- Outcome: The script finished with exit code `0`. The log shows a new snapshot (`48b9e2fc`) was saved, and `restic check` reported no errors across both snapshots. The whole run took 2 seconds. I now have two backups stored: the Week 5 one and this one.
-  
-- What I learned: Restic doesn't copy everything again each time — it noticed the earlier snapshot and only stored what had changed, which is why 142 B of files only added about 1.3 KiB to the repository. I also learned that exit code 0 alone isn't proof of anything; it only says the script finished. Reading the log is what actually confirms a snapshot was created and the check passed. Because every run adds another snapshot, the repository will keep growing, which is exactly what the retention policy in #56 is for.
+- What I learned: Restic only stored what changed rather than copying everything again. Also, exit code 0 only means the script finished — reading the log is what proves a snapshot was actually created.
 
 <img width="1462" height="161" alt="image" src="https://github.com/user-attachments/assets/4d8e3561-abc0-4464-8ad4-b5a81fa4228b" />
-
 <img width="1391" height="871" alt="image" src="https://github.com/user-attachments/assets/497cb401-f5c3-4837-a3b8-a3dc6cd4a521" />
-
 <img width="1374" height="488" alt="image" src="https://github.com/user-attachments/assets/71b93805-3094-4919-bfc2-56b7d788f5f5" />
-
 <img width="1315" height="218" alt="image" src="https://github.com/user-attachments/assets/10f52ff4-ca53-41d2-9ed8-5627bb5583b8" />
 
 ---
 
-- [ ] **Schedule backup every 4 hours (#54)**
+- [X] **Schedule backup every 4 hours (#54)**
 
-- What I plan to do: Compare cron against systemd timers and record the reasoning for the choice, then schedule `backup.sh` to run every 4 hours and confirm it fires without manual intervention.
+- Decision: Chose cron over systemd timers — one line, already installed, and my script does its own logging.
 
-- Why this matters: The Project Proposal commits to an **RPO of 4 hours** — the maximum acceptable data loss. A 4-hourly schedule is what makes that number real rather than aspirational.
+- What I did: Added `0 */4 * * *` to cron, so the backup runs six times a day. Also made MinIO a systemd service so it starts automatically at boot.
 
-- Success criteria: At least two consecutive scheduled runs complete unattended, each producing a new snapshot and a log entry, verified with `restic snapshots` showing timestamps 4 hours apart.
+- Why 4 hours: The Project Proposal commits to an RPO of 4 hours. This schedule is what makes that number real.
 
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
+- Issues faced and fixed: Two problems. First, cron runs with a stripped environment and often fails with "command not found" — I tested this with `env -i` and it passed. Second, MinIO was only being started by hand, so a backup after a reboot would have failed. Fixed with a systemd service using `Restart=always`.
 
+- Outcome: After a full reboot, MinIO started by itself at 10:47:44 and the cron schedule was still there. The automation is genuinely unattended.
+
+- What I learned: Scheduling the backup was easy. The real work was making sure the storage server it depends on comes back on its own.
 
 <img width="1394" height="944" alt="image" src="https://github.com/user-attachments/assets/c35318af-ff07-4ad1-a1a1-e6ae084fbb57" />
 
-
 ---
 
-- [ ] **Test deliberate backup failure (#55)**
+- [X] **Test deliberate backup failure (#55)**
 
-- What I plan to do: Deliberately break the backup — invalid credentials, then an unreachable repository — and confirm the script exits non-zero and writes a clear failure entry to the log.
+- What I did: Saved a copy of the config, replaced the Restic password with an invalid one, ran the script, then restored the correct config.
 
-- Why this matters: A backup that fails silently is the exact risk this project exists to prevent, and it is worse than no backup because it creates false confidence. I need to see a failure correctly detected before I can trust a success.
+- Why: A backup that fails silently is worse than no backup, because it creates false confidence. I needed to see a failure detected before trusting a success.
 
-- Success criteria: Both failure modes produce a non-zero exit code and a logged failure with a readable reason. Restoring valid settings returns the script to a passing run.
+- Outcome: Exit code **1** with `"status":"failure"` logged. After restoring the config, exit code 0 and `"status":"success"` again. Both paths proven.
 
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
-
-
+- What I learned: Backing up the config first made the test safe to reverse. Never leave a deliberately broken system unattended — restore and re-verify in the same sitting.
 
 <img width="1444" height="903" alt="image" src="https://github.com/user-attachments/assets/ab3d13d9-f9a8-44bf-8046-316ff375f63e" />
 
+---
 
+- [X] **Apply retention policy (#56)**
+
+- What I did: Ran `restic forget --keep-hourly 6 --keep-daily 7 --keep-weekly 4 --keep-monthly 6` with `--dry-run` first, checked what it would delete, then re-ran with `--prune`. Documented it in `config/retention-policy.md`.
+
+- Why: Six backups a day means about 2,200 a year. Retention keeps a useful spread and stops the repository growing forever.
+
+- Outcome: 6 snapshots reduced to 3. The three removed were near-identical test runs from within 24 minutes of each other. 513 B reclaimed, and `restic check` passed afterwards.
+
+- What I learned: One snapshot can satisfy several rules at once — the newest counted as hourly, daily, weekly and monthly together. `forget --prune` is the only destructive command in my workstream, so dry-run first, always.
 
 ---
 
-- [ ] **Apply retention policy (#56)**
+- [~] **Backup status to Wazuh (#57) — my side done**
 
-- What I plan to do: Define a retention policy and apply it with `restic forget --prune`, keeping a set number of hourly, daily and weekly snapshots. Test with `--dry-run` first, then document the policy and reasoning in `config/`.
+- What I did: Tanvi specified JSON at `/var/log/cyber-resilience/backup.json` with nine named fields, one event per attempt, no credentials. I created the log directory and rewrote the script to write a single JSON line on every exit path.
 
-- Why this matters: Backing up every 4 hours indefinitely will fill the repository. Retention keeps enough recovery points to meet the RPO without unbounded growth, and `prune` reclaims the space.
+- Outcome: Both event types verified — success and failure each write correct JSON.
 
-- Success criteria: `--dry-run` output matches the intended policy before anything is deleted; snapshot count reduces to the target afterwards; `restic check` still passes.
+- Outstanding: My VM needs its own Wazuh agent connected to MON01. Couldn't do it in the lab because Tanvi's VLAN wasn't reachable.
 
-- Note: `forget --prune` permanently deletes snapshots. Dry run first, every time.
-
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
+- What I learned: Writing logs for a machine is different from writing them for a person. My original format was readable but Wazuh would have had to guess where the status was. Agreeing the format with Tanvi first avoided building it twice.
 
 ---
 
-- [ ] **Send backup status to Wazuh with Tanvi (#57)**
+- [X] **Move backup server to VLAN 40 (#61)**
 
-- What I plan to do: Agree a log format with Tanvi, write backup success and failure events where her Wazuh agent can read them, and confirm both event types appear in her dashboard.
+- What I did: Added a second network adapter in VirtualBox — Adapter 1 stays on NAT for internet, Adapter 2 bridged to the Ethernet port. Set the static IP 10.20.40.10 through NetworkManager.
 
-- Why this matters: This is the first real integration point between my workstream and another team member's. A failed backup nobody notices is the same as no backup at all — monitoring closes that gap.
+- Issues faced and fixed: The bridged adapter was pointed at the Wi-Fi card instead of Ethernet, and showed no link. Once fixed, it picked up 192.168.50.104 by DHCP, which isn't our addressing — I reported it to Akib and he moved my port to VLAN 40.
 
-- Success criteria: A successful backup and a deliberately failed one both appear as distinguishable events in Wazuh.
+- Outcome: `enp0s8` holds 10.20.40.10/24 permanently, and `ping 10.20.40.1` returns 0% packet loss.
 
-- Dependency: Tanvi's Wazuh agent must be connected (her card #33). Soft dependency — I can produce the log output in the agreed format before her side is ready.
+- What I learned: Having an IP address and having working connectivity are two different things. Reporting the exact symptom to Akib was more useful than saying it didn't work.
 
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
-
----
-
-- [ ] **Refine #43 with scoped policy (#58)**
-
-- What I plan to do: Create a MinIO policy granting `office-user1` legitimate access to a non-backup bucket while still denying `test-01-ag3-backups`, then repeat the access test with `mc`.
-
-- Why this matters: The Week 6 test (#43) used a user with no policy at all, so it was denied everything rather than the backups specifically. A scoped policy proves the isolation is deliberate and targeted, which is a materially stronger claim against FR-08.
-
-- Success criteria: `office-user1` can list the permitted bucket but still receives `Access Denied` on `test-01-ag3-backups`.
-
-- What I did:
-- Issues faced and fixed:
-- Outcome:
-- What I learned:
-
----
-
-- [ ] **Coordinate network isolation test with Akib (#44) — BLOCKED**
-
-**Blocker:** Requires Akib's VLAN and pfSense firewall configuration to be live. Akib and I work on separate laptops with no shared network, so this test must run on the host where the VLANs actually operate.
-
-**Proposed approach:** Akib installs MinIO on his own host using my committed setup notes (`config/week-5-minio-restic-setup-faysal.md`) and places it on Backup VLAN 40 (10.20.40.10). He then tests reachability from an Office VLAN device (expected: blocked) and from the app server on Server VLAN 20 (expected: allowed on port 9000). Both results are needed — a denial proves nothing if nothing is listening at that address.
-
-**Secondary benefit:** If Akib can stand up MinIO from my notes alone, that independently evidences **NFR-07** (another team member can rebuild the system from repository documentation).
-
-**Status:** Dependency raised and documented. Will proceed as soon as his environment is testable.
-
-
-
-
-
-
-- IP set up (`Ping -c 4 10.20.40.1`)
 <img width="1316" height="827" alt="image" src="https://github.com/user-attachments/assets/3c71690b-c44c-474e-9a2e-5bf56d63e5ca" />
 
+---
+
+## Problem faced in the lab session
+
+**What worked:** My server is correctly on VLAN 40 at 10.20.40.10, and I can reach my gateway 10.20.40.1 with 0% packet loss. My side is complete.
+
+**What didn't:** I couldn't reach Shourab's Nextcloud (10.20.20.10) or Tanvi's Wazuh (10.20.30.10) — 100% packet loss to both.
+
+**What we found:** Neither Shourab nor Tanvi could ping their own gateways either, so their VLANs weren't working from their end. One useful clue on my side: `nc -zv 10.20.20.10 22` returned **Connection refused** rather than timing out, which means something did answer at that address — so the path isn't completely dead.
+
+**Why we stopped:** Diagnosing this properly needed more time than our lab booking allowed, so we left it rather than making changes we couldn't verify.
+
+**Plan:** Fix inter-VLAN connectivity this week and get all devices communicating before the next session. Open questions: is ICMP blocked between VLANs by design (Akib's rules only mention TCP 9000 and 9001), and were APP01 and MON01 actually running?
 
 ---
 
-## Evidence to collect this week
+## Carried to Week 8
 
-| Task | Status |
+| # | Card | Blocked by |
+|---|---|---|
+| #58 | Refine #43 with scoped policy | Nothing — can start now |
+| #62 | Re-verify backup after IP change | Needs `.env` updated to 10.20.40.10 |
+| #57 | Wazuh agent install | Needs MON01 reachable |
+| #63 | Back up real Nextcloud data | Needs APP01 reachable + data path |
+| #44 | Network isolation test | Needs inter-VLAN connectivity |
+| #59 | Document ports for Akib | Just needs writing up |
+
+---
+
+## Evidence collected
+
+| Item | Status |
 |---|---|
-| `.env.example` committed, `.env` gitignored (`git status` screenshot) | Done |
+| `.env` gitignored and `chmod 600` | Done |
 | `scripts/backup.sh` committed | Done |
-| Screenshot of successful manual script run + `restic check` |Done|
-| Screenshot of scheduler configuration (cron/systemd timer) | |
-| `restic snapshots` output showing two unattended runs 4 hours apart | |
-| Log file showing deliberate failure with non-zero exit | |
-| Retention policy documented + `--dry-run` and after-prune snapshot counts | |
-| Wazuh dashboard screenshot showing backup events | |
-| Scoped-policy isolation test result | |
-| All committed to this folder with dated filenames | |
-| Plan for Week 8 | |
+| Successful script run + `restic check` | Done |
+| cron + systemd configuration | Done |
+| Reboot test — MinIO auto-started, cron intact | Done |
+| Deliberate failure with non-zero exit | Done |
+| Retention policy + before/after counts | Done |
+| JSON log showing success and failure | Done |
+| Static IP on VLAN 40 + gateway ping | Done |
+| Wazuh dashboard screenshot | Week 8 |
+| Scoped-policy test result | Week 8 |
 
 ---
 
-## Risks for this week
+## Risks for Week 8
 
-1. **Scheduled job runs but silently fails.** Mitigation: #55 is a required card, not optional — a failure must be seen before a success is trusted.
-2. **Wazuh integration depends on Tanvi's agent.** Mitigation: agree the log format early so my side is ready regardless of her timing.
-3. **`restic forget --prune` is destructive.** Mitigation: `--dry-run` first, always, and verify the output before pruning.
-4. **VLAN migration will change the endpoint.** When Akib's Backup VLAN 40 goes live, this server moves from 10.0.2.15 to 10.20.40.10. Keeping the endpoint in `config/.env` means one edit rather than hunting through scripts.
+1. **Inter-VLAN connectivity is the critical path** — three of my cards (#44, #57, #63) depend on it. Raise it early, not at the next lab session.
+2. **`config/.env` still points at 127.0.0.1** — works only because MinIO is local. Must change to 10.20.40.10 and be re-verified (#62).
+3. **Shourab's Nextcloud has folders but no data** — backing up empty folders proves nothing. Ask him to add files before #63.
