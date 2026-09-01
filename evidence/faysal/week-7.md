@@ -9,7 +9,7 @@
 |---|---|---|
 | #45 | Create environment config file | Done |
 | #53 | Write automated backup script (backup.sh) | Done |
-| #54 | Schedule backup every 4 hours | #53 |
+| #54 | Schedule backup every 4 hours | Done |
 | #55 | Test deliberate backup failure | #54 |
 | #56 | Apply retention policy (restic forget/prune) | #53 |
 | #57 | Send backup status to Wazuh with Tanvi | #53, Tanvi #33 |
@@ -88,6 +88,10 @@
 - Outcome:
 - What I learned:
 
+
+<img width="1394" height="944" alt="image" src="https://github.com/user-attachments/assets/c35318af-ff07-4ad1-a1a1-e6ae084fbb57" />
+
+
 ---
 
 - [ ] **Test deliberate backup failure (#55)**
@@ -105,6 +109,7 @@
 
 
 
+<img width="1444" height="903" alt="image" src="https://github.com/user-attachments/assets/ab3d13d9-f9a8-44bf-8046-316ff375f63e" />
 
 
 
