@@ -10,7 +10,7 @@
 | #45 | Create environment config file | Done |
 | #53 | Write automated backup script (backup.sh) | Done |
 | #54 | Schedule backup every 4 hours | Done |
-| #55 | Test deliberate backup failure | #54 |
+| #55 | Test deliberate backup failure | Done |
 | #56 | Apply retention policy (restic forget/prune) | #53 |
 | #57 | Send backup status to Wazuh with Tanvi | #53, Tanvi #33 |
 | #58 | Refine #43 with scoped policy | — |
