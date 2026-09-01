@@ -7,8 +7,8 @@
 
 | # | Card | Depends on |
 |---|---|---|
-| #45 | Create environment config file | — |
-| #53 | Write automated backup script (backup.sh) | #45 |
+| #45 | Create environment config file | Done |
+| #53 | Write automated backup script (backup.sh) | Done |
 | #54 | Schedule backup every 4 hours | #53 |
 | #55 | Test deliberate backup failure | #54 |
 | #56 | Apply retention policy (restic forget/prune) | #53 |
@@ -102,6 +102,11 @@
 - Issues faced and fixed:
 - Outcome:
 - What I learned:
+
+
+
+
+
 
 ---
 
