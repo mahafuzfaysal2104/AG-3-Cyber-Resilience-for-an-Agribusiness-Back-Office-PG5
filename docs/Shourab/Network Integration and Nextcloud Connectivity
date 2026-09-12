@@ -1,0 +1,167 @@
+# Network Integration and Nextcloud Connectivity
+
+## Overview
+
+After completing the standalone deployment of the Nextcloud server, the next phase of the project focused on integrating the application into the shared project network. The objective was to establish secure communication between the office workstation and the Nextcloud server through the pfSense firewall while maintaining proper network segmentation.
+
+This integration provides the foundation for communication between the project components, including Nextcloud, Wazuh and MinIO.
+
+---
+
+# Objectives
+
+The objectives of this implementation were to:
+
+- Integrate the Nextcloud server into the project network.
+- Configure a dedicated integration VLAN.
+- Enable secure communication through pfSense.
+- Verify HTTPS connectivity from the office workstation.
+- Prepare the environment for Wazuh monitoring integration.
+- Prepare the environment for MinIO backup integration.
+
+---
+
+# Network Architecture
+
+The Nextcloud virtual machine was configured with two network interfaces.
+
+| Interface | IP Address | Purpose |
+|-----------|------------|---------|
+| NAT Network | 172.16.229.150 | Internet connectivity, package installation and system updates |
+| VLAN 20 | 10.20.20.10 | Internal communication with project components through pfSense |
+
+The NAT interface allows Internet access for software updates and package installation, while VLAN 20 is dedicated to secure communication between project servers.
+
+---
+
+# Why VLAN 20?
+
+A dedicated VLAN 20 was created to separate the project integration network from the Internet-facing NAT network.
+
+Using a dedicated VLAN provides several advantages:
+
+- Isolates project traffic from external network traffic.
+- Improves network security through segmentation.
+- Reduces unnecessary broadcast traffic.
+- Allows pfSense firewall rules to control communication between servers.
+- Provides a scalable architecture for future project expansion.
+
+This design follows common enterprise networking practices where servers are isolated according to their roles.
+
+---
+
+# Integration Process
+
+The following implementation tasks were completed:
+
+1. Added a second network adapter to the Nextcloud virtual machine.
+2. Connected the adapter to the pfSense integration network.
+3. Assigned a static IP address on VLAN 20.
+4. Verified connectivity between the office workstation and the Nextcloud server.
+5. Configured routing through pfSense.
+6. Verified Apache web services.
+7. Tested HTTP and HTTPS connectivity.
+8. Confirmed browser access from the office workstation.
+
+---
+
+# Connectivity Testing
+
+| Test | Status |
+|------|--------|
+| Ping from Office PC | ✅ Successful |
+| TCP Port 80 | ✅ Successful |
+| TCP Port 443 | ✅ Successful |
+| HTTP Access | ✅ Successful |
+| HTTPS Access | ❌ Initial Failure |
+| Browser Access | ✅ Successful after troubleshooting |
+
+---
+
+# Problem Encountered
+
+During integration testing, the office workstation was able to successfully ping the Nextcloud server and establish TCP connections on port 443. However, HTTPS requests continuously stalled, preventing access to the Nextcloud web interface.
+
+The following troubleshooting steps were performed:
+
+- Verified Apache service status.
+- Confirmed SSL certificate configuration.
+- Reviewed pfSense firewall rules.
+- Verified routing configuration.
+- Tested HTTP and HTTPS using `curl`.
+- Confirmed Apache was listening on ports 80 and 443.
+
+Despite these checks, the issue persisted.
+
+---
+
+# Root Cause Analysis
+
+After extensive troubleshooting, the issue was identified as an MTU mismatch on the integration network interface (`enp26s0`).
+
+Although the default MTU value of **1500 bytes** allowed TCP connectivity, HTTPS traffic became unstable due to packet fragmentation, causing SSL communication to stall.
+
+---
+
+# Solution
+
+The MTU value of the integration interface was reduced from:
+
+```
+1500
+```
+
+to
+
+```
+1400
+```
+
+After applying the new MTU configuration and restarting the network interface, HTTPS connectivity was immediately restored.
+
+The office workstation successfully accessed the Nextcloud web interface through the pfSense firewall.
+
+---
+
+# Outcome
+
+The successful integration demonstrated:
+
+- Secure communication between the office workstation and the Nextcloud server.
+- Correct routing through the pfSense firewall.
+- Successful implementation of VLAN 20.
+- Stable HTTPS connectivity.
+- A secure foundation for future integration with Wazuh and MinIO.
+
+---
+
+# Current Status
+
+| Component | Status |
+|-----------|--------|
+| VLAN 20 Configuration | ✅ Completed |
+| Static IP Configuration | ✅ Completed |
+| pfSense Routing | ✅ Completed |
+| Nextcloud Integration | ✅ Completed |
+| HTTPS Access | ✅ Completed |
+| Wazuh Integration | 🔄 In Progress |
+| MinIO Integration | 🔄 In Progress |
+
+---
+
+# Next Steps
+
+The following activities will be completed during the next implementation phase:
+
+- Integrate the Wazuh monitoring server.
+- Integrate the MinIO backup server.
+- Verify communication between all application servers.
+- Perform backup and restore testing.
+- Conduct ransomware recovery testing.
+- Complete end-to-end system validation.
+
+---
+
+# Lessons Learned
+
+This implementation demonstrated that successful network integration requires verification beyond basic connectivity tests. Although ICMP and TCP connectivity were functioning correctly, application-layer communication was still affected by an MTU mismatch. Systematic troubleshooting and validation of network parameters were essential to identifying the root cause and restoring secure HTTPS communication.
