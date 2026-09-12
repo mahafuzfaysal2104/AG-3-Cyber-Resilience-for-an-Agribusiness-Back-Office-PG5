@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="alt1-two-zone-bw" name="Alternative 1 - Two Zone Network">
+    <mxGraphModel dx="1585" dy="811" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontColor=#000000;fontSize=24;fontStyle=1;" value="Alternative 1: Simplified Two Zone Network" vertex="1">
+          <mxGeometry height="50" width="670" x="250" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="internet" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontStyle=1;fontSize=14;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="INTERNET" vertex="1">
+          <mxGeometry height="60" width="150" x="510" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="pfsense" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;fontSize=16;" value="pfSense Firewall" vertex="1">
+          <mxGeometry height="80" width="230" x="470" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="zone1" parent="1" style="swimlane;horizontal=1;startSize=45;rounded=1;html=1;fontStyle=1;fontSize=15;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;align=right;" value="USER / OFFICE LAN&amp;nbsp;&lt;div&gt;(192.168.10.0/24)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="450" x="60" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="zone2" parent="1" style="swimlane;horizontal=1;startSize=45;rounded=1;html=1;fontStyle=1;fontSize=15;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;align=left;" value="SERVER LAN&lt;div&gt;192.168.20.0/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="290" width="450" x="660" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="sw1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;" value="Office Switch" vertex="1">
+          <mxGeometry height="55" width="160" x="205" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="sw2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontStyle=1;" value="Server Switch" vertex="1">
+          <mxGeometry height="55" width="160" x="805" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="officepc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="Office PC&lt;div&gt;(Normal user)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="140" x="115" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="adminpc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="Admin PC&amp;nbsp;&lt;div&gt;(&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237));&quot;&gt;Privileged user)&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="140" x="315" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="app01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="APP01 (Nextcloud)" vertex="1">
+          <mxGeometry height="75" width="110" x="685" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="mon01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="MON01 (Wazuh)" vertex="1">
+          <mxGeometry height="75" width="110" x="830" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="bkp01" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;" value="BKP01 (MinIO / Restic)" vertex="1">
+          <mxGeometry height="75" width="110" x="975" y="535" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="internet" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="pfsense" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="pfsense" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="sw1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="pfsense" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="sw2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="sw1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="officepc" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="sw1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="adminpc" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="sw2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="app01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="sw2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="mon01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="sw2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#000000;fontColor=#000000;" target="bkp01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
