@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="06_-_Guest_WiFi_Gateway_Detailed" name="06 - Guest WiFi Gateway Detailed">
+    <mxGraphModel dx="1585" dy="811" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cloud" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=13;fontStyle=1;align=center;verticalAlign=bottom;" value="" vertex="1">
+          <mxGeometry height="700" width="1340" x="130" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="gw" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;" value="Gateway&lt;br&gt;10.20.50.1/24" vertex="1">
+          <mxGeometry height="70" width="140" x="730" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="dhcp" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" value="DHCP Pool&lt;br&gt;10.20.50.100 - 10.20.50.199" vertex="1">
+          <mxGeometry height="70" width="250" x="675" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="ap1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest AP 1&lt;br&gt;SSID: Guest&lt;br&gt;Client addresses via DHCP" vertex="1">
+          <mxGeometry height="78" width="220" x="490" y="466" as="geometry" />
+        </mxCell>
+        <mxCell id="ap2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest AP 2&lt;br&gt;SSID: Guest&lt;br&gt;Client addresses via DHCP" vertex="1">
+          <mxGeometry height="78" width="220" x="860" y="466" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="gw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="dhcp" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="dhcp" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="ap1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="dhcp" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="ap2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guest1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest Device 1&lt;br&gt;Dynamic DHCP address&lt;br&gt;No fixed IP" vertex="1">
+          <mxGeometry height="65" width="190" x="210" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="eg1" edge="1" parent="1" source="ap1" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="guest1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guest2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest Device 2&lt;br&gt;Dynamic DHCP address&lt;br&gt;No fixed IP" vertex="1">
+          <mxGeometry height="65" width="190" x="470" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="eg2" edge="1" parent="1" source="ap1" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="guest2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guest3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest Device 3&lt;br&gt;Dynamic DHCP address&lt;br&gt;No fixed IP" vertex="1">
+          <mxGeometry height="65" width="190" x="1090" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="eg3" edge="1" parent="1" source="ap2" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="guest3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guest4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Guest Device 4&lt;br&gt;Dynamic DHCP address&lt;br&gt;No fixed IP" vertex="1">
+          <mxGeometry height="65" width="190" x="1280" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="eg4" edge="1" parent="1" source="ap2" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="guest4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title_6271510205937907703" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Times New Roman;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" value="Guest Wi-Fi&amp;nbsp;&lt;div&gt;10.20.50.0/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="800" x="470" y="700" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

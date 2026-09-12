@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="03_-_Server_Gateway_Detailed" name="03 - Server Gateway Detailed">
+    <mxGraphModel dx="1144" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cloud" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=13;fontStyle=1;align=center;verticalAlign=bottom;" value="" vertex="1">
+          <mxGeometry height="630" width="1080" x="150" y="132.5" as="geometry" />
+        </mxCell>
+        <mxCell id="title_1273119626693306797" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Times New Roman;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" value="Server Subnet&amp;nbsp;&lt;div&gt;10.20.20.0/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="800" x="310" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="gw" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;" value="Gateway&lt;br&gt;10.20.20.1/24" vertex="1">
+          <mxGeometry height="70" width="140" x="630" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="sw" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" value="SW20&lt;br&gt;Server Access Switch" vertex="1">
+          <mxGeometry height="65" width="210" x="595" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="app01" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="APP01&lt;br&gt;Business Application / Nextcloud&lt;br&gt;10.20.20.10/24" vertex="1">
+          <mxGeometry height="82" width="250" x="190" y="441.5" as="geometry" />
+        </mxCell>
+        <mxCell id="auth01" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="AUTH01&lt;br&gt;Authentication Service&lt;br&gt;10.20.20.12/24" vertex="1">
+          <mxGeometry height="82" width="250" x="1010" y="441.5" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="gw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="sw" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="sw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="app01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="sw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="auth01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

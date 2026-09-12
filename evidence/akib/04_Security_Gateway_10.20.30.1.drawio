@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram id="04_-_Security_Gateway_Detailed" name="04 - Security Gateway Detailed">
+    <mxGraphModel dx="1585" dy="811" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1450" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cloud" parent="1" style="shape=cloud;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=13;fontStyle=1;align=center;verticalAlign=bottom;" value="" vertex="1">
+          <mxGeometry height="1290" width="2080" x="60" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="title_262502488089878029" parent="1" style="text;html=1;strokeColor=none;fillColor=none;fontColor=#000000;fontFamily=Times New Roman;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" value="Security Subnet&amp;nbsp;&lt;div&gt;10.20.30.0/24&lt;/div&gt;" vertex="1">
+          <mxGeometry height="40" width="900" x="750" y="1049" as="geometry" />
+        </mxCell>
+        <mxCell id="gw" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;fontStyle=1;align=center;verticalAlign=middle;" value="Gateway&lt;br&gt;10.20.30.1/24" vertex="1">
+          <mxGeometry height="70" width="140" x="1130" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="swa" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" value="SW30-A&lt;br&gt;Security PoE Switch A" vertex="1">
+          <mxGeometry height="65" width="220" x="900" y="796.5" as="geometry" />
+        </mxCell>
+        <mxCell id="swb" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" value="SW30-B&lt;br&gt;Security PoE Switch B" vertex="1">
+          <mxGeometry height="65" width="220" x="1160" y="797" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="gw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="swa" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="gw" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="swb" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mon01" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="MON01&lt;br&gt;Security Monitoring&lt;br&gt;10.20.30.10/24" vertex="1">
+          <mxGeometry height="78" width="200" x="350" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mon01" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="mon01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="nvr01" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="NVR01&lt;br&gt;Network Video Recorder&lt;br&gt;10.20.30.20/24" vertex="1">
+          <mxGeometry height="78" width="200" x="530" y="278" as="geometry" />
+        </mxCell>
+        <mxCell id="e_nvr01" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="nvr01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="acc01" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="ACC01&lt;br&gt;Access Control Controller&lt;br&gt;10.20.30.30/24" vertex="1">
+          <mxGeometry height="78" width="200" x="770" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="e_acc01" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="acc01" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 1&lt;br&gt;10.20.30.101/24" vertex="1">
+          <mxGeometry height="58" width="160" x="180" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv1" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 2&lt;br&gt;10.20.30.102/24" vertex="1">
+          <mxGeometry height="58" width="160" x="140" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv2" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 3&lt;br&gt;10.20.30.103/24" vertex="1">
+          <mxGeometry height="58" width="160" x="130" y="667" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv3" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 4&lt;br&gt;10.20.30.104/24" vertex="1">
+          <mxGeometry height="58" width="160" x="260" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv4" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 5&lt;br&gt;10.20.30.105/24" vertex="1">
+          <mxGeometry height="58" width="160" x="230" y="858" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv5" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv5" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rfid1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="RFID Reader 1&lt;br&gt;10.20.30.121/24" vertex="1">
+          <mxGeometry height="58" width="180" x="490" y="950" as="geometry" />
+        </mxCell>
+        <mxCell id="erfid1" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="rfid1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rfid2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="RFID Reader 2&lt;br&gt;10.20.30.122/24" vertex="1">
+          <mxGeometry height="58" width="180" x="770" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="erfid2" edge="1" parent="1" source="swa" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="rfid2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 6&lt;br&gt;10.20.30.106/24" vertex="1">
+          <mxGeometry height="58" width="160" x="1410" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv6" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv6" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 7&lt;br&gt;10.20.30.107/24" vertex="1">
+          <mxGeometry height="58" width="160" x="1630" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv7" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 8&lt;br&gt;10.20.30.108/24" vertex="1">
+          <mxGeometry height="58" width="160" x="1810" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv8" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv8" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 9&lt;br&gt;10.20.30.109/24" vertex="1">
+          <mxGeometry height="58" width="160" x="1910" y="458" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv9" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv9" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cctv10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="CCTV Camera 10&lt;br&gt;10.20.30.110/24" vertex="1">
+          <mxGeometry height="58" width="160" x="1910" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="ecctv10" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="cctv10" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rfid3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="RFID Reader 3&lt;br&gt;10.20.30.123/24" vertex="1">
+          <mxGeometry height="58" width="180" x="1570" y="797" as="geometry" />
+        </mxCell>
+        <mxCell id="erfid3" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="rfid3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rfid4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="RFID Reader 4&lt;br&gt;10.20.30.124/24" vertex="1">
+          <mxGeometry height="58" width="180" x="1540" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="erfid4" edge="1" parent="1" source="swb" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="rfid4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="door1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Controlled Door 1&lt;br&gt;Linked to RFID Reader 1" vertex="1">
+          <mxGeometry height="60" width="190" x="270" y="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="door2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Controlled Door 2&lt;br&gt;Linked to RFID Reader 2" vertex="1">
+          <mxGeometry height="60" width="190" x="610" y="1110" as="geometry" />
+        </mxCell>
+        <mxCell id="door3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Controlled Door 3&lt;br&gt;Linked to RFID Reader 3" vertex="1">
+          <mxGeometry height="60" width="190" x="1930" y="794" as="geometry" />
+        </mxCell>
+        <mxCell id="door4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontColor=#000000;fontFamily=Times New Roman;fontSize=12;align=center;verticalAlign=middle;" value="Controlled Door 4&lt;br&gt;Linked to RFID Reader 4" vertex="1">
+          <mxGeometry height="60" width="190" x="1895" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="ed1" edge="1" parent="1" source="rfid1" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="door1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed2" edge="1" parent="1" source="rfid2" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="door2" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed3" edge="1" parent="1" source="rfid3" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="door3" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ed4" edge="1" parent="1" source="rfid4" style="edgeStyle=none;rounded=0;html=1;endArrow=none;startArrow=none;strokeColor=#000000;strokeWidth=1;" target="door4" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
