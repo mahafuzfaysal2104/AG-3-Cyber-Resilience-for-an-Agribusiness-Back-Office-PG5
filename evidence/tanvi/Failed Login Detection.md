@@ -1,5 +1,5 @@
 ## Failed login Detection in Wazuh
-![1](./images/W7-E4.png)  
+![1](./images/W7-E2.png)  
 
 ![2](./images/W7-E3.png)  
 
