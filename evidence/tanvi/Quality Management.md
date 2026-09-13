@@ -1,4 +1,4 @@
-# 12. Quality management  
+# Quality management  
 
 Quality is measured by repeatable test results and evidence, not by installation alone. Each important configuration must be connected to a requirement, tested against an expected result and supported by a screenshot, command output, log or repository record. This approach directly supports the assessment requirement for clear, verifiable evidence and measurable individual progress (CQUniversity 2026).
 
