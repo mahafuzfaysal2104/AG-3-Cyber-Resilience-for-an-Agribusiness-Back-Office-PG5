@@ -1,4 +1,4 @@
-## Failed login Detection in Wazuh
+# Failed login Detection in Wazuh
 ![1](./images/W7-E2.png)  
 
 ![2](./images/W7-E3.png)  
@@ -6,7 +6,7 @@
 ![3](./images/W7-E1.png)  
 
 
-# Explanation:  
+## Explanation:  
 Failed-login monitoring is important because repeated unsuccessful authentication attempts may indicate password guessing, brute-force activity, use of stolen credentials or an attempt to discover valid usernames. A single failed login can be an ordinary mistake, but several attempts from the same source within a short period require investigation. Central monitoring also creates evidence that can be reviewed after an incident.  
 I used SSH authentication as the test case. The monitored Kali endpoint produced authentication messages in /var/log/auth.log. Controlled connection attempts were made from source address 192.168.56.10 using the deliberately invalid username invaliduser. This avoided using or exposing a real account.  
 The source log contained repeated entries such as:  
