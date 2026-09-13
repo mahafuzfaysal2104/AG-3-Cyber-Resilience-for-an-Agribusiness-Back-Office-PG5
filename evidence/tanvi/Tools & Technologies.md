@@ -1,5 +1,5 @@
 
-# 13. Tools, technologies and resources
+# Tools, technologies and resources
 
 The current implementation has been narrowed to the tools actually used or assigned in the project. Removing unconfirmed alternatives makes the design easier to reproduce and clearly distinguishes the working MON01 environment from planned integration components.
 
@@ -19,7 +19,7 @@ The current implementation has been narrowed to the tools actually used or assig
 | GitHub private repository | Stores approved configurations, scripts, diagrams, test records and the AI-use log. | Gives timestamped evidence and enables review. Secrets and personal data must not be committed. | In use/in progress |
 | Microsoft Teams/weekly meetings | Records decisions, task allocation, blockers and mentor feedback. | Supports professional communication and evidence of engagement. | In use |
 
-## 13.1 Current resource and budget position
+## Current resource and budget position
 
 | Item | Current provision | Expected direct cost | Control |
 |---|---|---:|---|
