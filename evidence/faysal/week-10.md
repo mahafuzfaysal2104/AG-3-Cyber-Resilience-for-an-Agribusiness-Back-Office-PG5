@@ -24,16 +24,19 @@ Check System is running: `systemctl is-active minio`
 ## Create the policy inside MinIO
 `mc admin policy create localminio ag3-restic-backup ~/ag3-restic-policy.json`
 
-Why we use it:
-mc admin policy create = creates a MinIO access policy.
-localminio = your working MinIO admin alias.
-ag3-restic-backup = the name we are giving this restricted policy.
-~/ag3-restic-policy.json = the permissions file you just created.
+Why we use it:  
+mc admin policy create = creates a MinIO access policy.  
+localminio = your working MinIO admin alias.  
+ag3-restic-backup = the name we are giving this restricted policy.  
+~/ag3-restic-policy.json = the permissions file you just created.  
 <img width="1918" height="89" alt="image" src="https://github.com/user-attachments/assets/9967125f-fbf8-4773-a2da-521d4cce70b8" />
 
 
 
 
-## Create the restricted MinIO user
+## Create the restricted MinIO user  
 
+ 
+## Attach the restricted policy to the user  
 
+## 
