@@ -39,4 +39,12 @@ ag3-restic-backup = the name we are giving this restricted policy.
  
 ## Attach the restricted policy to the user  
 
+
+
+
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2cd3548c-7238-48bb-bb8f-c31be84572dc" />  
+<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/0cfdb68f-9dfd-47e3-bead-187dd4986a13" />
+
+
 ## 
