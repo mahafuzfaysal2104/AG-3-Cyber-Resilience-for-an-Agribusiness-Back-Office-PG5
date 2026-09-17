@@ -44,7 +44,14 @@ ag3-restic-backup = the name we are giving this restricted policy.
 
 
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2cd3548c-7238-48bb-bb8f-c31be84572dc" />  
-<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/0cfdb68f-9dfd-47e3-bead-187dd4986a13" />
+<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/0cfdb68f-9dfd-47e3-bead-187dd4986a13" />  
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2aec391c-d787-494e-be3f-732edc62f25b" />  
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/57e8b043-a8ab-4c61-8123-eea36c75da3e" />  
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/07424d2b-9d1e-4433-a123-30397767f7b0" />  
+
+
+
 
 
 ## 
