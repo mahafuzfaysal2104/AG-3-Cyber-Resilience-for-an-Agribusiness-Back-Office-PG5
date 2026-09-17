@@ -10,3 +10,6 @@ Check List of Buckets: `mc ls localminio`
 
 <img width="2041" height="717" alt="image" src="https://github.com/user-attachments/assets/5ce5449d-42e6-4944-9e79-33c1e10a602b" />  
 
+
+## Confirm the admin alias works and the production bucket exists
+mc ls localminio
