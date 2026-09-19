@@ -55,3 +55,359 @@ ag3-restic-backup = the name we are giving this restricted policy.
 
 
 ## 
+
+
+
+
+# Week 10 — Backup Workstream Progress (Faysal)
+
+**Workstream:** Restic/MinIO backup, APP01 integration, and recovery  
+**Week 10 goal:** Connect APP01 to the production MinIO repository on BKP01, apply least-privilege access, verify the real backup path, and prepare for the full Nextcloud backup and Wazuh integration.
+
+## Planned tasks (Kanban board)
+
+| # | Task | Status |
+|---|---|---|
+| 1 | Create restricted MinIO backup user and policy | Done |
+| 2 | Verify production bucket access and isolation | Done |
+| 3 | Verify Restic repository with restricted credentials | Done |
+| 4 | Connect APP01 (VLAN 20) to BKP01 (VLAN 40) on TCP 9000 | Done |
+| 5 | Fix BKP01 return route to APP01 | Done / persistent route saved |
+| 6 | Verify APP01 small backup | Done |
+| 7 | Check repository health after interrupted large backup | Done |
+| 8 | Prepare full Nextcloud backup test | In progress |
+| 9 | Connect BKP01 logs to Wazuh | Pending |
+
+---
+
+## Week 10 task list
+
+- [X] **Create restricted MinIO backup user**
+
+- **What we did:** Created `backup-administrator` and attached the custom policy `ag3-restic-backup`.
+
+- **Why we need to do this:** APP01 should not use MinIO root credentials. It only needs access to the production backup bucket.
+
+- **Problem and Solution:** The original backup configuration used administrator credentials. We replaced them with a restricted account.
+
+- **Justification:** This follows least privilege and reduces the impact if APP01 credentials are compromised.
+
+- **Code used:**
+
+```bash
+mc admin user info localminio backup-administrator
+mc admin policy info localminio ag3-restic-backup
+```
+
+**What this code does:** The first command checks the restricted MinIO user. The second command displays the policy attached to that user so we can confirm its permissions.
+
+- **Screenshot:** User enabled with `PolicyName: ag3-restic-backup`, plus the scoped policy.
+
+---
+
+- [X] **Verify production bucket access and isolation**
+
+- **What we did:** Tested the restricted account against the production bucket, the old test bucket, and MinIO administration.
+
+- **Why we need to do this:** We needed to prove that the account can do backup work but cannot access unrelated resources.
+
+- **Problem and Solution:** The production bucket worked correctly. The old test bucket and admin commands returned `Access Denied`, which is the expected result.
+
+- **Justification:** A security control should prove both allowed access and denied access.
+
+- **Code used:**
+
+```bash
+mc ls backup-test/ag3-plains-pastoral-backups
+mc ls backup-test/test-01-ag3-backups
+mc admin user ls backup-test
+```
+
+**What this code does:** These commands test what the restricted account can and cannot access. The first should work, while the second and third should be denied.
+
+- **Screenshot:** Production bucket allowed; test bucket and admin command denied.
+
+---
+
+- [X] **Verify Restic with restricted credentials**
+
+- **What we did:** Used the restricted account to open the production repository, create a Restic snapshot, and run an integrity check.
+
+- **Why we need to do this:** Manual MinIO tests are not enough. The real application, Restic, must work using the restricted account.
+
+- **Problem and Solution:** No permission problem occurred after the correct policy was attached.
+
+- **Justification:** This proves that the least-privilege policy is sufficient for the real backup workflow.
+
+- **Code used:**
+
+```bash
+restic snapshots
+restic backup ~/ag3-testdata
+restic check
+```
+
+**What this code does:** These commands list existing backups, create a test backup, and then check the repository for errors.
+
+- **Screenshot:** Production repository `d1f8bc5e`, snapshot created, and `no errors were found`.
+
+---
+
+- [X] **Verify production backup automation**
+
+- **What we did:** Updated the production `.env` to use `backup-administrator`, reloaded the configuration, and ran the real backup script.
+
+- **Why we need to do this:** The real automation must use the same restricted credentials that passed our manual tests.
+
+- **Problem and Solution:** Temporary environment variables could hide configuration errors, so the real `.env` was reloaded before testing.
+
+- **Justification:** This confirms that the automated workflow, not only manual commands, uses the production configuration.
+
+- **Code used:**
+
+```bash
+set -a; source config/.env; set +a
+./scripts/backup.sh
+echo "Exit: $?"
+restic snapshots
+```
+
+**What this code does:** The first command loads the backup settings from `.env`. The script then runs the real backup job, the exit code confirms success or failure, and the final command checks that a snapshot was created.
+
+- **Screenshot:** Script exit code `0` and production snapshots.
+
+---
+
+- [X] **Verify BKP01 VLAN 40 and APP01 connectivity**
+
+- **What we did:** Confirmed BKP01 uses `10.20.40.10/24` on `enp0s8`, confirmed the VLAN 40 gateway, and tested APP01 connectivity.
+
+- **Why we need to do this:** APP01 cannot push backups to BKP01 unless the VLAN and gateway configuration is correct.
+
+- **Problem and Solution:** BKP01 had the correct VLAN 40 address and could reach the gateway and APP01.
+
+- **Justification:** Network connectivity must be verified before troubleshooting Restic or MinIO.
+
+- **Code used:**
+
+```bash
+ip -br addr
+ping -c 4 10.20.40.1
+ping -c 4 10.20.20.10
+```
+
+**What this code does:** These commands show BKP01's IP addresses, test the VLAN 40 gateway, and test communication with APP01.
+
+- **Screenshot:** `enp0s8` with `10.20.40.10/24` and successful gateway test.
+
+---
+
+- [X] **Test APP01 → BKP01 MinIO on TCP 9000**
+
+- **What we did:** Confirmed MinIO was listening on TCP 9000 and tested the real service connection from APP01.
+
+- **Why we need to do this:** Restic on APP01 sends backup data to MinIO on BKP01 using TCP 9000.
+
+- **Problem and Solution:** The first TCP test timed out. Packet capture showed APP01 SYN packets reaching BKP01, so the firewall path was working. The real problem was the BKP01 return route.
+
+- **Justification:** Testing the real service port gives stronger evidence than ping alone.
+
+- **Code used:**
+
+On BKP01:
+
+```bash
+sudo ss -lntp | grep ':9000'
+sudo tcpdump -ni enp0s8 tcp port 9000
+```
+
+**What this code does:** The first command confirms that MinIO is listening on TCP port 9000. The second watches backup traffic arriving on the VLAN 40 interface.
+
+On APP01:
+
+```bash
+nc -zv -w 5 10.20.40.10 9000
+curl -I http://10.20.40.10:9000/minio/health/live
+```
+
+**What this code does:** `nc` checks whether APP01 can reach MinIO on TCP 9000. `curl` checks whether the MinIO service itself is alive and responding.
+
+- **Screenshot:** Successful TCP 9000 connection and `HTTP/1.1 200 OK`.
+
+---
+
+- [X] **Fix BKP01 return route to APP01**
+
+- **What we did:** Checked the route from BKP01 to APP01 and found that Linux was replying through the VirtualBox NAT interface instead of VLAN 40. We corrected the route and saved it in NetworkManager.
+
+- **Why we need to do this:** APP01 traffic arrived at BKP01, but BKP01 must send replies back through the correct project network.
+
+- **Problem and Solution:** The wrong path was `10.0.2.2` through `enp0s3`. We changed the APP01 subnet route to use `10.20.40.1` through `enp0s8`.
+
+- **Justification:** Correct return routing is required for a TCP session to complete successfully.
+
+- **Code used:**
+
+```bash
+ip route get 10.20.20.10
+sudo ip route replace 10.20.20.0/24 via 10.20.40.1 dev enp0s8
+sudo nmcli connection modify "Wired connection 1"   +ipv4.routes "10.20.20.0/24 10.20.40.1"
+nmcli -g ipv4.routes connection show "Wired connection 1"
+```
+
+- **Screenshot:** Wrong route before the fix and saved route `10.20.20.0/24 10.20.40.1`.
+
+---
+
+- [X] **Verify APP01 small backup**
+
+- **What we did:** Checked the production repository from BKP01 and confirmed an APP01 snapshot exists.
+
+- **Why we need to do this:** This proves that APP01 can successfully push backup data through pfSense to MinIO on BKP01.
+
+- **Problem and Solution:** The APP01 snapshot was only a small test backup, not the full Nextcloud backup.
+
+- **Justification:** The small backup proves the network, credentials, repository password, and basic Restic path are working.
+
+- **Code used:**
+
+```bash
+restic snapshots --host app01
+```
+
+**What this code does:** This filters the Restic snapshot list so we can see only backups created by APP01.
+
+- **Screenshot:** APP01 snapshot `e7d7787b` from `/home/shourab/restic-test`.
+
+---
+
+- [X] **Check stale lock and repository health**
+
+- **What we did:** Investigated an old Restic lock left by the interrupted APP01 backup, removed the stale lock, and ran a repository integrity check.
+
+- **Why we need to do this:** A stale lock can stop repository maintenance and verification.
+
+- **Problem and Solution:** APP01 had stopped or disconnected before the previous large backup completed, leaving a stale lock. After clearing it, `restic check` passed.
+
+- **Justification:** We must confirm that the repository is healthy before starting another large backup.
+
+- **Code used:**
+
+```bash
+restic list locks
+restic unlock
+restic check
+```
+
+**What this code does:** These commands show repository locks, remove stale locks that are no longer needed, and then verify that the repository is healthy.
+
+- **Screenshot:** Lock information and final integrity check showing `8 / 8 snapshots` with no errors.
+
+---
+
+- [X] **Check BKP01 storage capacity**
+
+- **What we did:** Checked MinIO bucket usage and available disk space.
+
+- **Why we need to do this:** Shourab's Nextcloud data is hundreds of megabytes, so we needed to confirm BKP01 has enough storage.
+
+- **Problem and Solution:** The production bucket currently uses only a small amount of space, while BKP01 has about 15 GB free. The bucket is not too small.
+
+- **Justification:** This rules out storage capacity as the cause of the failed large backup.
+
+- **Code used:**
+
+```bash
+mc du localminio/ag3-plains-pastoral-backups
+df -h ~/minio-data
+```
+
+**What this code does:** The first command shows how much space the production bucket is using. The second shows how much disk space is available on BKP01.
+
+- **Screenshot:** Bucket usage and disk showing approximately 15 GB available.
+
+---
+
+- [ ] **Complete full Nextcloud backup**
+
+- **What we did:** Shourab started a real backup of Nextcloud application and data. The transfer progressed, but it did not finish with a completed production snapshot.
+
+- **Why we need to do this:** The final system must protect real Nextcloud data, not only small test files.
+
+- **Problem and Solution:** During the large transfer, MinIO reported `PutObject` lock timeouts. We also confirmed that MinIO was manually restarted during the testing period, which can interrupt active uploads. For the next test, MinIO will remain running, APP01 Restic will be updated, and S3 concurrency will be reduced.
+
+- **Justification:** The small backup already proves the network and credentials work. The next test should focus on reliable sustained transfer.
+
+- **Code used:**
+
+On APP01:
+
+```bash
+sudo -E restic -o s3.connections=1 backup   /var/ncdata   --tag app01   --tag nextcloud   --tag large-test
+```
+
+On BKP01:
+
+```bash
+sudo journalctl -u minio -f
+```
+
+**What this code does:** This follows the MinIO service log live so we can immediately see errors while the large APP01 backup is running.
+
+- **Screenshot:** Large Nextcloud backup progress and final successful snapshot when completed.
+
+---
+
+- [ ] **Connect backup logs to Wazuh**
+
+- **What we did:** BKP01 already writes backup events to `/var/log/cyber-resilience/backup.json`.
+
+- **Why we need to do this:** Tanvi's Wazuh server needs to detect successful and failed backups centrally.
+
+- **Problem and Solution:** MON01 was not reachable during the previous test session, so the Wazuh agent integration is still pending.
+
+- **Justification:** A backup failure must be visible to the monitoring system rather than remaining unnoticed.
+
+- **Code used:**
+
+```bash
+tail -5 /var/log/cyber-resilience/backup.json
+```
+
+**What this code does:** This displays the latest five structured backup log entries that will later be collected by Wazuh.
+
+- **Screenshot:** JSON backup event showing `status: success`.
+
+---
+
+## Evidence to collect this week
+
+| Task | Status |
+|---|---|
+| Restricted `backup-administrator` user and policy | Done |
+| Production bucket allowed with restricted account | Done |
+| Old test bucket denied | Done |
+| MinIO admin command denied | Done |
+| Restic backup using restricted credentials | Done |
+| Production repository integrity check | Done |
+| BKP01 VLAN 40 configuration | Done |
+| APP01 → BKP01 TCP 9000 connection | Done |
+| MinIO health endpoint HTTP 200 | Done |
+| Wrong return route identified and corrected | Done |
+| Persistent VLAN 20 route saved | Done |
+| Small APP01 backup snapshot | Done |
+| Disk capacity verified | Done |
+| Full Nextcloud production snapshot | Pending |
+| Wazuh dashboard backup event | Pending |
+
+---
+
+## Carried over to Week 11
+
+- Complete the full Nextcloud backup from APP01.
+- Verify the completed APP01 snapshot from BKP01.
+- Run a full restore test and verify recovered files.
+- Measure recovery time against the project RTO.
+- Schedule the production APP01 backup every 4 hours.
+- Connect BKP01 JSON logs to MON01/Wazuh.
+- Complete the final network-isolation test with Akib.
