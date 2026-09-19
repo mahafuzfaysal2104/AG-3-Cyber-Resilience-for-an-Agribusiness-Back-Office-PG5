@@ -1,4 +1,4 @@
-# Iek 10 — Backup Workstream Progress (Faysal)
+# Week 10 — Backup Workstream Progress (Faysal)
 
 **Workstream:** Restic/MinIO backup, APP01 integration, and recovery  
 **Iek 10 goal:** Connect APP01 to the production MinIO repository on BKP01, apply least-privilege access, verify the real backup path, and prepare for the full Nextcloud backup and Wazuh integration.
