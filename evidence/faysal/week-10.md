@@ -1,7 +1,7 @@
 # Week 10 — Backup Workstream Progress (Faysal)
 
 **Workstream:** Restic/MinIO backup, APP01 integration, and recovery  
-**Week 10 goal:** Connect APP01 to the production MinIO repository on BKP01, apply least-privilege access, verify the real backup path, and prepare for the full Nextcloud backup and Wazuh integration.
+**Week 10 goal:** Connect APP01 to the production MinIO repository on BKP01, Apply least-privilege Access, Verify the Real Backup Path, and Prepare for the Full Nextcloud Backup and Wazuh Integration.
 
 
 ## Overall Project Contribution — Faysal (25%)
@@ -138,7 +138,7 @@ restic check
 
 <img width="1527" height="407" alt="image" src="https://github.com/user-attachments/assets/9ceccb13-a050-404b-9f51-39ea94fa7d79" />  
 
-- **Screenshot:** Production repository `d1f8bc5e`, snapshot created, and `no errors Ire found`.
+- **Screenshot:** Production repository `d1f8bc5e`, snapshot created, and `no errors were found`.
 
 ---
 
@@ -161,7 +161,7 @@ echo "Exit: $?"
 restic snapshots
 ```
 
-**What this code does:** The first command loads the backup settings from `.env`. The script then runs the backup job, the exit code confirms success or failure, and the final command verifies a snapshot was created.
+**What this code does:** The first command loads the backup settings from `.env`. The script then runs the backup job, checks the exit code for success or failure, and verifies that a snapshot was created.
 
 
 <img width="1629" height="429" alt="image" src="https://github.com/user-attachments/assets/4d84ad77-1467-44f5-b131-bd8f217fc428" />  
@@ -174,7 +174,7 @@ restic snapshots
 
 - **What I did:** Confirmed BKP01 uses `10.20.40.10/24` on `enp0s8`, confirmed the VLAN 40 gateway, and tested APP01 connectivity.
 
-- **Why I need to do this:** APP01 cannot push backups to BKP01 unless the VLAN and gateway configuration is correct.
+- **Why I need to do this:** APP01 cannot push backups to BKP01 unless the VLAN and gateway configuration are correct.
 
 - **Problem and Solution:** BKP01 had the correct VLAN 40 address and could reach the gateway and APP01.
 
@@ -202,7 +202,7 @@ ping -c 4 10.20.20.10
 
 - **Why I need to do this:** Restic on APP01 sends backup data to MinIO on BKP01 using TCP 9000.
 
-- **Problem and Solution:** The first TCP test timed out. Packet capture shoId APP01 SYN packets reaching BKP01, so the firewall path was working. The real problem was the BKP01 return route.
+- **Problem and Solution:** The first TCP test timed out. Packet capture showed APP01 SYN packets reaching BKP01, so the firewall path was working. The real problem was the BKP01 return route.
 
 - **Justification:** Testing the real service port gives stronger evidence than ping alone.
 
@@ -249,6 +249,9 @@ sudo nmcli connection modify "Wired connection 1"   +ipv4.routes "10.20.20.0/24 
 nmcli -g ipv4.routes connection show "Wired connection 1"
 ```
 
+
+<img width="1797" height="148" alt="image" src="https://github.com/user-attachments/assets/ea9b6a49-50a6-42c7-8844-86abc8a8ded5" />  
+
 - **Screenshot:** Wrong route before the fix and saved route `10.20.20.0/24 10.20.40.1`.
 
 ---
@@ -266,10 +269,18 @@ nmcli -g ipv4.routes connection show "Wired connection 1"
 - **Code used:**
 
 ```bash
+cd ~/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5
+set -a
+source config/.env
+set +a
+
 restic snapshots --host app01
 ```
 
 **What this code does:** This filters the Restic snapshot list so I can see only backups created by APP01.
+
+
+<img width="1453" height="270" alt="image" src="https://github.com/user-attachments/assets/1769082f-dd40-49f4-a8f6-7f6b319631e1" />  
 
 - **Screenshot:** APP01 snapshot `e7d7787b` from `/home/shourab/restic-test`.
 
@@ -295,30 +306,10 @@ restic check
 
 **What this code does:** These commands show repository locks, remove stale locks that are no longer needed, and then verify that the repository is healthy.
 
+
+<img width="1104" height="340" alt="image" src="https://github.com/user-attachments/assets/55e3f127-b579-46e2-9aef-3b509db60bcd" />  
+
 - **Screenshot:** Lock information and final integrity check showing `8 / 8 snapshots` with no errors.
-
----
-
-- [X] **Check BKP01 storage capacity**
-
-- **What I did:** Checked MinIO bucket usage and available disk space.
-
-- **Why I need to do this:** Shourab's Nextcloud data is hundreds of megabytes, so I needed to confirm BKP01 has enough storage.
-
-- **Problem and Solution:** The production bucket currently uses only a small amount of space, while BKP01 has about 15 GB free. The bucket is not too small.
-
-- **Justification:** This rules out storage capacity as the cause of the failed large backup.
-
-- **Code used:**
-
-```bash
-mc du localminio/ag3-plains-pastoral-backups
-df -h ~/minio-data
-```
-
-**What this code does:** The first command shows how much space the production bucket is using. The second shows how much disk space is available on BKP01.
-
-- **Screenshot:** Bucket usage and disk showing approximately 15 GB available.
 
 ---
 
@@ -401,71 +392,5 @@ tail -5 /var/log/cyber-resilience/backup.json
 - Complete the full Nextcloud backup from APP01.
 - Verify the completed APP01 snapshot from BKP01.
 
-
-
-
-
-
-
-# Week 10
-
-## Created a final bucket to back up real data
-Navigate to the Project Folder: `cd ~/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5`  
-Create a new and Final Bucket: `mc mb localminio/ag3-plains-pastoral-backups`  
-Check List of Buckets: `mc ls localminio`    
-
-<img width="1373" height="293" alt="image" src="https://github.com/user-attachments/assets/248a2a36-0678-488c-af22-3caef9e4a8ad" />  
-<img width="1570" height="844" alt="image" src="https://github.com/user-attachments/assets/83263f99-18ab-4d88-8062-acbe3209377c" />  
-
-<img width="2041" height="717" alt="image" src="https://github.com/user-attachments/assets/5ce5449d-42e6-4944-9e79-33c1e10a602b" />  
-
-
-## Confirm the admin alias works and the production bucket exists
-`mc ls localminio`
-Check System is running: `systemctl is-active minio`
-<img width="890" height="98" alt="image" src="https://github.com/user-attachments/assets/1f806ea8-ca2d-47f1-bf67-2b7198ed7b65" />
-
-
-
-## Create the restricted policy file
-<img width="1915" height="1079" alt="image" src="https://github.com/user-attachments/assets/bda7ff30-477b-4501-88cf-eb42ac760b5b" />
-
-## Create the policy inside MinIO
-`mc admin policy create localminio ag3-restic-backup ~/ag3-restic-policy.json`
-
-Why I use it:  
-mc admin policy create = creates a MinIO access policy.  
-localminio = your working MinIO admin alias.  
-ag3-restic-backup = the name I are giving this restricted policy.  
-~/ag3-restic-policy.json = the permissions file you just created.  
-<img width="1918" height="89" alt="image" src="https://github.com/user-attachments/assets/9967125f-fbf8-4773-a2da-521d4cce70b8" />
-
-
-
-
-## Create the restricted MinIO user  
-
- 
-## Attach the restricted policy to the user  
-
-
-
-
-
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2cd3548c-7238-48bb-bb8f-c31be84572dc" />  
-<img width="1917" height="1079" alt="image" src="https://github.com/user-attachments/assets/0cfdb68f-9dfd-47e3-bead-187dd4986a13" />  
-
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2aec391c-d787-494e-be3f-732edc62f25b" />  
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/57e8b043-a8ab-4c61-8123-eea36c75da3e" />  
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/07424d2b-9d1e-4433-a123-30397767f7b0" />  
-
-
-
-
-
-## 
-- Run a full restore test and verify recovered files.
-- Measure recovery time against the project RTO.
-- Schedule the production APP01 backup every 4 hours.
 - Connect BKP01 JSON logs to MON01/Wazuh.
 - Complete the final network-isolation test with Akib.
