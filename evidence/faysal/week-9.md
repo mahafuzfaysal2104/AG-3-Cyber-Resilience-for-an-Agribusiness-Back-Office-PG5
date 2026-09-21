@@ -1,46 +1,44 @@
-# Week 10 — Backup Workstream Progress (Faysal)
+# Week 9 — Backup Workstream Progress (Faysal)
 
-**Workstream:** Restic/MinIO backup, APP01 integration, and recovery  
-**Week 10 goal:** Connect APP01 to the production MinIO repository on BKP01, Apply least-privilege Access, Verify the Real Backup Path, and Prepare for the Full Nextcloud Backup and Wazuh Integration.
-
+**Workstream:** Restic/MinIO backup, APP01 integration, and recovery\
+**Week 9 goal:** Connect APP01 to the production MinIO repository on BKP01, verify the APP01 → MinIO backup path, prove that APP01 snapshots are visible from BKP01, complete a controlled restore from MinIO, and prepare for the later full production Nextcloud backup and Wazuh integration.
 
 ## Overall Project Contribution — Faysal (25%)
 
 My assigned responsibility is **25% of the total group project**. The table below summarises the work I have completed and the work still remaining.
 
-| Task Name | Description | Percentage of Work | Status | Proof / Detailed Evidence |
-| --- | --- | ---: | --- | --- |
-| **Week 4 – Project Proposal** | Completed my assigned Backup & Recovery contribution to the proposal, including the communication/governance evidence plan, GitHub structure, Kanban conventions, AI-log/evidence process, and final integration checklist. | **1.00%** | **Done** | [Proposal Sections 16–18](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/docs/AG3_Faysal_Proposal_Sections_16_to_18.docx) |
-| **Week 4–5 – GitHub, Kanban & Implementation Plan** | Set up and organised the GitHub repository, per-member evidence structure, GitHub Project/Kanban task tracking, and contributed to implementation planning for the Backup & Recovery workstream. | **2.50%** | **Done** | [Repository](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5) · [Kanban / Projects](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/projects) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-| **Week 5 – MinIO & Restic Setup** | Built BKP01, installed and verified Restic and MinIO, created the MinIO backup bucket, initialised the encrypted Restic repository, backed up synthetic agribusiness data, and successfully restored it after deletion. | **4.00%** | **Done** | [Week 5 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week%205.md) · [BKP01 environment](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/docs/Faysal/faysal-backup-environment.md) · [MinIO/Restic setup](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/config/Week-5-minio-restic-setup-faysal.md) · [Backup/restore results](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md) |
-| **Week 6 – Progress Report 1** | Completed my individual Progress Report 1 contribution covering Weeks 1–6, including proposal contribution, BKP01 build, Restic/MinIO setup, first backup/restore evidence, problems encountered, reflection, and remaining plan. | **0.75%** | **Done** | [Week 5 detailed evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week%205.md) · [Week 6 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-6.md) · [Backup/restore results](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md) |
-| **Week 6–7 – Backup Security & Automation** | Configured restricted MinIO access, protected `.env`, automated Restic backup and integrity checking, added JSON logging, configured four-hour cron scheduling, failure testing, retention, and MinIO service persistence. | **3.00%** | **Done** | [Week 6 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-6.md) · [Week 7 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-7.md) · [Backup script](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/scripts/backup.sh) · [AI log](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/AI-log.md) |
-| **Week 8 – Connection with Akib** | Integrated BKP01 with Akib's network/pfSense environment, configured VLAN 40 addressing, tested the gateway/inter-VLAN path, and worked through network-isolation dependencies. | **2.00%** | **Done** | [Network isolation task #44](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/44) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-| **Week 9 – Progress Report 2** | Completed my Progress Report 2 contribution for Weeks 7–9, documenting environment configuration, automated backup, four-hour schedule, retention, deliberate failure testing, Wazuh-compatible logging, and integration progress. | **0.75%** | **Done** | [Week 7 automation evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-7.md) · [Backup script](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/scripts/backup.sh) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-| **Week 9–10 – Connection with Shourab** | Opened and tested the APP01/Nextcloud > BKP01/MinIO path, diagnosed TCP 9000 timeout behaviour, corrected the return route, verified MinIO health, and received a successful small Restic backup from APP01. | **2.50%** | **Done** | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-| **Week 10 – Troubleshooting & Verification** | Investigated stale Restic locks, verified repository integrity, checked MinIO bucket/disk capacity, fixed Chrony time synchronisation, investigated the MinIO restart, and saved the APP01 return route persistently in NetworkManager. | **1.50%** | **Done** | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-| **Weeks 5–10 – Weekly GitHub Evidence & Documentation** | Maintained Weekly GitHub evidence, screenshots, commands, Kanban task records, troubleshooting notes, AI transparency records, and technical documentation for the Backup & Recovery workstream. | **1.50%** | **Done** | [All Faysal evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) · [AI log](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/AI-log.md) · [Repository history](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/commits/main) |
-| **Week 10 – Full Nextcloud Backup** | Complete a stable large Nextcloud backup from APP01 to MinIO, eliminate the current sustained-transfer/`PutObject` problem, and verify a completed full APP01 production snapshot. | **1.25%** | **In Progress** | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) |
-| **Week 10–11 – Connection with Tanvi / Wazuh** | Connect BKP01 backup/security events to Tanvi's MON01/Wazuh. BKP01 JSON logging is prepared, but end-to-end monitoring is waiting on MON01 connectivity. | **0.75%** | **In Progress / Blocked** | [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) · [Search Wazuh tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+wazuh+backup) |
-| **Week 11 – Encryption/Data-Loss Simulation + Wazuh Detection** | After the full Nextcloud backup is stable, run a controlled data-loss/encryption simulation and prove that Wazuh detects the event. | **1.00%** | **In Progress** | [Search simulation tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+simulation+backup) |
-| **Week 11 – Manual Restore from MinIO** | Select a clean Restic snapshot from MinIO, restore the affected Nextcloud data manually, and verify restored files by content/hash/file count. | **0.75%** | **In Progress** | [Initial restore proof](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md) · [Search restore tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+restore+minio) |
-| **Final Week – Final Report** | Complete my Backup & Recovery contribution to the final report, including implementation evidence, integration results, troubleshooting, security justification, recovery results, and RTO/RPO evaluation. | **1.00%** | **In Progress** | Evidence link will be added after the final report is committed. |
-| **Final Week – Presentation** | Prepare and present my Backup & Recovery contribution, architecture, APP01>MinIO integration, Wazuh detection flow, recovery demonstration, and final results. | **0.75%** | **In Progress** | Evidence link will be added after presentation material is committed. |
-| **TOTAL** | **My total assigned contribution to the group project** | **25.00%** | — | [Repository evidence index](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
-
+| Task Name                                                       | Description                                                                                                                                                                                                                             | Percentage of Work | Status                    | Proof / Detailed Evidence                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -----------------: | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Week 4 – Project Proposal**                                   | Completed my assigned Backup & Recovery contribution to the proposal, including the communication/governance evidence plan, GitHub structure, Kanban conventions, AI-log/evidence process, and final integration checklist.             |          **1.00%** | **Done**                  | [Proposal Sections 16–18](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/docs/AG3_Faysal_Proposal_Sections_16_to_18.docx)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Week 4–5 – GitHub, Kanban & Implementation Plan**             | Set up and organised the GitHub repository, per-member evidence structure, GitHub Project/Kanban task tracking, and contributed to implementation planning for the Backup & Recovery workstream.                                        |          **2.50%** | **Done**                  | [Repository](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5) · [Kanban / Projects](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/projects) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal)                                                                                                                                                                                                                                                                                         |
+| **Week 5 – MinIO & Restic Setup**                               | Built BKP01, installed and verified Restic and MinIO, created the MinIO backup bucket, initialised the encrypted Restic repository, backed up synthetic agribusiness data, and successfully restored it after deletion.                 |          **4.00%** | **Done**                  | [Week 5 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week%205.md) · [BKP01 environment](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/docs/Faysal/faysal-backup-environment.md) · [MinIO/Restic setup](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/config/Week-5-minio-restic-setup-faysal.md) · [Backup/restore results](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md) |
+| **Week 6 – Progress Report 1**                                  | Completed my individual Progress Report 1 contribution covering Weeks 1–6, including proposal contribution, BKP01 build, Restic/MinIO setup, first backup/restore evidence, problems encountered, reflection, and remaining plan.       |          **0.75%** | **Done**                  | [Week 5 detailed evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week%205.md) · [Week 6 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-6.md) · [Backup/restore results](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md)                                                                                                                                                                                     |
+| **Week 6–7 – Backup Security & Automation**                     | Configured restricted MinIO access, protected `.env`, automated Restic backup and integrity checking, added JSON logging, configured four-hour cron scheduling, failure testing, retention, and MinIO service persistence.              |          **3.00%** | **Done**                  | [Week 6 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-6.md) · [Week 7 evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-7.md) · [Backup script](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/scripts/backup.sh) · [AI log](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/AI-log.md)                                                                                               |
+| **Week 8 – Connection with Akib**                               | Integrated BKP01 with Akib's network/pfSense environment, configured VLAN 40 addressing, tested the gateway/inter-VLAN path, and worked through network-isolation dependencies.                                                         |          **2.00%** | **Done**                  | [Network isolation task #44](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/44) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal)                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Week 9 – Progress Report 2**                                  | Completed my Progress Report 2 contribution for Weeks 7–9, documenting environment configuration, automated backup, four-hour schedule, retention, deliberate failure testing, Wazuh-compatible logging, and integration progress.      |          **0.75%** | **Done**                  | [Week 7 automation evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/evidence/faysal/Week-7.md) · [Backup script](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/scripts/backup.sh) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal)                                                                                                                                                                                                                      |
+| **Week 9 – Connection with Shourab / APP01 Backup & Restore** | Connected APP01 with BKP01/MinIO, verified TCP 9000 and the MinIO health endpoint, corrected the BKP01 return route, successfully sent controlled APP01 data to the production Restic repository, verified the APP01 snapshot from BKP01, restored the snapshot into an isolated recovery directory, and verified the restored data. | **2.50%** | **Done** | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) |
+| **Week 10 – Troubleshooting & Verification**                    | Investigated stale Restic locks, verified repository integrity, checked MinIO bucket/disk capacity, fixed Chrony time synchronisation, investigated the MinIO restart, and saved the APP01 return route persistently in NetworkManager. |          **1.50%** | **Done**                  | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) · [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal)                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Weeks 5–10 – Weekly GitHub Evidence & Documentation**         | Maintained Weekly GitHub evidence, screenshots, commands, Kanban task records, troubleshooting notes, AI transparency records, and technical documentation for the Backup & Recovery workstream.                                        |          **1.50%** | **Done**                  | [All Faysal evidence](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) · [AI log](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/AI-log.md) · [Repository history](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/commits/main)                                                                                                                                                                                                                                                                       |
+| **Week 10 – Full Production Nextcloud Backup** | The controlled APP01 → MinIO backup and restore path is proven. The remaining work is to verify a completed production-scale snapshot of the actual Nextcloud data/application set, rather than only controlled test data. | **1.25%** | **In Progress** | [Nextcloud > MinIO task #64](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues/64) |
+| **Week 10–11 – Connection with Tanvi / Wazuh**                  | Connect BKP01 backup/security events to Tanvi's MON01/Wazuh. BKP01 JSON logging is prepared, but end-to-end monitoring is waiting on MON01 connectivity.                                                                                |          **0.75%** | **In Progress / Blocked** | [Faysal evidence folder](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal) · [Search Wazuh tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+wazuh+backup)                                                                                                                                                                                                                                                                                                                                                                               |
+| **Week 11 – Encryption/Data-Loss Simulation + Wazuh Detection** | After the full Nextcloud backup is stable, run a controlled data-loss/encryption simulation and prove that Wazuh detects the event.                                                                                                     |          **1.00%** | **In Progress**           | [Search simulation tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+simulation+backup)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **Week 11 – Manual Restore from MinIO**                         | Select a clean Restic snapshot from MinIO, restore the affected Nextcloud data manually, and verify restored files by content/hash/file count.                                                                                          |          **0.75%** | **In Progress**           | [Initial restore proof](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/blob/main/testing/backup-restore-test-results.md) · [Search restore tasks](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/issues?q=is%3Aissue+restore+minio)                                                                                                                                                                                                                                                                                                                                                      |
+| **Final Week – Final Report**                                   | Complete my Backup & Recovery contribution to the final report, including implementation evidence, integration results, troubleshooting, security justification, recovery results, and RTO/RPO evaluation.                              |          **1.00%** | **In Progress**           | Evidence link will be added after the final report is committed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Final Week – Presentation**                                   | Prepare and present my Backup & Recovery contribution, architecture, APP01>MinIO integration, Wazuh detection flow, recovery demonstration, and final results.                                                                          |          **0.75%** | **In Progress**           | Evidence link will be added after presentation material is committed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **TOTAL**                                                       | **My total assigned contribution to the group project**                                                                                                                                                                                 |         **25.00%** | —                         | [Repository evidence index](https://github.com/mahafuzfaysal2104/AG-3-Cyber-Resilience-for-an-Agribusiness-Back-Office-PG5/tree/main/evidence/faysal)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ### Current Progress
 
-| Progress | Amount |
-| --- | ---: |
-| **My total assigned share** | **25.00%** |
-| **Completed** | **19.50%** |
-| **Remaining** | **5.50%** |
-| **My assigned work completed** | **78%** |
-| **My assigned work remaining** | **22%** |
+| Progress                       |     Amount |
+| ------------------------------ | ---------: |
+| **My total assigned share**    | **25.00%** |
+| **Completed**                  | **19.50%** |
+| **Remaining**                  |  **5.50%** |
+| **My assigned work completed** |    **78%** |
+| **My assigned work remaining** |    **22%** |
 
-**Remaining dependency flow:**  
-**Large Nextcloud backup > Tanvi/Wazuh connection > encryption/data-loss simulation + Wazuh detection > manual restore from MinIO > final report > presentation**
+**Remaining dependency flow:**\
+**Verify full production Nextcloud snapshot > Tanvi/Wazuh connection > encryption/data-loss simulation + Wazuh detection > restore the last clean MinIO snapshot > final report > presentation**
 
 ---
 
@@ -53,16 +51,17 @@ My assigned responsibility is **25% of the total group project**. The table belo
 | 3 | Verify Restic repository with restricted credentials | Done |
 | 4 | Connect APP01 (VLAN 20) to BKP01 (VLAN 40) on TCP 9000 | Done |
 | 5 | Fix BKP01 return route to APP01 | Done / persistent route saved |
-| 6 | Verify APP01 small backup | Done |
-| 7 | Check repository health after interrupted large backup | Done |
-| 8 | Prepare full Nextcloud backup test | In progress |
-| 9 | Connect BKP01 logs to Wazuh | Pending |
+| 6 | Verify APP01 backup snapshot from BKP01 | Done |
+| 7 | Verify controlled restore from MinIO | Done |
+| 8 | Verify repository health after interrupted backup | Done |
+| 9 | Verify full production Nextcloud snapshot using the actual Nextcloud data path | In Progress |
+| 10 | Connect BKP01 logs to Wazuh | Pending |
 
 ---
 
-## Week 10 task list
+## Week 9 task list
 
-- [X] **Create restricted MinIO backup user**
+- [x] **Create restricted MinIO backup user**
 
 - **What I did:** Created `backup-administrator` and attached the custom policy `ag3-restic-backup`.
 
@@ -81,14 +80,13 @@ mc admin policy info localminio ag3-restic-backup
 
 **What this code does:** The first command checks the restricted MinIO user. The second command displays the policy attached to that user so I can confirm its permissions.
 
-
 <img width="2143" height="1200" alt="image" src="https://github.com/user-attachments/assets/079ebe5d-25cc-4bea-a842-48cc232dad26" />  
 
 - **Screenshot:** User enabled with `PolicyName: ag3-restic-backup`, plus the scoped policy.
 
 ---
 
-- [X] **Verify production bucket access and isolation**
+- [x] **Verify production bucket access and isolation**
 
 - **What I did:** Tested the restricted account against the production bucket, the old test bucket, and MinIO administration.
 
@@ -96,7 +94,7 @@ mc admin policy info localminio ag3-restic-backup
 
 - **Problem and Solution:** The production bucket worked correctly. The old test bucket and admin commands returned `Access Denied`, which is the expected result.
 
-- **Justification:** A security control should prove both alloId access and denied access.
+- **Justification:** A security control should prove both allowed access and denied access.
 
 - **Code used:**
 
@@ -108,14 +106,13 @@ mc admin user ls backup-test
 
 **What this code does:** These commands test what the restricted account can and cannot access. The first should work, while the second and third should be denied.
 
-
 <img width="2114" height="222" alt="image" src="https://github.com/user-attachments/assets/7a36602e-b3b5-4ac5-94cc-ac06f272a90d" />  
 
-- **Screenshot:** Production bucket alloId; test bucket and admin command denied.
+- **Screenshot:** Production bucket allowed; test bucket and admin command denied.
 
 ---
 
-- [X] **Verify Restic with Restricted Credentials**
+- [x] **Verify Restic with Restricted Credentials**
 
 - **What I did:** Used the restricted account to open the production repository, create a Restic snapshot, and run an integrity check.
 
@@ -135,14 +132,13 @@ restic check
 
 **What this code does:** These commands list existing backups, create a test backup, and then check the repository for errors.
 
-
 <img width="1527" height="407" alt="image" src="https://github.com/user-attachments/assets/9ceccb13-a050-404b-9f51-39ea94fa7d79" />  
 
 - **Screenshot:** Production repository `d1f8bc5e`, snapshot created, and `no errors were found`.
 
 ---
 
-- [X] **Verify Production Backup Automation**
+- [x] **Verify Production Backup Automation**
 
 - **What I did:** Updated the production `.env` to use `backup-administrator`, reloaded the configuration, and ran the real backup script.
 
@@ -163,14 +159,13 @@ restic snapshots
 
 **What this code does:** The first command loads the backup settings from `.env`. The script then runs the backup job, checks the exit code for success or failure, and verifies that a snapshot was created.
 
-
 <img width="1629" height="429" alt="image" src="https://github.com/user-attachments/assets/4d84ad77-1467-44f5-b131-bd8f217fc428" />  
 
 - **Screenshot:** Script exit code `0` and production snapshots.
 
 ---
 
-- [X] **Verify BKP01 VLAN 40 and APP01 connectivity**
+- [x] **Verify BKP01 VLAN 40 and APP01 connectivity**
 
 - **What I did:** Confirmed BKP01 uses `10.20.40.10/24` on `enp0s8`, confirmed the VLAN 40 gateway, and tested APP01 connectivity.
 
@@ -196,7 +191,7 @@ ping -c 4 10.20.20.10
 
 ---
 
-- [X] **Test APP01 > BKP01 MinIO on TCP 9000**
+- [x] **Test APP01 > BKP01 MinIO on TCP 9000**
 
 - **What I did:** Confirmed MinIO was listening on TCP 9000 and tested the real service connection from APP01.
 
@@ -230,7 +225,7 @@ curl -I http://10.20.40.10:9000/minio/health/live
 
 ---
 
-- [X] **Fix BKP01 return route to APP01**
+- [x] **Fix BKP01 return route to APP01**
 
 - **What I did:** Checked the route from BKP01 to APP01 and found that Linux was replying through the VirtualBox NAT interface instead of VLAN 40. I corrected the route and saved it in NetworkManager.
 
@@ -249,22 +244,21 @@ sudo nmcli connection modify "Wired connection 1"   +ipv4.routes "10.20.20.0/24 
 nmcli -g ipv4.routes connection show "Wired connection 1"
 ```
 
-
 <img width="1797" height="148" alt="image" src="https://github.com/user-attachments/assets/ea9b6a49-50a6-42c7-8844-86abc8a8ded5" />  
 
 - **Screenshot:** Wrong route before the fix and saved route `10.20.20.0/24 10.20.40.1`.
 
 ---
 
-- [X] **Verify APP01 small backup**
+- [x] **Verify APP01 backup snapshot from BKP01**
 
-- **What I did:** Checked the production repository from BKP01 and confirmed an APP01 snapshot exists.
+- **What I did:** Checked the production repository from BKP01 and confirmed that a completed APP01 backup snapshot was stored in the production MinIO-backed Restic repository.
 
 - **Why I need to do this:** This proves that APP01 can successfully push backup data through pfSense to MinIO on BKP01.
 
-- **Problem and Solution:** The APP01 snapshot was only a small test backup, not the full Nextcloud backup.
+- **Problem and Solution:** Earlier APP01 backup attempts had connectivity and sustained-transfer problems. After correcting the routing and confirming TCP 9000, a controlled APP01 snapshot was successfully stored and could be verified from BKP01.
 
-- **Justification:** The small backup proves the network, credentials, repository password, and basic Restic path are working.
+- **Justification:** This proves that APP01 can successfully write to the same production Restic repository hosted by MinIO on BKP01.
 
 - **Code used:**
 
@@ -279,14 +273,50 @@ restic snapshots --host app01
 
 **What this code does:** This filters the Restic snapshot list so I can see only backups created by APP01.
 
-
 <img width="1453" height="270" alt="image" src="https://github.com/user-attachments/assets/1769082f-dd40-49f4-a8f6-7f6b319631e1" />  
 
 - **Screenshot:** APP01 snapshot `e7d7787b` from `/home/shourab/restic-test`.
 
 ---
 
-- [X] **Check stale lock and repository health**
+- [x] **Complete controlled APP01 → MinIO backup and restore**
+
+- **What I did:** Completed a controlled end-to-end backup and restore test between APP01 and BKP01. APP01 created backup data in the production Restic repository, BKP01 verified the APP01 snapshot, and the backed-up data was restored into a separate recovery directory without overwriting live Nextcloud data.
+
+- **Why I need to do this:** A backup system is only useful if stored data can also be recovered successfully. This test proves both the backup and recovery directions.
+
+- **Problem and Solution:** Earlier testing was blocked by TCP routing problems and MinIO `PutObject` timeouts. After correcting the BKP01 return route, confirming TCP 9000 connectivity, and using the controlled Restic workflow, the backup and restore test completed successfully.
+
+- **Justification:** This proves the complete technical path: **APP01 → Restic → MinIO/BKP01 → snapshot verification → isolated restore**. The successful controlled test proves the mechanism works, but it is kept separate from the later production-scale `/var/ncdata` verification.
+
+- **Code used on APP01:**
+
+```bash
+restic -o s3.connections=1 snapshots
+restic -o s3.connections=1 backup ~/ag3-backup-test --tag shourav-test
+sha256sum ~/ag3-backup-test/shourav-test.txt
+```
+
+**What this code does:** APP01 checks the shared Restic repository, creates a controlled backup using reduced S3 concurrency, and calculates the original file hash for later verification.
+
+- **Code used on BKP01:**
+
+```bash
+restic -o s3.connections=1 snapshots --tag shourav-test
+restic ls <SNAPSHOT_ID>
+restic -o s3.connections=1 restore <SNAPSHOT_ID> --target ~/ag3-shourav-restore-test
+find ~/ag3-shourav-restore-test -name "shourav-test.txt" -exec sha256sum {} \;
+restic -o s3.connections=1 check
+```
+
+**What this code does:** BKP01 verifies the APP01 snapshot, checks its contents, restores it into an isolated folder, calculates the restored file hash, and checks repository integrity.
+
+- **Screenshot:** Add the successful APP01 backup, BKP01 snapshot verification, restore result, and matching file verification screenshots here. Existing screenshots in this file are unchanged.
+
+---
+
+
+- [x] **Check stale lock and repository health**
 
 - **What I did:** Investigated an old Restic lock left by the interrupted APP01 backup, removed the stale lock, and ran a repository integrity check.
 
@@ -306,40 +336,48 @@ restic check
 
 **What this code does:** These commands show repository locks, remove stale locks that are no longer needed, and then verify that the repository is healthy.
 
-
 <img width="1104" height="340" alt="image" src="https://github.com/user-attachments/assets/55e3f127-b579-46e2-9aef-3b509db60bcd" />  
+
 
 - **Screenshot:** Lock information and final integrity check showing `8 / 8 snapshots` with no errors.
 
 ---
 
-- [ ] **Complete full Nextcloud backup**
+- [ ] **Verify full production Nextcloud backup**
 
-- **What I did:** Shourab started a real backup of Nextcloud application and data. The transfer progressed, but it did not finish with a completed production snapshot.
+- **What I did:** The APP01 → MinIO backup and restore mechanism has been successfully proven using controlled APP01 data. APP01 can reach MinIO, write to the production Restic repository, BKP01 can see the snapshot, and the snapshot can be restored successfully.
 
-- **Why I need to do this:** The final system must protect real Nextcloud data, not only small test files.
+- **Why I need to do this:** The final project must also verify that the same workflow can protect the actual production Nextcloud dataset, not only a controlled test directory.
 
-- **Problem and Solution:** During the large transfer, MinIO reported `PutObject` lock timeouts. I also confirmed that MinIO was manually restarted during the testing period, which can interrupt active uploads. For the next test, MinIO will remain running, APP01 Restic will be updated, and S3 concurrency will be reduced.
+- **Problem and Solution:** Earlier production-scale attempts involving the real Nextcloud data experienced routing and `PutObject` timeout problems. The routing problem is now corrected and the controlled backup/restore workflow is working. The remaining evidence required is a completed snapshot containing the actual Nextcloud data path.
 
-- **Justification:** The small backup already proves the network and credentials work. The next test should focus on reliable sustained transfer.
+- **Justification:** The completed controlled restore proves the technical recovery mechanism. A separate completed production snapshot is still required before claiming that the full Nextcloud production backup is finished.
 
-- **Code used:**
-
-On APP01:
+- **Production backup command on APP01:**
 
 ```bash
-sudo -E restic -o s3.connections=1 backup   /var/ncdata   --tag app01   --tag nextcloud   --tag large-test
+sudo -E restic -o s3.connections=1 backup \
+  /var/ncdata \
+  --tag app01 \
+  --tag nextcloud \
+  --tag production
 ```
 
-On BKP01:
+- **Verification on BKP01:**
 
 ```bash
-sudo journalctl -u minio -f
+restic snapshots --host app01
+restic ls <PRODUCTION_SNAPSHOT_ID>
+restic check
 ```
 
-**What this code does:** This follows the MinIO service log live so I can immediately see errors while the large APP01 backup is running.
+**What this code does:** APP01 backs up the actual Nextcloud data path to the MinIO-backed Restic repository. BKP01 then verifies that the production snapshot exists, inspects its contents, and confirms repository integrity.
 
-- **Screenshot:** Large Nextcloud backup progress and final successful snapshot when completed.
+- **Success criteria:** A completed APP01 snapshot containing `/var/ncdata` must appear in the production repository without transfer errors.
+
+- **Current status:** **In Progress** — controlled APP01 backup/restore is complete; the full `/var/ncdata` production snapshot still needs explicit completion evidence.
+
+- **Screenshot:** Add the completed `/var/ncdata` production snapshot and `restic ls` output when available.
 
 ---
 
@@ -365,12 +403,12 @@ tail -5 /var/log/cyber-resilience/backup.json
 
 ---
 
-## Evidence to collect this Week
+## Evidence collected this Week
 
 | Task | Status |
 |---|---|
 | Restricted `backup-administrator` user and policy | Done |
-| Production bucket alloId with restricted account | Done |
+| Production bucket allowed with restricted account | Done |
 | Old test bucket denied | Done |
 | MinIO admin command denied | Done |
 | Restic backup using restricted credentials | Done |
@@ -380,17 +418,22 @@ tail -5 /var/log/cyber-resilience/backup.json
 | MinIO health endpoint HTTP 200 | Done |
 | Wrong return route identified and corrected | Done |
 | Persistent VLAN 20 route saved | Done |
-| Small APP01 backup snapshot | Done |
-| Disk capacity verified | Done |
-| Full Nextcloud production snapshot | Pending |
+| APP01 backup snapshot visible from BKP01 | Done |
+| Restored data verification | Done |
+| Controlled APP01 → MinIO backup and restore | Done |
+| Full `/var/ncdata` production snapshot | Pending |
 | Wazuh dashboard backup event | Pending |
 
 ---
 
-## Carried over to Week 11
+## Carried over to Week 10
 
-- Complete the full Nextcloud backup from APP01.
-- Verify the completed APP01 snapshot from BKP01.
-
-- Connect BKP01 JSON logs to MON01/Wazuh.
+- Verify a completed **full `/var/ncdata` production snapshot** from APP01.
+- Confirm the production snapshot contents from BKP01 using `restic ls`.
+- Configure the **production APP01 backup schedule every 4 hours** after the production backup is stable.
+- Connect BKP01 JSON backup logs to **MON01/Wazuh**.
+- Run the controlled ransomware/data-loss simulation after a known-good clean production snapshot exists.
+- Verify Wazuh detects the simulated mass file changes.
+- Restore the last clean MinIO/Restic snapshot after the simulation.
+- Measure recovery time against the project RTO.
 - Complete the final network-isolation test with Akib.
