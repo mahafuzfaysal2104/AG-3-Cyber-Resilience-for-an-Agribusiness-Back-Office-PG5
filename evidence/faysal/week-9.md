@@ -186,6 +186,8 @@ ping -c 4 10.20.20.10
 **What this code does:** These commands show BKP01's IP addresses, test the VLAN 40 gateway, and test communication with APP01.
 
 
+<img width="1919" height="348" alt="image" src="https://github.com/user-attachments/assets/737399bc-dc05-4221-9254-21ca447b84f3" />  
+
 
 - **Screenshot:** `enp0s8` with `10.20.40.10/24` and successful gateway test.
 
@@ -220,6 +222,8 @@ curl -I http://10.20.40.10:9000/minio/health/live
 ```
 
 **What this code does:** `nc` checks whether APP01 can reach MinIO on TCP 9000. `curl` checks whether the MinIO service itself is alive and responding.
+
+<img width="1826" height="162" alt="image" src="https://github.com/user-attachments/assets/e3450b71-a03c-4bb8-a956-e49abdaafe2f" />
 
 - **Screenshot:** Successful TCP 9000 connection and `HTTP/1.1 200 OK`.
 
@@ -310,6 +314,8 @@ restic -o s3.connections=1 check
 ```
 
 **What this code does:** BKP01 verifies the APP01 snapshot, checks its contents, restores it into an isolated folder, calculates the restored file hash, and checks repository integrity.
+
+
 
 - **Screenshot:** Add the successful APP01 backup, BKP01 snapshot verification, restore result, and matching file verification screenshots here. Existing screenshots in this file are unchanged.
 
