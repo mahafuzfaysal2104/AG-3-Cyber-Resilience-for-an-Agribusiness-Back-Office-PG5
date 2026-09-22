@@ -398,17 +398,9 @@ restic check
 
 - **Problem and Solution:** MON01 was not reachable during the previous test session, so the Wazuh agent integration is still pending.
 
-- **Justification:** A backup failure must be visible to the monitoring system rather than remaining unnoticed.
 
-- **Code used:**
+** Moved to Week 10**
 
-```bash
-tail -5 /var/log/cyber-resilience/backup.json
-```
-
-**What this code does:** This displays the latest five structured backup log entries that will later be collected by Wazuh.
-
-- **Screenshot:** JSON backup event showing `status: success`.
 
 ---
 
@@ -426,8 +418,8 @@ tail -5 /var/log/cyber-resilience/backup.json
 | Wrong return route corrected and persistent VLAN 20 route saved | Done |
 | APP01 backup snapshot visible from BKP01 | Done |
 | APP01 → MinIO Nextcloud backup, snapshot verification, and successful recovery (including controlled test data and `nextcloud-db.sql`) | Done |
-| Full `/var/ncdata` production snapshot verification | Pending |
-| Wazuh dashboard backup event | Pending |
+| Full `/var/ncdata` production snapshot verification | Pending (Week 10) |
+| Wazuh dashboard backup event | Pending (Week 10) |
 
 ---
 
