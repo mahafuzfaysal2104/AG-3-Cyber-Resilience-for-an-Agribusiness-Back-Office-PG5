@@ -322,6 +322,9 @@ ls -lh ~/restic-restore-test/opt/nextcloud-backup/nextcloud-db.sql
 
 **Result:** Restic reported `Restored 3 / 1 files/dirs (3.063 MiB / 3.063 MiB)`, and the recovered `nextcloud-db.sql` file appeared as approximately 3.1 MB. This verifies recovery of the database dump into an isolated folder, not a live database import or complete application restart.
 
+
+<img width="1323" height="756" alt="image" src="https://github.com/user-attachments/assets/da4dbd7b-793d-4848-90ea-37586165a124" />
+
 - **Screenshot:** Add Shourav's successful database-restore screenshot here; leave all existing screenshot code unchanged.
 
 ---
