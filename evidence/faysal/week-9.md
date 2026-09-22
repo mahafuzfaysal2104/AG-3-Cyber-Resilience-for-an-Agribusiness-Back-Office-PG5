@@ -277,13 +277,15 @@ restic snapshots --host app01
 
 - [x] **APP01 → MinIO Nextcloud backup, snapshot verification, and successful recovery**
 
-- **What I did:** Completed a controlled end-to-end backup and restore test between APP01 and BKP01. APP01 created backup data in the production Restic repository, BKP01 verified the APP01 snapshot, and the backed-up data was restored into a separate recovery directory without overwriting live Nextcloud data.
 
-- **Why I need to do this:** A backup system is only useful if stored data can also be recovered successfully. This test proves both the backup and recovery directions.
+- **What I did:** Completed APP01 → MinIO backup and restore testing, including snapshot verification and recovery to an isolated folder.
 
-- **Problem and Solution:** Earlier testing was blocked by TCP routing problems and MinIO `PutObject` timeouts. After correcting the BKP01 return route, confirming TCP 9000 connectivity, and using the controlled Restic workflow, the backup and restore test completed successfully.
+- **Why I needed to do this:** To confirm that backed-up data can be recovered successfully.
 
-- **Justification:** This proves the complete technical path: **APP01 → Restic → MinIO/BKP01 → snapshot verification → isolated restore**. The successful controlled test proves the mechanism works, but it is kept separate from the later production-scale `/var/ncdata` verification.
+- **Problem and Solution:** Fixed routing and MinIO connectivity issues, enabling successful backup and recovery.
+
+- **Justification:** This verifies the complete APP01 → MinIO → restore workflow without affecting live Nextcloud data.
+
 
 - **Code used on APP01:**
 
@@ -322,6 +324,9 @@ ls -lh ~/restic-restore-test/opt/nextcloud-backup/nextcloud-db.sql
 
 **Result:** Restic reported `Restored 3 / 1 files/dirs (3.063 MiB / 3.063 MiB)`, and the recovered `nextcloud-db.sql` file appeared as approximately 3.1 MB. This verifies recovery of the database dump into an isolated folder, not a live database import or complete application restart.
 
+
+
+<img width="1402" height="492" alt="image" src="https://github.com/user-attachments/assets/c9351c13-3c3c-4d22-8bad-a67d3a658ef6" />
 
 <img width="1323" height="756" alt="image" src="https://github.com/user-attachments/assets/da4dbd7b-793d-4848-90ea-37586165a124" />
 
