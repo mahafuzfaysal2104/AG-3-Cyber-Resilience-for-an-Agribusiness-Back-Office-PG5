@@ -351,61 +351,161 @@ restic check
 
 - [ ] **Verify full production Nextcloud backup**
 
-- **What I did:** The APP01 → MinIO backup and restore mechanism has been successfully proven using controlled APP01 data. APP01 can reach MinIO, write to the production Restic repository, BKP01 can see the snapshot, and the snapshot can be restored successfully.
+- [x] **Verify Nextcloud backup and database recovery from MinIO**
 
-- **Why I need to do this:** The final project must also verify that the same workflow can protect the actual production Nextcloud dataset, not only a controlled test directory.
+- **What I did:** Worked with Shourav to verify APP01 → MinIO backup and successfully restore the Nextcloud database dump from snapshot ae4a98fe to a separate recovery folder.
 
-- **Problem and Solution:** Earlier production-scale attempts involving the real Nextcloud data experienced routing and `PutObject` timeout problems. The routing problem is now corrected and the controlled backup/restore workflow is working. The remaining evidence required is a completed snapshot containing the actual Nextcloud data path.
+- **Why I needed to do this:** To confirm that Nextcloud backup data can be recovered after data loss.
 
-- **Justification:** The completed controlled restore proves the technical recovery mechanism. A separate completed production snapshot is still required before claiming that the full Nextcloud production backup is finished.
+- **Problem and Solution:** Fixed incorrect routing and MinIO connectivity issues, then successfully restored the SQL backup using Restic.
 
-- **Production backup command on APP01:**
+- **Justification:** This proves Nextcloud database backup recovery without affecting live data. Full application recovery still requires verification.
+
+### Step 1 — Prepare Nextcloud backup data on APP01  
+The backup sources used in the earlier full Nextcloud backup attempt were:
 
 ```bash
-sudo -E restic -o s3.connections=1 backup \
+/var/www/nextcloud
+/var/ncdata
+/opt/nextcloud-backup
+```
+
+These represent the Nextcloud application, user data, and additional backup files.
+
+The successful recovery screenshot confirms that the selected snapshot contains the following source paths:
+
+```text
+/var/www/nextcloud
+/opt/nextcloud-backup
+```
+
+It also confirms that the database dump `nextcloud-db.sql` was stored in the snapshot.
+
+### Step 2 — Send Nextcloud data to MinIO using Restic
+
+The earlier production backup command recorded on APP01 was:
+
+```bash
+sudo -E restic backup \
+  /var/www/nextcloud \
   /var/ncdata \
+  /opt/nextcloud-backup \
   --tag app01 \
   --tag nextcloud \
   --tag production
 ```
 
-- **Verification on BKP01:**
+**What this code does:** Restic reads the selected Nextcloud directories, encrypts the backup data, and sends it to the configured MinIO-backed repository on BKP01.
+
+**Earlier result:** This large backup attempt experienced `PutObject` timeouts and did not provide confirmed completion evidence.
+
+A separate completed Restic snapshot, `ae4a98fe`, was subsequently available for recovery. The available screenshot does not show the exact command that created this snapshot, so it is not presented here as a verified successful backup command.
+
+### Step 3 — Select the Nextcloud snapshot
+
+The snapshot successfully used by Shourav for recovery was:
+
+```text
+Snapshot ID: ae4a98fe
+Repository:  d1f8bc5e
+Host:        app01
+```
+
+The restoration output identified these snapshot source paths:
+
+```text
+/var/www/nextcloud
+/opt/nextcloud-backup
+```
+
+**What this proves:** The repository contains a completed APP01 snapshot with the Nextcloud application directory and additional backup files.
+
+### Step 4 — Create an isolated recovery directory on APP01
+
+Shourav ran:
+
+```bash
+mkdir -p ~/restic-restore-test
+```
+
+**What this code does:** Creates a separate folder for recovered files so that the existing Nextcloud application and live database are not overwritten.
+
+### Step 5 — Restore the Nextcloud database backup from MinIO
+
+Shourav used the following command:
+
+```bash
+/tmp/restic_0.19.1_linux_arm64 \
+  -o s3.connections=1 \
+  restore ae4a98fe \
+  --target ~/restic-restore-test \
+  --include /opt/nextcloud-backup/nextcloud-db.sql
+```
+
+**What this code does:**
+
+1. Runs Restic version 0.19.1.
+2. Uses one S3 connection for the recovery operation.
+3. Opens snapshot `ae4a98fe` from the configured MinIO repository.
+4. Selects the Nextcloud database backup file.
+5. Restores that file into the isolated recovery directory.
+
+**Actual result recorded by Shourav:**
+
+```text
+repository d1f8bc5e opened (version 2, compression level auto)
+[0:00] 100.00% 7 / 7 index files loaded
+restoring snapshot ae4a98fe of
+[/var/www/nextcloud /opt/nextcloud-backup]
+Summary: Restored 3 / 1 files/dirs
+(3.063 MiB / 3.063 MiB) in 0:00
+```
+
+The recovery operation completed successfully.
+
+### Step 6 — Verify that the restored database file exists
+
+Shourav then ran:
+
+```bash
+ls -lh ~/restic-restore-test/opt/nextcloud-backup/nextcloud-db.sql
+```
+
+The result showed the recovered file:
+
+```text
+-rw-rw-r-- 1 shourab shourab 3.1M Sep 17 14:50 .../nextcloud-db.sql
+```
+
+**What this code does:** Confirms that the Nextcloud SQL database backup is present in the recovery directory and has a non-zero file size.
+
+**Verified result:** The database backup was successfully restored from the MinIO-backed Restic repository.
+
+### Step 7 — Final production-backup verification
+
+The remaining production check is to confirm whether a completed APP01 snapshot also contains the actual Nextcloud user-data directory, `/var/ncdata`.
+
+On BKP01, with the production Restic environment loaded:
 
 ```bash
 restic snapshots --host app01
-restic ls <PRODUCTION_SNAPSHOT_ID>
+restic ls ae4a98fe
 restic check
 ```
 
-**What this code does:** APP01 backs up the actual Nextcloud data path to the MinIO-backed Restic repository. BKP01 then verifies that the production snapshot exists, inspects its contents, and confirms repository integrity.
+**What this code does:** Lists APP01 snapshots, inspects the selected snapshot's contents, and checks repository integrity.
 
-- **Success criteria:** A completed APP01 snapshot containing `/var/ncdata` must appear in the production repository without transfer errors.
+A separate completed snapshot containing `/var/ncdata` is required before marking the full Nextcloud user-data backup as verified.
 
-- **Current status:** **In Progress** — controlled APP01 backup/restore is complete; the full `/var/ncdata` production snapshot still needs explicit completion evidence.
+<img width="1402" height="492" alt="image" src="https://github.com/user-attachments/assets/706700a9-c0a9-4fa9-bc02-66762aaadc52" />
+
 
 - **Screenshot:** Add the completed `/var/ncdata` production snapshot and `restic ls` output when available.
 
 ---
 
 - [ ] **Connect backup logs to Wazuh**
-
-- **What I did:** BKP01 already writes backup events to `/var/log/cyber-resilience/backup.json`.
-
-- **Why I need to do this:** Tanvi's Wazuh server needs to detect successful and failed backups centrally.
-
-- **Problem and Solution:** MON01 was not reachable during the previous test session, so the Wazuh agent integration is still pending.
-
-- **Justification:** A backup failure must be visible to the monitoring system rather than remaining unnoticed.
-
-- **Code used:**
-
-```bash
-tail -5 /var/log/cyber-resilience/backup.json
-```
-
-**What this code does:** This displays the latest five structured backup log entries that will later be collected by Wazuh.
-
-- **Screenshot:** JSON backup event showing `status: success`.
+Move to week 10 to be completed.
 
 ---
 
