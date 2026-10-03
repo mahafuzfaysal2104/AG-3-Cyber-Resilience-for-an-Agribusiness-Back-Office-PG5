@@ -1,0 +1,105 @@
+# AG-3 Automated Backup and Backup Check
+
+## Overview
+
+APP01 was configured to automatically back up the Nextcloud system to the MinIO backup server using Restic.
+
+The backup script is:
+
+```bash
+/usr/local/sbin/nextcloud-backup.sh
+```
+
+The script:
+- creates a fresh MariaDB database dump
+- backs up Nextcloud data using Restic
+- sends the backup to MinIO
+- records whether the backup was successful or failed
+
+## Automatic Backup Schedule
+
+A systemd timer was created to run the backup every 4 hours.
+
+```text
+00:00
+04:00
+08:00
+12:00
+16:00
+20:00
+```
+
+The timer can be checked using:
+
+```bash
+sudo systemctl status nextcloud-backup.timer --no-pager
+```
+
+and:
+
+```bash
+systemctl list-timers nextcloud-backup.timer
+```
+
+## Backup Destination
+
+Backup server:
+
+```text
+BKP01 - 10.20.40.10
+```
+
+MinIO port:
+
+```text
+9000
+```
+
+Restic repository:
+
+```text
+s3:http://10.20.40.10:9000/ag3-plains-pastoral-backups
+```
+
+## Checking Backup Result
+
+Backup logs are stored in:
+
+```bash
+/var/log/nextcloud-backup.log
+```
+
+To check the latest backup result:
+
+```bash
+sudo tail -n 20 /var/log/nextcloud-backup.log
+```
+
+A successful backup shows:
+
+```text
+BACKUP_SUCCESS
+```
+
+Restic snapshots can also be checked using:
+
+```bash
+sudo bash -c '
+set -a
+source /etc/restic-nextcloud.env
+set +a
+/usr/local/bin/restic -o s3.connections=1 snapshots
+'
+```
+
+## MTU Issue
+
+During testing, Restic became very slow when APP01 MTU returned to 1500.
+
+The MTU was changed back to 1400 using:
+
+```bash
+sudo ip link set dev enp26s0 mtu 1400
+```
+
+After changing the MTU to 1400, the backup completed successfully.
