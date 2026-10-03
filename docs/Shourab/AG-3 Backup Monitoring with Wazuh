@@ -1,0 +1,87 @@
+# AG-3 Backup Monitoring with Wazuh
+
+## Overview
+
+Wazuh was configured to monitor the backup log from APP01.
+
+The monitored log is:
+
+```bash
+/var/log/nextcloud-backup.log
+```
+
+This allows Wazuh to detect both successful and failed backup events.
+
+## Failed Backup Monitoring
+
+A custom Wazuh rule was created:
+
+```xml
+<rule id="100100" level="12">
+  <match>BACKUP_FAILED</match>
+  <description>AG3 Nextcloud automated backup failed on APP01</description>
+  <group>backup_failure,</group>
+</rule>
+```
+
+To test a real backup failure, the MinIO access key was temporarily changed to an invalid value.
+
+The backup failed and the script recorded:
+
+```text
+BACKUP_FAILED Restic backup failed
+```
+
+Wazuh detected this event using rule:
+
+```text
+100100
+```
+
+## Successful Backup Monitoring
+
+A second Wazuh rule was created:
+
+```xml
+<rule id="100101" level="3">
+  <match>BACKUP_SUCCESS</match>
+  <description>AG3 Nextcloud automated backup completed successfully on APP01</description>
+  <group>backup_success,</group>
+</rule>
+```
+
+When a backup completes successfully, Wazuh detects:
+
+```text
+BACKUP_SUCCESS
+```
+
+using rule:
+
+```text
+100101
+```
+
+## Wazuh Dashboard
+
+Two metric visualisations were created.
+
+Successful backup filter:
+
+```text
+rule.id:100101
+```
+
+Failed backup filter:
+
+```text
+rule.id:100100
+```
+
+This allows the dashboard to show both successful and failed backup events.
+
+## Connection Issue
+
+During testing, some alerts were not received because the Wazuh Manager PC entered sleep mode.
+
+After keeping the Wazuh Manager PC awake, the connection remained stable and the alerts were received correctly.
