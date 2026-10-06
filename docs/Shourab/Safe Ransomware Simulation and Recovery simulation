@@ -1,0 +1,440 @@
+# AG-3 Safe Ransomware Simulation and Recovery Validation
+
+## 1. Overview
+
+This document records the safe ransomware simulation and recovery validation completed for the AG-3 Cyber Resilience project.
+
+The purpose of this test was to demonstrate how the proposed environment can:
+
+- Detect suspicious file changes using Wazuh.
+- Identify ransomware-like file behaviour in the Nextcloud environment.
+- Generate a high-severity security alert.
+- Recover affected files from a protected Restic backup stored on MinIO.
+- Return the Nextcloud test folder to its normal operational state.
+
+No real ransomware or malicious encryption was used during this test. The ransomware impact was safely simulated by renaming selected test files with a `.locked` extension and creating a simulated ransom note.
+
+---
+
+## 2. Test Environment
+
+The following AG-3 systems were involved in the validation:
+
+| Component | Role | IP Address |
+|---|---|---|
+| APP01 | Ubuntu Server, Nextcloud, Restic and Wazuh Agent | `10.20.20.10` |
+| MON01 | Wazuh Manager and monitoring platform | `10.20.30.10` |
+| BKP01 | MinIO backup storage | `10.20.40.10` |
+| pfSense | Firewall and network segmentation | `10.20.20.1` on VLAN 20 |
+
+The ransomware simulation was restricted to the following Nextcloud test directory:
+
+```text
+/var/ncdata/manager/files/Ransomeware-Demo
+```
+
+This isolated test folder was used so that the simulation would not affect other Nextcloud data.
+
+---
+
+## 3. Test Files
+
+The test folder contained sample business files representing information that could be affected during a ransomware incident.
+
+The test files included:
+
+```text
+Finance data.docx
+Sales Info.xlsx
+UserData.doc
+```
+
+These files were used only for the controlled ransomware and recovery demonstration.
+
+---
+
+## 4. Protected Backup
+
+Before performing the ransomware simulation, a clean backup of the test directory was created using Restic.
+
+The backup command used was:
+
+```bash
+sudo bash -c 'set -a; source /etc/restic-nextcloud.env; set +a; restic -o s3.connections=1 backup "/var/ncdata/manager/files/Ransomeware-Demo" --tag ransomware-demo-clean'
+```
+
+The backup was successfully stored in the Restic repository hosted on BKP01 MinIO.
+
+### Clean Recovery Snapshot
+
+| Item | Result |
+|---|---|
+| Snapshot ID | `1a006eb0` |
+| Host | `app01` |
+| Tag | `ransomware-demo-clean` |
+| Protected path | `/var/ncdata/manager/files/Ransomeware-Demo` |
+| Snapshot size | Approximately 53.968 KiB |
+| Backup status | Successful |
+
+The clean snapshot provided a known recovery point before the simulated ransomware impact.
+
+---
+
+## 5. Wazuh File Integrity Monitoring
+
+Wazuh File Integrity Monitoring (FIM) was configured on APP01 to monitor the ransomware demonstration directory.
+
+The following directory configuration was added to the existing `<syscheck>` section of the Wazuh agent configuration:
+
+```xml
+<directories realtime="yes" check_all="yes">/var/ncdata/manager/files/Ransomeware-Demo</directories>
+```
+
+This allowed Wazuh to monitor changes to the test files in realtime.
+
+A normal FIM test confirmed that Wazuh was able to identify new files in the directory.
+
+For example, creation of:
+
+```text
+FIM-TEST-2.txt
+```
+
+generated the following Wazuh event:
+
+```text
+Rule ID: 554
+Description: File added to the system.
+Mode: realtime
+```
+
+This confirmed that APP01 was successfully sending realtime FIM events to MON01.
+
+---
+
+## 6. Custom Ransomware Detection Rules
+
+Custom Wazuh rules were created on MON01 to identify the specific ransomware indicators used during the controlled simulation.
+
+Two rule IDs were allocated:
+
+- `100110` – Detection of files with the `.locked` extension.
+- `100111` – Detection of the simulated ransom note.
+
+The custom rules were configured in:
+
+```text
+/var/ossec/etc/rules/local_rules.xml
+```
+
+The following rules were added:
+
+```xml
+<group name="ag3,ransomware,syscheck,">
+
+  <rule id="100110" level="12">
+    <if_group>syscheck</if_group>
+    <field name="file" type="pcre2">Ransomeware-Demo/.*\.locked$</field>
+    <description>AG3 possible ransomware activity - locked file detected in Nextcloud test folder: $(file)</description>
+    <group>ransomware_detection,file_integrity,</group>
+  </rule>
+
+  <rule id="100111" level="14">
+    <if_group>syscheck</if_group>
+    <field name="file" type="pcre2">Ransomeware-Demo/README_RECOVERY_TEST\.txt$</field>
+    <description>AG3 ransomware simulation detected - ransom note created in Nextcloud test folder: $(file)</description>
+    <group>ransomware_detection,ransom_note,file_integrity,</group>
+  </rule>
+
+</group>
+```
+
+These rules provided higher-severity alerts when ransomware-like indicators appeared inside the controlled test folder.
+
+---
+
+## 7. Safe Ransomware Simulation
+
+A dedicated script was created to make the ransomware simulation simple and repeatable.
+
+Script location:
+
+```text
+/usr/local/sbin/ag3-ransomware-demo
+```
+
+The simulation was started using:
+
+```bash
+sudo ag3-ransomware-demo
+```
+
+The script performed the following controlled actions:
+
+1. Confirmed that the test directory existed.
+2. Checked that the folder was not already in a simulated ransomware state.
+3. Renamed the test files by adding the `.locked` extension.
+4. Created a simulated ransom note.
+5. Updated the Nextcloud file index.
+
+For example:
+
+```text
+Finance data.docx
+```
+
+became:
+
+```text
+Finance data.docx.locked
+```
+
+The same process was applied to the other test files.
+
+A harmless simulated ransom note was also created:
+
+```text
+README_RECOVERY_TEST.txt
+```
+
+The simulation did not perform encryption and did not execute any real ransomware or malicious software.
+
+---
+
+## 8. Wazuh Detection Result
+
+Wazuh successfully detected the ransomware-like file changes.
+
+For example, the addition of:
+
+```text
+Sales Info.xlsx.locked
+```
+
+generated the custom alert:
+
+```text
+Rule ID: 100110
+Level: 12
+Description: AG3 possible ransomware activity - locked file detected in Nextcloud test folder
+```
+
+Wazuh recorded the event through File Integrity Monitoring with:
+
+```text
+Mode: realtime
+Event: added
+Location: syscheck
+```
+
+Other affected files were also detected, including:
+
+```text
+UserData.doc.locked
+Finance data.docx.locked
+```
+
+This demonstrated that Wazuh could detect the controlled ransomware indicators on APP01 and report them to MON01.
+
+---
+
+## 9. Ransomware Detection Dashboard
+
+A dedicated ransomware detection metric was added to the Wazuh dashboard.
+
+The dashboard visualization used the custom ransomware detection rule IDs:
+
+```text
+rule.id:100110 OR rule.id:100111
+```
+
+The visualization was configured as a metric using the alert count.
+
+The dashboard panel was named:
+
+```text
+Ransomware Detection Alerts
+```
+
+During the ransomware simulation, Wazuh received the FIM events and the ransomware detection metric displayed the generated alerts.
+
+This provided a simple visual indication that ransomware-like activity had been detected within the Nextcloud test environment.
+
+---
+
+## 10. Recovery Procedure
+
+After confirming the simulated ransomware impact and Wazuh detection, the clean Restic snapshot was used to recover the affected test directory.
+
+The recovery snapshot used during the validation was:
+
+```text
+1a006eb0
+```
+
+A dedicated recovery script was created:
+
+```text
+/usr/local/sbin/ag3-restore-demo
+```
+
+Recovery was initiated using:
+
+```bash
+sudo /usr/local/sbin/ag3-restore-demo 1a006eb0
+```
+
+The recovery process:
+
+1. Connected to the protected Restic repository on BKP01.
+2. Selected the clean recovery snapshot.
+3. Restored the protected files into a temporary recovery location.
+4. Replaced the affected ransomware demonstration folder with the clean restored copy.
+5. Updated the Nextcloud file index.
+6. Returned the test files to their original clean state.
+
+Only the controlled ransomware test folder was restored. A complete Nextcloud server restoration was not required for this validation.
+
+---
+
+## 11. Nextcloud Recovery Verification
+
+After restoration, the Nextcloud file index was updated using:
+
+```bash
+sudo -u www-data php /var/www/nextcloud/occ files:scan \
+  --path="manager/files/Ransomeware-Demo"
+```
+
+The Nextcloud interface was then refreshed.
+
+The original files became available again without the `.locked` extensions.
+
+The simulated ransom note was also removed as part of the clean restoration.
+
+This confirmed that the selected Nextcloud files could be successfully recovered from the protected Restic backup.
+
+---
+
+## 12. Wazuh Realtime Monitoring Issue Identified During Testing
+
+During repeated ransomware and recovery testing, an issue was identified with Wazuh realtime monitoring after restoration.
+
+The recovery process originally removed the affected directory using:
+
+```bash
+rm -rf "$TARGET"
+```
+
+and then recreated the directory using the restored backup.
+
+Because Wazuh realtime FIM was monitoring the original directory, deleting and recreating the directory could cause the realtime filesystem watch to be lost.
+
+After one restoration, new test files generated normal sudo logging events but initially did not generate the expected realtime FIM events.
+
+The Wazuh agent on APP01 was restarted using:
+
+```bash
+sudo systemctl restart wazuh-agent
+```
+
+A second FIM test was then performed by creating:
+
+```text
+FIM-TEST-2.txt
+```
+
+Wazuh immediately generated:
+
+```text
+Rule ID: 554
+Description: File added to the system.
+Mode: realtime
+```
+
+This confirmed that realtime monitoring was working again.
+
+### Operational Lesson
+
+When a directory monitored by realtime FIM is completely deleted and recreated during a recovery operation, the Wazuh agent may need to refresh its filesystem monitoring.
+
+For the final demonstration, the Wazuh agent was restarted after restoration before beginning another ransomware simulation.
+
+This ensured that the restored Nextcloud directory was monitored correctly during the next test.
+
+---
+
+## 13. Validation Results
+
+| Validation Area | Result |
+|---|---|
+| Clean Restic backup available | PASS |
+| Backup stored through BKP01/MinIO | PASS |
+| Safe ransomware impact simulation | PASS |
+| `.locked` file generation | PASS |
+| Simulated ransom note creation | PASS |
+| Wazuh realtime FIM detection | PASS |
+| Custom ransomware rule `100110` | PASS |
+| Ransomware detection dashboard | PASS |
+| Restic snapshot recovery | PASS |
+| Nextcloud file restoration | PASS |
+| Nextcloud file index update | PASS |
+| Realtime FIM after Wazuh agent restart | PASS |
+
+**Overall Result: PASS**
+
+---
+
+## 14. Demonstration Workflow
+
+The final demonstration followed the sequence below:
+
+```text
+Clean Nextcloud Files
+        |
+        v
+Clean Restic Backup
+        |
+        v
+Safe Ransomware Simulation
+        |
+        v
+Files Changed to .locked
+        |
+        v
+Wazuh Realtime FIM Detection
+        |
+        v
+Custom Ransomware Alert
+        |
+        v
+Wazuh Dashboard Alert
+        |
+        v
+Select Clean Restic Snapshot
+        |
+        v
+Restore from BKP01 / MinIO
+        |
+        v
+Nextcloud File Scan
+        |
+        v
+Files Successfully Recovered
+```
+
+---
+
+## 15. Conclusion
+
+The AG-3 ransomware recovery validation successfully demonstrated a controlled incident detection and recovery workflow.
+
+The simulation showed that ransomware-like file changes within the Nextcloud environment could be detected by Wazuh File Integrity Monitoring and escalated through custom ransomware detection rules.
+
+The affected files were then successfully recovered from a clean Restic snapshot stored using the MinIO backup infrastructure. After the recovery, the Nextcloud file index was updated and the original files became available again.
+
+The testing also identified an important operational issue with Wazuh realtime FIM when a monitored directory is deleted and recreated during restoration. Restarting the Wazuh agent restored realtime monitoring, and this was incorporated into the final testing procedure.
+
+Overall, the validation demonstrated the integration between Nextcloud, Wazuh, Restic, MinIO and the segmented AG-3 network in a practical cyber-resilience scenario.
+
+> **Safety Note:** This validation used a controlled ransomware-impact simulation only. No real ransomware, malicious encryption or destructive malware was deployed.
