@@ -1,11 +1,13 @@
 # /testing
 
-Acceptance-test plans, results, screenshots, logs, and RTO/RPO measurement records.
+The following videos provide visual evidence of the implemented prototype and selected security tests.
 
-Suggested structure:
+| Video | Demonstration | Link |
+|---|---|---|
+| **V01** | Overall prototype and physical setup | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790614893162?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790614893162&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790614893162&ngc=true) |
+| **V02** | Secure Nextcloud file access and administrator MFA | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791341426444?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791341426444&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791341426444&ngc=true) |
+| **V03** | Wazuh File Integrity Monitoring | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791341892186?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791341892186&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791341892186&ngc=true) |
+| **V04** | Wazuh monitoring of successful and failed backup operations | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790615165443?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790615165443&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790615165443&ngc=true) |
+| **V05** | Encrypted Restic backup storage on MinIO | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790615585192?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790615585192&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790615585192&ngc=true) |
+| **V06** | Controlled ransomware-like file impact, detection and recovery | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791342186190?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791342186190&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791342186190&ngc=true) |
 
-- `test-plan.md` — full list of acceptance tests, one per requirement, with pass/fail criteria
-- `results/` — dated screenshots, logs, and outputs per test run
-- `rto-rpo-log.md` — Faysal's timed recovery measurements against the agreed targets (RPO ≤ 4h, RTO priority ≤ 2h, RTO full ≤ 4h)
-
-Every acceptance test should trace back to a requirement (see Requirements Traceability in the Capstone Checklist) — nothing tested should be untraceable to something specified.
