@@ -32,14 +32,14 @@ The following documents contain the technical designs, implementation procedures
 
 | Technical Document | Description | Link |
 |---|---|---|
-| **AG3 Detailed Network Design** | Network alternatives, selected architecture, VLANs, IP addressing and hardware recommendations | [View Document]([AG3 Detailed Network Design](Technical%20Artifact/PG5%20AG3%20TA1%20Detailed%20Network%20Design.docx)) |
+| **AG3 Detailed Network Design** | Network alternatives, selected architecture, VLANs, IP addressing and hardware recommendations | ([AG3 Detailed Network Design](Technical%20Artifact/PG5%20AG3%20TA1%20Detailed%20Network%20Design.docx)) |
 | **AG3 Firewall, Segmentation and Access Control Design** | pfSense firewall policies, VLAN communication rules, Nextcloud access controls and firewall testing | [View Document](PASTE_LINK_HERE) |
 | **AG3 Prototype Implementation Plan and Guide** | Implementation steps, system configuration, integration and troubleshooting | [View Document](PASTE_LINK_HERE) |
 | **AG3 Security Monitoring and Wazuh Implementation** | Wazuh simulation, MON01 deployment, APP01 agent integration and monitoring results | [View Document](PASTE_LINK_HERE) |
-| **AG3 Prototype Testing and Validation Report** | Prototype screenshots, firewall validation, security monitoring, backup testing and controlled recovery evidence | [View Document](PASTE_LINK_HERE) |
+| **AG3 Prototype Testing and Validation Report** | Prototype screenshots, firewall validation, security monitoring, backup testing and controlled recovery evidence | ([AG3 Prototype Testing and Validation Report](Technical%20Artifact/PG5%20AG3%20TA5%20Prototype%20Testing%20and%20Validation%20Report.docx)) |
 | **AG3 Risk Assessment Report** | Security risks, vulnerabilities, existing controls, residual risks and recommended treatments | [View Document](PASTE_LINK_HERE) |
 | **AG3 Risk Assessment Register** | Risk ratings, likelihood, impact, responsible owners and mitigation actions | [View Document](PASTE_LINK_HERE) |
-| **AG3 Cyber Resilience Incident Recovery Plan** | Incident response procedures, containment, evidence preservation and service recovery planning | [View Document](PASTE_LINK_HERE) |
+| **AG3 Cyber Resilience Incident Recovery Plan** | Incident response procedures, containment, evidence preservation and service recovery planning | ([Cyber Resilience Incident Recovery Plan](Technical%20Artifact/PG5%20AG3%20TA8%20Cyber%20Resilience%20and%20Incident%20Recovery.docx)) |
 
 ---
 
