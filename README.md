@@ -32,7 +32,7 @@ The following documents contain the technical designs, implementation procedures
 
 | Technical Document | Description | Link |
 |---|---|---|
-| **AG3 Detailed Network Design** | Network alternatives, selected architecture, VLANs, IP addressing and hardware recommendations | [View Document](PASTE_LINK_HERE) |
+| **AG3 Detailed Network Design** | Network alternatives, selected architecture, VLANs, IP addressing and hardware recommendations | [View Document]([AG3 Detailed Network Design](Technical%20Artifact/PG5%20AG3%20TA1%20Detailed%20Network%20Design.docx)) |
 | **AG3 Firewall, Segmentation and Access Control Design** | pfSense firewall policies, VLAN communication rules, Nextcloud access controls and firewall testing | [View Document](PASTE_LINK_HERE) |
 | **AG3 Prototype Implementation Plan and Guide** | Implementation steps, system configuration, integration and troubleshooting | [View Document](PASTE_LINK_HERE) |
 | **AG3 Security Monitoring and Wazuh Implementation** | Wazuh simulation, MON01 deployment, APP01 agent integration and monitoring results | [View Document](PASTE_LINK_HERE) |
