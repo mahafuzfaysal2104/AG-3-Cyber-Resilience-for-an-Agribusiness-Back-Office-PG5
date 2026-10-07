@@ -22,7 +22,7 @@ The prototype demonstrates selected security and recovery capabilities in a cont
 | **Akib Hossain** | 12304711 | Network design, pfSense configuration, VLAN segmentation, firewall rules and connectivity testing |
 | **Ashraful Abedin Shourab** | 12298592 | Nextcloud implementation, user authentication, role-based access control and application recovery |
 | **Sheikh Tanvi Mahmud** | 12297656 | Wazuh deployment, security monitoring, file integrity monitoring and security testing |
-| **Md Mahafuz Faysal** | 12281612 | MinIO backup server, Restic integration, automated backups and repository management |
+| **Md Mahafuz Faysal** | 12281612 | MinIO backup server, Restic integration and repository management |
 
 ---
 
