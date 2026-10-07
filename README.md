@@ -33,12 +33,12 @@ The following documents contain the technical designs, implementation procedures
 | Technical Document | Description | Link |
 |---|---|---|
 | **AG3 Detailed Network Design** | Network alternatives, selected architecture, VLANs, IP addressing and hardware recommendations | ([AG3 Detailed Network Design](Technical%20Artifact/PG5%20AG3%20TA1%20Detailed%20Network%20Design.docx)) |
-| **AG3 Firewall, Segmentation and Access Control Design** | pfSense firewall policies, VLAN communication rules, Nextcloud access controls and firewall testing | [View Document](PASTE_LINK_HERE) |
-| **AG3 Prototype Implementation Plan and Guide** | Implementation steps, system configuration, integration and troubleshooting | [View Document](PASTE_LINK_HERE) |
-| **AG3 Security Monitoring and Wazuh Implementation** | Wazuh simulation, MON01 deployment, APP01 agent integration and monitoring results | [View Document](PASTE_LINK_HERE) |
+| **AG3 Firewall, Segmentation and Access Control Design** | pfSense firewall policies, VLAN communication rules, Nextcloud access controls and firewall testing | ([AG3 Firewall, Segmentation and Access Control Design](Technical%20Artifact/PG5%20AG3%20TA2%20Firewall,%20Segmentation%20and%20Access%20Control%20Design.docx)) |
+| **AG3 Prototype Implementation Plan and Guide** | Implementation steps, system configuration, integration and troubleshooting | ([AG3 Prototype Implementation Plan and Guide](Technical%20Artifact/PG5%20AG3%20TA3%20Prototype%20Implementation%20Plan%20and%20Guide.docx)) |
+| **AG3 Security Monitoring and Wazuh Implementation** | Wazuh simulation, MON01 deployment, APP01 agent integration and monitoring results | ([AG3 Security Monitoring and Wazuh Implementation](Technical%20Artifact/PG5%20AG3%20TA4%20Security%20Monitoring%20and%20Wazuh%20Implementation.docx)) |
 | **AG3 Prototype Testing and Validation Report** | Prototype screenshots, firewall validation, security monitoring, backup testing and controlled recovery evidence | ([AG3 Prototype Testing and Validation Report](Technical%20Artifact/PG5%20AG3%20TA5%20Prototype%20Testing%20and%20Validation%20Report.docx)) |
-| **AG3 Risk Assessment Report** | Security risks, vulnerabilities, existing controls, residual risks and recommended treatments | [View Document](PASTE_LINK_HERE) |
-| **AG3 Risk Assessment Register** | Risk ratings, likelihood, impact, responsible owners and mitigation actions | [View Document](PASTE_LINK_HERE) |
+| **AG3 Risk Assessment Report** | Security risks, vulnerabilities, existing controls, residual risks and recommended treatments ([AG3 Risk Assessment Report](Technical%20Artifact/PG5%20AG3%20TA6%20Risk%20Assessment%20Report.docx)) |
+| **AG3 Risk Assessment Register** | Risk ratings, likelihood, impact, responsible owners and mitigation actions | ([AG3 Risk Assessment Register](Technical%20Artifact/PG5%20AG3%20TA7%20Risk%20Assessment%20Register.xlsx)) |
 | **AG3 Cyber Resilience Incident Recovery Plan** | Incident response procedures, containment, evidence preservation and service recovery planning | ([Cyber Resilience Incident Recovery Plan](Technical%20Artifact/PG5%20AG3%20TA8%20Cyber%20Resilience%20and%20Incident%20Recovery.docx)) |
 
 ---
