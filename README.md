@@ -49,18 +49,12 @@ The following videos provide visual evidence of the implemented prototype and se
 
 | Video | Demonstration | Link |
 |---|---|---|
-| **V01** | Overall prototype and physical network setup | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-| **V02** | Secure Nextcloud file access and multi-factor authentication | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-| **V03** | Wazuh File Integrity Monitoring (FIM) | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-| **V04** | Wazuh monitoring of successful and failed backup operations | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-| **V05** | Restic encrypted backup and MinIO repository demonstration | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-| **V06** | Controlled ransomware-like file impact, detection and recovery | [Watch Video](PASTE_VIDEO_LINK_HERE) |
-
-### Final Prototype Demonstration
-
-**[Watch the Complete AG3 Prototype Demonstration](PASTE_FINAL_DEMO_LINK_HERE)**
-
-The consolidated demonstration video should be less than 10 minutes, as required by the assessment specification.
+| **V01** | Overall prototype and physical setup | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790614893162?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790614893162&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790614893162&ngc=true) |
+| **V02** | Secure Nextcloud file access and administrator MFA | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791341426444?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791341426444&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791341426444&ngc=true) |
+| **V03** | Wazuh File Integrity Monitoring | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791341892186?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791341892186&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791341892186&ngc=true) |
+| **V04** | Wazuh monitoring of successful and failed backup operations | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790615165443?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790615165443&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790615165443&ngc=true) |
+| **V05** | Encrypted Restic backup storage on MinIO | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1790615585192?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1790615585192&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1790615585192&ngc=true) |
+| **V06** | Controlled ransomware-like file impact, detection and recovery | [Watch Video](https://teams.microsoft.com/l/message/19:yY-SA7HrltiJoTRIm3Mb-aOPHynfmpdIcng0hTn4Vos1@thread.tacv2/1791342186190?tenantId=fdade0c4-3fea-4320-ae53-1a1742aeff1e&groupId=72cb473b-43f8-406a-a3fa-ebab5c707408&parentMessageId=1791342186190&teamName=COIT20265%3A%20Networks%20and%20Information%20Security%20Project%20(HT2%2C%202026)&channelName=PG5%20-%20AG-3%20%E2%80%94%20Cyber%20resilience%20for%20an%20agribusiness&createdTime=1791342186190&ngc=true) |
 
 ---
 
