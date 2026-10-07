@@ -1,4 +1,4 @@
-# /testing
+# Testing
 
 The following videos provide visual evidence of the implemented prototype and selected security tests.
 
