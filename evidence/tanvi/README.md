@@ -1,18 +1,17 @@
-# Evidence — Tanvi (Monitoring & Hardening)
+# Evidence — Tanvi (Security Monitoring & Wazuh Implementation)
 
-Workstream: Wazuh monitoring, OS hardening.
 
-| Evidence item | Status |
+
+| Evidence items | Status |
 |---|---|
-| Wazuh dashboard screenshots | ☐ |
-| Wazuh agent connection status | ☐ |
-| Authentication-failure alert | ☐ |
-| File-integrity monitoring alert | ☐ |
-| Firewall-denial alert (from Wazuh) | ☐ |
-| Backup success / controlled failure event | ☐ |
-| Before-and-after hardening checklist | ☐ |
-| Evidence of disabled services + secure SSH settings | ☐ |
-| Updated risk-register versions over time | ☐ |
-| GitHub commits, Kanban cards, Teams troubleshooting records | ☐ |
+| Wazuh dashboard Installation |  done |
+| Wazuh agent deployment | done |
+| Failed login detection | done |
+| File-integrity monitoring | done |
+| Backup success / failure events | done |
+| Vulenerability datection and remediation | done |
+| CIS Hardening| done |
+| Ransomware detection | done |
 
-*Add dated files/screenshots to this folder as each item is completed. Tick items off as you go.*
+
+
