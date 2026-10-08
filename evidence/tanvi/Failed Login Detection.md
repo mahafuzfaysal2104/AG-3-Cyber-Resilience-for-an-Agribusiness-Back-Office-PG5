@@ -21,3 +21,6 @@ I selected agent 001 and reviewed the last 24 hours. The dashboard displayed:
 •	0 alerts at level 12 or above.  
 The successful result confirmed that the complete local monitoring path was operating: the endpoint generated the event, the agent collected it, Wazuh classified it and the dashboard displayed it. The alerts also retained useful context for investigation instead of merely showing a total number.  
 
+
+# Failed and Successful Authentication during real life testing
+![4](./images/A1.png)  
