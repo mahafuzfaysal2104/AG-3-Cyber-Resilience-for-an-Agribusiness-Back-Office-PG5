@@ -24,3 +24,9 @@ FIM is particularly valuable for protecting:
 •	privileged-account configuration; and  
 •	directories containing important business files.  
 The test demonstrates detection, not automatic recovery. If an important file is changed, the administrator still needs to decide whether the change was authorised, isolate the affected host when necessary, recover a trusted copy and investigate the responsible account or process.  
+
+
+
+# File Integrity Monitoring during implementation  
+![5](./images/FM1.png)  
+![6](./images/FM2.png)  
