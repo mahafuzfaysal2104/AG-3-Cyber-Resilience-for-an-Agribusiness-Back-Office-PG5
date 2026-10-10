@@ -7,19 +7,19 @@
 
 
 ## Explanation:  
-Failed-login monitoring is important because repeated unsuccessful authentication attempts may indicate password guessing, brute-force activity, use of stolen credentials or an attempt to discover valid usernames. A single failed login can be an ordinary mistake, but several attempts from the same source within a short period require investigation. Central monitoring also creates evidence that can be reviewed after an incident.  
-I used SSH authentication as the test case. The monitored Kali endpoint produced authentication messages in /var/log/auth.log. Controlled connection attempts were made from source address 192.168.56.10 using the deliberately invalid username invaliduser. This avoided using or exposing a real account.  
-The source log contained repeated entries such as:  
+It is crucial to monitor for failed-logins because multiple failed authentications might indicate password-guessing, brute-forcing, or use of compromised credentials or trying to obtain a legitimate username. A single failed-login is normal but when there are several such attempts in a short period of time, the source needs investigation. Centralized monitoring also generates evidence that is possible to review after an incident happened.  
+As the example, I chose SSH authentication. The endpoint under monitoring has produced authentications' events in file /var/log/auth.log. From the controlled source address 192.168.56.10 I connected using an intentionally incorrect username "invaliduser". That helped me not to use any existing account accidentally. 
+The following entries have been observed in the source logs:
 Invalid user invaliduser from 192.168.56.10 port 34136  
 Connection closed by invalid user invaliduser 192.168.56.10 port 34136 [preauth]  
-Similar entries appeared from several source ports within a short period. The changing source port is normal because the client creates a new network connection for each attempt. The important investigation fields were the event time, target service (sshd), invalid username, source IP address, source port and the [preauth] status.  
-The endpoint generated the SSH log entries first. The Wazuh agent collected the logs and forwarded them to the Wazuh manager. Wazuh decoded the messages, recognised the SSH authentication pattern and matched the events against authentication rules. It then indexed the alerts so they could be viewed through Threat Hunting on the Wazuh dashboard.  
-I selected agent 001 and reviewed the last 24 hours. The dashboard displayed:  
-•	24 total alerts;  
-•	12 authentication-failure alerts;  
-•	3 authentication-success alerts; and  
-•	0 alerts at level 12 or above.  
-The successful result confirmed that the complete local monitoring path was operating: the endpoint generated the event, the agent collected it, Wazuh classified it and the dashboard displayed it. The alerts also retained useful context for investigation instead of merely showing a total number.  
+These kinds of entries were observed for several source addresses in a very short period of time. The port changes every time because the client creates a new connection every time. The main fields to investigate were: Event time, Target Service(sshd), Invalid user name, Source IP address, Source port and [preauth] flag.  
+The endpoint has firstly generated the SSH authentication event. Then the Wazuh agent has collected logs and sent them to the Wazuh manager. Wazuh has decoded the events, detected the pattern and matched with the authentication rules. The alerts were indexed and became visible in Threat Hunting tab on the dashboard.  
+I chose to review the logs of agent number 001 during the last 24 hours. Dashboard has shown the following information:
+• 24 Total Alerts  
+• 12 authentication Failure Alerts  
+• 3 authentication Success Alerts  
+• No level 12+ alerts.  
+The positive result means that all the local monitoring chain was working: the endpoint created the event, the agent collected it, Wazuh classified it and dashboard visualized it.  
 
 
 # Failed and Successful Authentication during real life testing
