@@ -4,5 +4,5 @@
 ![1](./images/E1.png)  
 
 **Wazuh Dashboard Installation on Kali Linux VM**  
-During the simulation stage, I created a Kali Linux virtual machine using Oracle VirtualBox. I downloaded the Wazuh installation assistant and ran it with administrative privileges to install the Wazuh manager, indexer and dashboard together on the VM. After installation, I confirmed that the Wazuh services were running and accessed the dashboard through a web browser using the MON01 IP address and the generated administrator credentials.  
-The purpose of this installation was to create an isolated monitoring environment before connecting the real project systems. It allowed me to learn the Wazuh deployment process, test agent enrolment and confirm that security events were visible on the dashboard.  
+In the simulation stage, I set up the Kali Linux environment via the use of Oracle VirtualBox software. I installed Wazuh through the Wazuh installation assistant that I had downloaded and ran it via the use of the administrator permissions where I installed the Wazuh manager, indexer and dashboard together within the Kali Linux virtual machine environment.  
+This installation is done in order to come up with the isolation system that enables one to understand how to deploy Wazuh and also to check whether security events are being reflected within the dashboard.  
