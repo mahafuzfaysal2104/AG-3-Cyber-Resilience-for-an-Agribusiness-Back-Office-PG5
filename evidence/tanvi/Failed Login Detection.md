@@ -18,7 +18,6 @@ I chose to review the logs of agent number 001 during the last 24 hours. Dashboa
 • 24 Total Alerts  
 • 12 authentication Failure Alerts  
 • 3 authentication Success Alerts  
-• No level 12+ alerts.  
 The positive result means that all the local monitoring chain was working: the endpoint created the event, the agent collected it, Wazuh classified it and dashboard visualized it.  
 
 
